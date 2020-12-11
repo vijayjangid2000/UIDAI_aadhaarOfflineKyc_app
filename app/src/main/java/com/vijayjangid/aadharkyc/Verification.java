@@ -135,15 +135,12 @@ public class Verification extends AppCompatActivity {
     boolean verifySignature() {
         boolean valid = false;
         try {
-            // parse the XML
-            AssetManager assetManager = getAssets();
-            InputStream ims = assetManager.open("uidai_auth_sign_prod_2023.cer");
+
             File file = new File(xmlFilePath);
             DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
             f.setNamespaceAware(true);
             Document doc = f.newDocumentBuilder().parse(file);
-
-            // verify signature
+            
             NodeList nodes = doc.getElementsByTagNameNS(Constants.SignatureSpecNS, "Signature");
             if (nodes.getLength() == 0) {
                 throw new Exception("Signature NOT found!");
@@ -154,6 +151,8 @@ public class Verification extends AppCompatActivity {
 
 
             CertificateFactory cf = CertificateFactory.getInstance("X.509");
+            AssetManager assetManager = getAssets();
+            InputStream ims = assetManager.open("uidai_auth_sign_prod_2023.cer");
             X509Certificate cert = (X509Certificate) cf.generateCertificate(ims);
 
             if (cert == null) {
