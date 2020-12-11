@@ -30,5 +30,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation "androidx.browser:browser:1.2.0"
     implementation 'net.lingala.zip4j:zip4j:2.6.4'
+    implementation 'com.gemalto.jp2:jp2-android:1.0'
 
 }
