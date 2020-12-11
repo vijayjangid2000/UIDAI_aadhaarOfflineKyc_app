@@ -17,7 +17,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import net.lingala.zip4j.ZipFile;
 
+import org.apache.xml.security.keys.KeyInfo;
+import org.apache.xml.security.signature.XMLSignature;
+import org.apache.xml.security.utils.Constants;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -35,16 +39,14 @@ import java.security.PublicKey;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 
-import javax.xml.crypto.dsig.XMLSignature;
-import javax.xml.crypto.dsig.XMLSignatureFactory;
-import javax.xml.crypto.dsig.dom.DOMValidateContext;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 public class Verification extends AppCompatActivity {
 
     // certificatePath and xml path
-    final static String certificatePath = "file:///android_asset/uidai_auth_sign_prod_2023.txt";
+    final static String certificatePath = "file:///android_asset/uidai_auth_sign_prod_2023.cer";
     String xmlFilePath;
 
     // data given by user while registering
@@ -95,8 +97,7 @@ public class Verification extends AppCompatActivity {
         if (!name.equalsIgnoreCase(namex)) sb.append(name + ", " + namex + "\n");
         else sb.append("name verified\n");
 
-        if (!verifySignature(xmlFilePath,
-                certificatePath))
+        if (!verifySignature())
             sb.append("Signature Verification Failed\n");
         else sb.append("signature passed\n");
 
@@ -131,34 +132,52 @@ public class Verification extends AppCompatActivity {
     /*Here we will verify the signature
      * by decrypting their code, and then getting hash
      * by calculating hash from xml then matching them*/
-
-    public boolean verifySignature(String signedXmlFilePath,
-                                   String publicKeyFilePath) {
-        boolean validFlag = false;
+    boolean verifySignature() {
+        boolean valid = false;
         try {
-            File file = new File(signedXmlFilePath);
-            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-            dbf.setNamespaceAware(true);
-            DocumentBuilder db = dbf.newDocumentBuilder();
-            Document doc = db.parse(file);
-            doc.getDocumentElement().normalize();
-            NodeList nl = doc.getElementsByTagNameNS(XMLSignature.XMLNS, "Signature");
-            if (nl.getLength() == 0)
-                throw new Exception("No XML Digital Signature Found, document is discarded");
+            // parse the XML
             AssetManager assetManager = getAssets();
-            InputStream ims = assetManager.open("uidai_auth_sign_prod_2023.txt");
-            //FileInputStream fileInputStream = new FileInputStream(publicKeyFilePath);
+            InputStream ims = assetManager.open("uidai_auth_sign_prod_2023.cer");
+            File file = new File(xmlFilePath);
+            DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
+            f.setNamespaceAware(true);
+            Document doc = f.newDocumentBuilder().parse(file);
+
+            // verify signature
+            NodeList nodes = doc.getElementsByTagNameNS(Constants.SignatureSpecNS, "Signature");
+            if (nodes.getLength() == 0) {
+                throw new Exception("Signature NOT found!");
+            }
+
+            Element sigElement = (Element) nodes.item(0);
+            XMLSignature signature = new XMLSignature(sigElement, "");
+
+
             CertificateFactory cf = CertificateFactory.getInstance("X.509");
             X509Certificate cert = (X509Certificate) cf.generateCertificate(ims);
-            PublicKey publicKey = cert.getPublicKey();
-            DOMValidateContext valContext = new DOMValidateContext(publicKey, nl.item(0));
-            XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
-            XMLSignature signature = fac.unmarshalXMLSignature(valContext);
-            validFlag = signature.validate(valContext);
-        } catch (Exception e) {
+
+            if (cert == null) {
+                PublicKey pk = signature.getKeyInfo().getPublicKey();
+                if (pk == null) {
+                    throw new Exception("Did not find Certificate or Public Key");
+                }
+                valid = signature.checkSignatureValue(pk);
+            }
+            else {
+                valid = signature.checkSignatureValue(cert);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
             Toast.makeText(this, "Failed signature " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
-        return validFlag;
+
+        return valid;
+    }
+
+    // This is important!
+    static {
+        org.apache.xml.security.Init.init();
     }
 
     /*find the latest downloaded file the call unzip*/
