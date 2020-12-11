@@ -1,25 +1,24 @@
 package com.vijayjangid.aadharkyc;
 
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Base64;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.LongDef;
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.gemalto.jp2.JP2Decoder;
 
 import net.lingala.zip4j.ZipFile;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.NodeList;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
@@ -27,16 +26,26 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
-import java.security.KeyFactory;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
-import java.security.Signature;
-import java.security.spec.X509EncodedKeySpec;
+import java.security.cert.CertificateFactory;
+import java.security.cert.X509Certificate;
+
+import javax.xml.crypto.dsig.XMLSignature;
+import javax.xml.crypto.dsig.XMLSignatureFactory;
+import javax.xml.crypto.dsig.dom.DOMValidateContext;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 public class Verification extends AppCompatActivity {
+
+    // certificatePath and xml path
+    final static String certificatePath = "file:///android_asset/uidai_auth_sign_prod_2023.txt";
+    String xmlFilePath;
 
     // data given by user while registering
     String name, mobile, email, father, gender, birthDate, shareCode;
@@ -45,13 +54,8 @@ public class Verification extends AppCompatActivity {
     String namex, birthDatex, emailx, genderx, mobilex, careofx,
             countryx, districtx, housex, landmarkx, locationx,
             pincodex, pox, statex, streetx, subdistx, vtcx, photoBytex,
-            referenceIdx;
+            referenceIdx, tempForXml;
 
-    String tempForXml;
-
-    // data used in verifying digital signature
-    String signatureValue, digestValue,
-            certificateValue = "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";
     ImageView userPicIv;
     TextView statusTv;
     Button verifyAgainBtn;
@@ -91,7 +95,9 @@ public class Verification extends AppCompatActivity {
         if (!name.equalsIgnoreCase(namex)) sb.append(name + ", " + namex + "\n");
         else sb.append("name verified\n");
 
-        if (!verifySignature()) sb.append("Signature Verification Failed\n");
+        if (!verifySignature(xmlFilePath,
+                certificatePath))
+            sb.append("Signature Verification Failed\n");
         else sb.append("signature passed\n");
 
         if (!validate(mobile + shareCode,
@@ -125,35 +131,34 @@ public class Verification extends AppCompatActivity {
     /*Here we will verify the signature
      * by decrypting their code, and then getting hash
      * by calculating hash from xml then matching them*/
-    boolean verifySignature() {
+
+    public boolean verifySignature(String signedXmlFilePath,
+                                   String publicKeyFilePath) {
+        boolean validFlag = false;
         try {
-
-            String publicKeyMine = "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";
-            byte[] publicKeyEncoded = java.util.Base64.getDecoder().decode(publicKeyMine.getBytes());
-            byte[] digitalSignature = signatureValue.getBytes();
-
-
-            X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(publicKeyEncoded);
-            KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-
-            Signature signature = Signature.getInstance("SHA256withRSA");
-            PublicKey publicKey = keyFactory.generatePublic(publicKeySpec);
-            signature.initVerify(publicKey);
-
-            byte[] bytes = digestValue.getBytes();
-            signature.update(bytes);
-
-            boolean verified = signature.verify(digitalSignature);
-            if (verified) {
-                System.out.println("Data verified.");
-            } else {
-                System.out.println("Cannot verify data.");
-            }
+            File file = new File(signedXmlFilePath);
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            dbf.setNamespaceAware(true);
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            Document doc = db.parse(file);
+            doc.getDocumentElement().normalize();
+            NodeList nl = doc.getElementsByTagNameNS(XMLSignature.XMLNS, "Signature");
+            if (nl.getLength() == 0)
+                throw new Exception("No XML Digital Signature Found, document is discarded");
+            AssetManager assetManager = getAssets();
+            InputStream ims = assetManager.open("uidai_auth_sign_prod_2023.txt");
+            //FileInputStream fileInputStream = new FileInputStream(publicKeyFilePath);
+            CertificateFactory cf = CertificateFactory.getInstance("X.509");
+            X509Certificate cert = (X509Certificate) cf.generateCertificate(ims);
+            PublicKey publicKey = cert.getPublicKey();
+            DOMValidateContext valContext = new DOMValidateContext(publicKey, nl.item(0));
+            XMLSignatureFactory fac = XMLSignatureFactory.getInstance("DOM");
+            XMLSignature signature = fac.unmarshalXMLSignature(valContext);
+            validFlag = signature.validate(valContext);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            Toast.makeText(this, "Failed signature " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
-
-        return true; // for now we are returning true
+        return validFlag;
     }
 
     /*find the latest downloaded file the call unzip*/
@@ -219,7 +224,7 @@ public class Verification extends AppCompatActivity {
             Toast.makeText(this, "File is invalid, Please download again"
                     , Toast.LENGTH_SHORT).show();
             return;
-        }
+        } else xmlFilePath = file.getAbsolutePath();
 
         // parsing the xml file
         XmlPullParserFactory xmlFactoryObject = XmlPullParserFactory.newInstance();
@@ -269,12 +274,6 @@ public class Verification extends AppCompatActivity {
                         case "Pht":
                             photoBytex = tempForXml;
                             break;
-                        case "SignatureValue":
-                            signatureValue = tempForXml;
-                            break;
-                        case "DigestValue":
-                            digestValue = tempForXml;
-                            break;
                     }
                     break;
 
@@ -285,12 +284,7 @@ public class Verification extends AppCompatActivity {
             event = parser.next();
         }
 
-        Log.d("tiger", namex + ", " + careofx + ", " + referenceIdx + ". " +
-                digestValue + ", " +
-                photoBytex);
-
-        statusTv.setText(namex + ", " + careofx + ", " + referenceIdx + ". " +
-                digestValue + ", " +
+        statusTv.setText(namex + ", " + careofx + ", " + referenceIdx + ", " +
                 photoBytex);
         completeVerification();
     }
