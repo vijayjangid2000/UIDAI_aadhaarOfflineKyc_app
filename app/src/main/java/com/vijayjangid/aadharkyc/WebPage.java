@@ -2,21 +2,29 @@ package com.vijayjangid.aadharkyc;
 
 import android.app.DownloadManager;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.webkit.CookieManager;
 import android.webkit.DownloadListener;
 import android.webkit.URLUtil;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -34,6 +42,7 @@ public class WebPage extends AppCompatActivity {
     ImageView captchaIv;
     Button getOtpButton, verifyBtn;
     SharedPreferences sp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +119,19 @@ public class WebPage extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(),
                         "Downloading " + URLUtil.guessFileName(url, contentDisposition, mimeType),
                         Toast.LENGTH_LONG).show();
+            }
+        });
+
+        webView.setWebViewClient(new WebViewClient(){
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+
+                String imageUrl = "https://resident.uidai.gov.in/CaptchaSecurityImages.php?width=100&height=40&characters=5";
+                RequestOptions options = new RequestOptions()
+                        .centerCrop()
+                        .placeholder(R.mipmap.ic_launcher_round)
+                        .error(R.mipmap.ic_launcher_round);
+                Glide.with(WebPage.this).load(imageUrl).apply(options).into(captchaIv);
             }
         });
 
