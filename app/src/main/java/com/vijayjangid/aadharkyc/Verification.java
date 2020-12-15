@@ -140,7 +140,7 @@ public class Verification extends AppCompatActivity {
             DocumentBuilderFactory f = DocumentBuilderFactory.newInstance();
             f.setNamespaceAware(true);
             Document doc = f.newDocumentBuilder().parse(file);
-            
+
             NodeList nodes = doc.getElementsByTagNameNS(Constants.SignatureSpecNS, "Signature");
             if (nodes.getLength() == 0) {
                 throw new Exception("Signature NOT found!");
@@ -161,12 +161,10 @@ public class Verification extends AppCompatActivity {
                     throw new Exception("Did not find Certificate or Public Key");
                 }
                 valid = signature.checkSignatureValue(pk);
-            }
-            else {
+            } else {
                 valid = signature.checkSignatureValue(cert);
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Failed signature " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
