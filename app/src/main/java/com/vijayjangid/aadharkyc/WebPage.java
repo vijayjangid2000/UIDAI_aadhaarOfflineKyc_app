@@ -181,7 +181,7 @@ public class WebPage extends AppCompatActivity {
             if (blobUrl.startsWith("blob")) {
                 return "javascript: var xhr = new XMLHttpRequest();" +
                         "xhr.open('GET', '" + blobUrl + "', true);" +
-                        "xhr.setRequestHeader('Content-type','application/pdf');" +
+                        "xhr.setRequestHeader('Content-type','application/zip');" +
                         "xhr.responseType = 'blob';" +
                         "xhr.onload = function(e) {" +
                         "    if (this.status == 200) {" +

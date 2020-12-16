@@ -149,7 +149,6 @@ public class Verification extends AppCompatActivity {
             Element sigElement = (Element) nodes.item(0);
             XMLSignature signature = new XMLSignature(sigElement, "");
 
-
             CertificateFactory cf = CertificateFactory.getInstance("X.509");
             AssetManager assetManager = getAssets();
             InputStream ims = assetManager.open("uidai_auth_sign_prod_2023.cer");
@@ -164,6 +163,7 @@ public class Verification extends AppCompatActivity {
             } else {
                 valid = signature.checkSignatureValue(cert);
             }
+
         } catch (Exception e) {
             e.printStackTrace();
             Toast.makeText(this, "Failed signature " + e.getMessage(), Toast.LENGTH_SHORT).show();

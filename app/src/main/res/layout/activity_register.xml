@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Register">
+
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Here is the code for Phone number Field -->
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/mobileREtL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_margin="8dp"
+            android:hint="Enter Mobile No."
+            app:counterEnabled="true"
+            app:counterMaxLength="10"
+            app:endIconMode="custom"
+            app:errorEnabled="true"
+            app:prefixText="+91"
+
+            app:startIconDrawable="@drawable/ic_telephone">
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/mobileREt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:defaultFocusHighlightEnabled="false"
+                android:inputType="number"
+                android:maxLength="10"
+                android:textCursorDrawable="@drawable/cursor_style" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/emailEtL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:hint="Email ID"
+            app:errorEnabled="true"
+
+            app:startIconDrawable="@drawable/ic_email">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailEt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:defaultFocusHighlightEnabled="false"
+                android:inputType="textEmailAddress"
+                android:textCursorDrawable="@drawable/cursor_style" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/passwordEtRL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+
+            android:hint="Enter Password"
+            app:endIconMode="password_toggle"
+            app:startIconDrawable="@drawable/ic_password">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordEtR"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:defaultFocusHighlightEnabled="false"
+                android:inputType="textPassword"
+                android:maxLength="100"
+                android:textCursorDrawable="@drawable/cursor_style" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:padding="5dp"
+            android:text="We will send you an OTP to verify your number"
+            android:textAlignment="center"
+            android:textColor="#4fa5d5"
+            android:textStyle="bold" />
+
+        <CheckedTextView
+            android:id="@+id/checkedTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:padding="10dp"
+            android:text="By Clicking Register Button, You agree to our Terms and Conditions"
+            android:textAlignment="center"
+            android:textColor="#4fa5d5" />
+
+        <TextView
+            android:id="@+id/registerTv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/border_textview"
+            android:paddingLeft="20dp"
+            android:paddingTop="10dp"
+            android:paddingRight="20dp"
+            android:paddingBottom="10dp"
+            android:text="Register"
+            android:textAlignment="center"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/goLoginTv"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/border_textview_thin"
+            android:padding="5dp"
+            android:paddingLeft="6dp"
+            android:paddingTop="2dp"
+            android:paddingRight="6dp"
+            android:paddingBottom="2dp"
+            android:text="Already a Member! Sign In"
+            android:textAlignment="center"
+            android:textColor="#4fa5d5"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
