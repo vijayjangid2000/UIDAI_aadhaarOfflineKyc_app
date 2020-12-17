@@ -1,15 +1,17 @@
 package com.vijayjangid.aadharkyc;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -19,10 +21,10 @@ import java.util.regex.Pattern;
 
 public class Register extends AppCompatActivity {
 
-
     TextInputEditText etMobileNumber, etEmail, etPassword;
     TextInputLayout etMobileNumberLayout, etEmailLayout, etPasswordLayout;
     TextView tvRegister, tvGoLogIn;
+    Animation animAlpha;
 
     // string data used in registration
     String mobileNumber, email, password;
@@ -42,17 +44,20 @@ public class Register extends AppCompatActivity {
         tvGoLogIn = findViewById(R.id.goLoginTv);
         tvRegister = findViewById(R.id.registerTv);
 
+        // setting alpha animations
+        animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_aplha);
 
         tvGoLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tvGoLogIn.setAlpha((float) 0.5);
                 gotoLogin();
             }
         });
-
         tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tvRegister.startAnimation(animAlpha);
                 registerNow();
             }
         });
@@ -69,7 +74,8 @@ public class Register extends AppCompatActivity {
         email = Objects.requireNonNull(etEmail.getText()).toString().trim().toLowerCase();
         password = Objects.requireNonNull(etPassword.getText()).toString().trim();
 
-        if (mobileNumber.length() != 10 || !validEmail(email) || password.length() < 6) {
+        if (mobileNumber.length() != 10 ||
+                invalidEmail(email) || password.length() < 6) {
             errorCatcherEditText();
             return;
         }
@@ -83,7 +89,7 @@ public class Register extends AppCompatActivity {
          * But this activates when user try to register with errors*/
 
         if (mobileNumber.length() != 10) etMobileNumberLayout.setError("Invalid Mobile Number");
-        if (!validEmail(email)) etEmailLayout.setError("Invalid Email Address");
+        if (invalidEmail(email)) etEmailLayout.setError("Invalid Email Address");
         if (password.length() < 6) etPasswordLayout.setError("Minimum 6 characters");
 
         etPassword.addTextChangedListener(new TextWatcher() {
@@ -139,14 +145,13 @@ public class Register extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 email = Objects.requireNonNull(etEmail.getText()).toString().trim();
-                if (!validEmail(email)) etEmailLayout.setError("Invalid Email Address");
+                if (invalidEmail(email)) etEmailLayout.setError("Invalid Email Address");
                 else etEmailLayout.setError(null);
             }
         });
     }
 
-
-    public boolean validEmail(String email) {
+    public boolean invalidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
                 "[a-zA-Z0-9_+&*-]+)*@" +
                 "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
@@ -154,8 +159,8 @@ public class Register extends AppCompatActivity {
 
         Pattern pat = Pattern.compile(emailRegex);
         if (email == null)
-            return false;
-        return pat.matcher(email).matches();
+            return true;
+        return !pat.matcher(email).matches();
     }
 
     boolean doubleBackToExitPressedOnce = false;
@@ -177,6 +182,4 @@ public class Register extends AppCompatActivity {
             }
         }, 2000);
     }
-
-
 }

@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:defaultFocusHighlightEnabled="false"
-                android:inputType="number"
+                android:inputType="number|textNoSuggestions"
                 android:maxLength="10"
                 android:textCursorDrawable="@drawable/cursor_style" />
 
@@ -118,7 +118,7 @@
             android:paddingTop="10dp"
             android:paddingRight="20dp"
             android:paddingBottom="10dp"
-            android:text="Register"
+            android:text="Get OTP"
             android:textAlignment="center"
             android:textStyle="bold" />
 

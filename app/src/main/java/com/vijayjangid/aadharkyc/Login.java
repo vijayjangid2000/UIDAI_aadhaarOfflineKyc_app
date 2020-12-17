@@ -6,6 +6,8 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,10 +19,10 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.Objects;
 
 public class Login extends AppCompatActivity {
-
     TextInputEditText etMobileNumber, etPassword;
     TextInputLayout etMobileNumberLayout, etPasswordLayout;
     TextView tvForgotPass, tvLogin, tvGoSignUp;
+    Animation animAlpha;
 
     // string data used in logging IN
     String mobileNumber, password;
@@ -29,6 +31,8 @@ public class Login extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        startActivity(new Intent(Login.this, HomePage_nav.class));
 
         // setting id's
         etMobileNumberLayout = findViewById(R.id.phoneEtL);
@@ -39,9 +43,12 @@ public class Login extends AppCompatActivity {
         tvLogin = findViewById(R.id.loginTv);
         tvGoSignUp = findViewById(R.id.goSignupTv);
 
+        // setting the alpha animations
+        animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_aplha);
         tvForgotPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tvForgotPass.setAlpha((float) 0.5);
                 forgotPassword();
             }
         });
@@ -49,6 +56,7 @@ public class Login extends AppCompatActivity {
         tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tvLogin.startAnimation(animAlpha);
                 login();
             }
         });
@@ -56,11 +64,10 @@ public class Login extends AppCompatActivity {
         tvGoSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                tvGoSignUp.setAlpha((float) 0.5);
                 startSignUp();
             }
         });
-
-
     }
 
     void startSignUp() {
@@ -136,6 +143,7 @@ public class Login extends AppCompatActivity {
     }
 
     boolean doubleBackToExitPressedOnce = false;
+
     @Override
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
@@ -150,9 +158,8 @@ public class Login extends AppCompatActivity {
 
             @Override
             public void run() {
-                doubleBackToExitPressedOnce=false;
+                doubleBackToExitPressedOnce = false;
             }
         }, 2000);
     }
-
 }
