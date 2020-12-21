@@ -1,5 +1,6 @@
 package com.vijayjangid.aadharkyc;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
@@ -38,6 +39,10 @@ public class HomePage_nav extends AppCompatActivity implements NavigationView.On
 
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        // opening home fragment as default page
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
+                , new Home_fragment()).commit();
 
     }
 
@@ -82,6 +87,7 @@ public class HomePage_nav extends AppCompatActivity implements NavigationView.On
                         , new Help_support_fragment()).commit();
                 break;
             case R.id.nav_exit:
+                startActivity(new Intent(HomePage_nav.this, Login.class));
                 finish();
                 break;
         }

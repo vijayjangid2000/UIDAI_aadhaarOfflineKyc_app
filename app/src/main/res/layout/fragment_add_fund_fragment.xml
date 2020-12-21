@@ -17,11 +17,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/phoneEtL"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Add fund Here" />
+
+            android:layout_margin="8dp"
+            android:hint="Amount"
+            app:counterEnabled="true"
+
+            app:counterMaxLength="10"
+            app:endIconMode="custom"
+            app:errorEnabled="true"
+            app:prefixText="+91"
+
+            app:startIconDrawable="@drawable/ic_telephone">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addFund_Et"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:defaultFocusHighlightEnabled="false"
+                android:inputType="number"
+                android:maxLength="10"
+                android:textCursorDrawable="@drawable/cursor_style" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
