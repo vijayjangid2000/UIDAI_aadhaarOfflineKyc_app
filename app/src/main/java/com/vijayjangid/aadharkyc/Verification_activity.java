@@ -17,7 +17,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import net.lingala.zip4j.ZipFile;
 
-import org.apache.xml.security.keys.KeyInfo;
 import org.apache.xml.security.signature.XMLSignature;
 import org.apache.xml.security.utils.Constants;
 import org.w3c.dom.Document;
@@ -39,11 +38,9 @@ import java.security.PublicKey;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 
-
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-public class Verification extends AppCompatActivity {
+public class Verification_activity extends AppCompatActivity {
 
     // certificatePath and xml path
     final static String certificatePath = "file:///android_asset/uidai_auth_sign_prod_2023.cer";
@@ -98,7 +95,7 @@ public class Verification extends AppCompatActivity {
         else sb.append("name verified\n");
 
         if (!verifySignature())
-            sb.append("Signature Verification Failed\n");
+            sb.append("Signature Verification_activity Failed\n");
         else sb.append("signature passed\n");
 
         if (!validate(mobile + shareCode,
@@ -196,7 +193,7 @@ public class Verification extends AppCompatActivity {
         }
 
         if (!found) {
-            Toast.makeText(Verification.this, "File not found"
+            Toast.makeText(Verification_activity.this, "File not found"
                     , Toast.LENGTH_SHORT).show();
         } else unzip(file, shareCode); // giving address (using File Object) of zip file
 

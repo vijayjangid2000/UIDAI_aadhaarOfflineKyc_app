@@ -1,6 +1,8 @@
 package com.vijayjangid.aadharkyc;
 
 import android.app.AlertDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,64 +11,196 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.progressindicator.CircularProgressIndicator;
+import com.vijayjangid.aadharkyc.databinding.FragmentHomeFragmentBinding;
 
-public class Home_fragment extends Fragment {
+import static android.app.Activity.RESULT_CANCELED;
+import static android.app.Activity.RESULT_OK;
 
-    ImageView scanPay_iv, sendMoney_iv, sendAgain_iv,
-            prepaid_iv, electricity_iv, water_iv, insurance_iv,
-            landLine_iv, postpaid_iv, dth_iv, dataCard_iv, fasTag_iv;
+public class Home_fragment extends Fragment
+        implements View.OnClickListener {
 
-    TextView accountBalance_tv, walletBalance_tv,
-            scanPay_tv, sendMoney_tv, sendAgain_tv,
-            prepaid_tv, electricity_tv, water_tv, insurance_tv,
-            landLine_tv, postpaid_tv, dth_tv, dataCard_tv, fasTag_tv;
+    FragmentHomeFragmentBinding fragmentHomeFragmentBinding;
+
+    ImageView iv_scanPay, iv_sendMoney, iv_sendAgain,
+            iv_prepaid, iv_electricity, iv_water, iv_insurance,
+            iv_landLine, iv_postpaid, iv_dth, iv_dataCard, iv_fasTag;
+
+    TextView tv_accountBalance, tv_walletBalance,
+            tv_scanPay, tv_sendMoney, tv_sendAgain,
+            tv_prepaid, tv_electricity, tv_water, tv_insurance,
+            tv_landLine, tv_postpaid, tv_dth, tv_dataCard, tv_fasTag;
 
     Animation animation;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        View root = inflater.inflate(R.layout.fragment_home_fragment, container, false);
+        fragmentHomeFragmentBinding = FragmentHomeFragmentBinding.inflate(getLayoutInflater());
+        View root = fragmentHomeFragmentBinding.getRoot();
+
 
         // setting id's for views here
-        scanPay_iv = root.findViewById(R.id.scanpay_iv);
-        sendMoney_iv = root.findViewById(R.id.sendmoney_iv);
-        sendAgain_iv = root.findViewById(R.id.sendagain_iv);
-        prepaid_iv = root.findViewById(R.id.prepaid_iv);
-        electricity_iv = root.findViewById(R.id.electricity_iv);
-        water_iv = root.findViewById(R.id.water_iv);
-        insurance_iv = root.findViewById(R.id.insurance_iv);
-        landLine_iv = root.findViewById(R.id.landline_iv);
-        postpaid_iv = root.findViewById(R.id.postpaid_iv);
-        dth_iv = root.findViewById(R.id.dth_iv);
-        dataCard_iv = root.findViewById(R.id.datacard_iv);
-        fasTag_iv = root.findViewById(R.id.fastag_iv);
 
-        accountBalance_tv = root.findViewById(R.id.account_balance_tv);
-        walletBalance_tv = root.findViewById(R.id.wallet_balance_tv);
-        scanPay_tv = root.findViewById(R.id.scanpay_tv);
-        sendMoney_tv = root.findViewById(R.id.sendmoney_tv);
-        sendAgain_tv = root.findViewById(R.id.sendAgain_tv);
-        prepaid_tv = root.findViewById(R.id.prepaid_tv);
-        electricity_tv = root.findViewById(R.id.electricity_tv);
-        water_tv = root.findViewById(R.id.water_tv);
-        insurance_tv = root.findViewById(R.id.insurance_tv);
-        landLine_tv = root.findViewById(R.id.landline_tv);
-        postpaid_tv = root.findViewById(R.id.postpaid_tv);
-        dth_tv = root.findViewById(R.id.dth_tv);
-        dataCard_tv = root.findViewById(R.id.datacard_tv);
-        fasTag_tv = root.findViewById(R.id.fastag_tv);
+        iv_scanPay = fragmentHomeFragmentBinding.scanpayIv;
+        iv_sendMoney = fragmentHomeFragmentBinding.sendmoneyIv;
+        iv_sendAgain = fragmentHomeFragmentBinding.sendagainIv;
+        iv_prepaid = fragmentHomeFragmentBinding.prepaidIv;
+        iv_electricity = fragmentHomeFragmentBinding.electricityIv;
+        iv_water = fragmentHomeFragmentBinding.waterIv;
+        iv_insurance = fragmentHomeFragmentBinding.insuranceIv;
+        iv_landLine = fragmentHomeFragmentBinding.landlineIv;
+        iv_postpaid = fragmentHomeFragmentBinding.postpaidIv;
+        iv_dth = fragmentHomeFragmentBinding.dthIv;
+        iv_dataCard = fragmentHomeFragmentBinding.datacardIv;
+        iv_fasTag = fragmentHomeFragmentBinding.fastagIv;
+
+        tv_accountBalance = fragmentHomeFragmentBinding.accountBalanceTv;
+        tv_walletBalance = fragmentHomeFragmentBinding.walletBalanceTv;
+        tv_scanPay = fragmentHomeFragmentBinding.scanpayTv;
+        tv_sendMoney = fragmentHomeFragmentBinding.sendmoneyTv;
+        tv_sendAgain = fragmentHomeFragmentBinding.sendAgainTv;
+        tv_prepaid = fragmentHomeFragmentBinding.prepaidTv;
+        tv_electricity = fragmentHomeFragmentBinding.electricityTv;
+        tv_water = fragmentHomeFragmentBinding.waterTv;
+        tv_insurance = fragmentHomeFragmentBinding.insuranceTv;
+        tv_landLine = fragmentHomeFragmentBinding.landlineTv;
+        tv_postpaid = fragmentHomeFragmentBinding.postpaidTv;
+        tv_dth = fragmentHomeFragmentBinding.dthTv;
+        tv_dataCard = fragmentHomeFragmentBinding.datacardTv;
+        tv_fasTag = fragmentHomeFragmentBinding.fastagTv;
 
         // making animation
         animation = AnimationUtils.loadAnimation(getContext(), R.anim.anim_aplha);
 
+        iv_prepaid.setOnClickListener(this);
+        iv_scanPay.setOnClickListener(this);
+        iv_sendMoney.setOnClickListener(this);
+        iv_sendAgain.setOnClickListener(this);
+        iv_electricity.setOnClickListener(this);
+        iv_water.setOnClickListener(this);
+        iv_landLine.setOnClickListener(this);
+        iv_insurance.setOnClickListener(this);
+        iv_postpaid.setOnClickListener(this);
+        iv_dth.setOnClickListener(this);
+        iv_fasTag.setOnClickListener(this);
+        iv_dataCard.setOnClickListener(this);
+
+        tv_accountBalance.setOnClickListener(this);
+        tv_walletBalance.setOnClickListener(this);
+        tv_scanPay.setOnClickListener(this);
+        tv_sendMoney.setOnClickListener(this);
+        tv_sendAgain.setOnClickListener(this);
+        tv_prepaid.setOnClickListener(this);
+        tv_electricity.setOnClickListener(this);
+        tv_water.setOnClickListener(this);
+        tv_insurance.setOnClickListener(this);
+        tv_landLine.setOnClickListener(this);
+        tv_postpaid.setOnClickListener(this);
+        tv_dth.setOnClickListener(this);
+        tv_dataCard.setOnClickListener(this);
+        tv_fasTag.setOnClickListener(this);
+
         return root;
+    }
+
+    @Override
+    public void onClick(View v) {
+        float alphaVal = (float) 0.5;
+
+        int id = v.getId();
+        switch (id) {
+            case R.id.scanpay_tv:
+            case R.id.scanpay_iv:
+                iv_scanPay.setAlpha(alphaVal);
+                tv_scanPay.setAlpha(alphaVal);
+
+                try {
+                    Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+                    intent.putExtra("SCAN_MODE", "QR_CODE_MODE"); // "PRODUCT_MODE for bar codes
+                    startActivityForResult(intent, 0);
+                } catch (Exception e) {
+                    Uri marketUri = Uri.parse("market://details?id=com.google.zxing.client.android");
+                    Intent marketIntent = new Intent(Intent.ACTION_VIEW, marketUri);
+                    startActivity(marketIntent);
+                }
+
+                break;
+
+            case R.id.sendmoney_tv:
+            case R.id.sendmoney_iv:
+                iv_sendMoney.setAlpha(alphaVal);
+                tv_sendMoney.setAlpha(alphaVal);
+                break;
+
+            case R.id.sendAgain_tv:
+            case R.id.sendagain_iv:
+                iv_sendAgain.setAlpha(alphaVal);
+                tv_sendAgain.setAlpha(alphaVal);
+                break;
+
+            case R.id.prepaid_tv:
+            case R.id.prepaid_iv:
+                iv_prepaid.setAlpha(alphaVal);
+                tv_prepaid.setAlpha(alphaVal);
+                startActivity(new Intent(getContext(), Recharge_mobile_activity.class));
+                break;
+
+            case R.id.electricity_tv:
+            case R.id.electricity_iv:
+                iv_electricity.setAlpha(alphaVal);
+                tv_electricity.setAlpha(alphaVal);
+                startActivity(new Intent(getContext(), Electricity_recharge_activity.class));
+                break;
+
+            case R.id.water_tv:
+            case R.id.water_iv:
+                iv_water.setAlpha(alphaVal);
+                tv_water.setAlpha(alphaVal);
+                break;
+
+            case R.id.insurance_tv:
+            case R.id.insurance_iv:
+                iv_insurance.setAlpha(alphaVal);
+                tv_insurance.setAlpha(alphaVal);
+                break;
+
+            case R.id.landline_tv:
+            case R.id.landline_iv:
+                iv_landLine.setAlpha(alphaVal);
+                tv_landLine.setAlpha(alphaVal);
+                break;
+
+            case R.id.postpaid_tv:
+            case R.id.postpaid_iv:
+                iv_postpaid.setAlpha(alphaVal);
+                tv_postpaid.setAlpha(alphaVal);
+                break;
+
+            case R.id.dth_tv:
+            case R.id.dth_iv:
+                iv_dth.setAlpha(alphaVal);
+                tv_dth.setAlpha(alphaVal);
+                break;
+
+            case R.id.datacard_tv:
+            case R.id.datacard_iv:
+                iv_dataCard.setAlpha(alphaVal);
+                tv_dataCard.setAlpha(alphaVal);
+                break;
+
+            case R.id.fastag_iv:
+            case R.id.fastag_tv:
+                iv_fasTag.setAlpha(alphaVal);
+                tv_fasTag.setAlpha(alphaVal);
+                break;
+        }
     }
 
     void showProgressBar(boolean showText, String text) {
@@ -74,7 +208,7 @@ public class Home_fragment extends Fragment {
         /*to customize the progress bar then go to
          * progressbar_viewxml.xml in layout folder*/
 
-        View view = getLayoutInflater().inflate(R.layout.progressbar_viewxml, null);
+        View view = getLayoutInflater().inflate(R.layout.alertview_progressbar, null);
         if (view.getParent() != null) ((ViewGroup) view.getParent()).removeView(view);
 
         CircularProgressIndicator lpi = view.findViewById(R.id.home_progress_bar);
@@ -87,4 +221,53 @@ public class Home_fragment extends Fragment {
         alert.show();
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        float normalDark = 1;
+
+        iv_scanPay.setAlpha(normalDark);
+        tv_scanPay.setAlpha(normalDark);
+        iv_sendMoney.setAlpha(normalDark);
+        tv_sendMoney.setAlpha(normalDark);
+        iv_sendAgain.setAlpha(normalDark);
+        tv_sendAgain.setAlpha(normalDark);
+        iv_prepaid.setAlpha(normalDark);
+        tv_prepaid.setAlpha(normalDark);
+        iv_electricity.setAlpha(normalDark);
+        tv_electricity.setAlpha(normalDark);
+        iv_water.setAlpha(normalDark);
+        tv_water.setAlpha(normalDark);
+        iv_insurance.setAlpha(normalDark);
+        tv_insurance.setAlpha(normalDark);
+        iv_landLine.setAlpha(normalDark);
+        tv_landLine.setAlpha(normalDark);
+        iv_postpaid.setAlpha(normalDark);
+        tv_postpaid.setAlpha(normalDark);
+        iv_dth.setAlpha(normalDark);
+        tv_dth.setAlpha(normalDark);
+        iv_dataCard.setAlpha(normalDark);
+        tv_dataCard.setAlpha(normalDark);
+        iv_fasTag.setAlpha(normalDark);
+        tv_fasTag.setAlpha(normalDark);
+    }
+
+    // for scanner
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 0) {
+            if (resultCode == RESULT_OK) {
+                String contents = data.getStringExtra("SCAN_RESULT");
+                Toast.makeText(getContext(), contents, Toast.LENGTH_SHORT).show();
+            }
+            if (resultCode == RESULT_CANCELED) {
+                //handle cancel
+                Toast.makeText(getContext(), "Scanner cancelled", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 }

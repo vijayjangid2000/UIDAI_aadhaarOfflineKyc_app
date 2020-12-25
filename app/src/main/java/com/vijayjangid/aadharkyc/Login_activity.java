@@ -30,7 +30,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Objects;
 
-public class Login extends AppCompatActivity {
+public class Login_activity extends AppCompatActivity {
     TextInputEditText etMobileNumber, etPassword;
     TextInputLayout etMobileNumberLayout, etPasswordLayout;
     TextView tvForgotPass, tvLogin, tvGoSignUp;
@@ -45,6 +45,9 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        startActivity(new Intent(Login_activity.this,
+                HomePage_activity.class));
+        finish();
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_login);
@@ -107,7 +110,7 @@ public class Login extends AppCompatActivity {
     }
 
     void startSignUp() {
-        Intent intent = new Intent(Login.this, Register.class);
+        Intent intent = new Intent(Login_activity.this, Register_activity.class);
         startActivity(intent);
     }
 
@@ -184,7 +187,7 @@ public class Login extends AppCompatActivity {
         /*to customize the progress bar then go to
          * progressbar_viewxml.xml in layout folder*/
 
-        View view = getLayoutInflater().inflate(R.layout.progressbar_viewxml, null);
+        View view = getLayoutInflater().inflate(R.layout.alertview_progressbar, null);
         if (view.getParent() != null) ((ViewGroup) view.getParent()).removeView(view);
 
         CircularProgressIndicator lpi = view.findViewById(R.id.home_progress_bar);
@@ -206,13 +209,13 @@ public class Login extends AppCompatActivity {
 
     // for checking internet connectivity
     public boolean checkConnected() {
-        View view = getLayoutInflater().inflate(R.layout.no_internet_alert, null);
+        View view = getLayoutInflater().inflate(R.layout.alertview_no_internet, null);
         if (view.getParent() != null) ((ViewGroup) view.getParent()).removeView(view);
 
         TextView textView = view.findViewById(R.id.no_internet_tv);
         textView.setText("You are Offline!\nPlease Connect to Internet");
 
-        AlertDialog.Builder ab = new AlertDialog.Builder(Login.this);
+        AlertDialog.Builder ab = new AlertDialog.Builder(Login_activity.this);
         ab.setCancelable(false);
         final AlertDialog dialogViewInternet = ab.create();
         dialogViewInternet.setView(view);
@@ -233,7 +236,7 @@ public class Login extends AppCompatActivity {
         // this checks if connected or not, but instantly
         // so that we can return instantly
         ConnectivityManager cm = (ConnectivityManager)
-                Login.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+                Login_activity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         if (cm != null) {
             NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -263,7 +266,7 @@ public class Login extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(Login.this, "Cannot Connect To Internet",
+                            Toast.makeText(Login_activity.this, "Cannot Connect To Internet",
                                     Toast.LENGTH_LONG).show();
                         }
                     });

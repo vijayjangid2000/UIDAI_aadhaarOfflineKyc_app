@@ -46,7 +46,7 @@ import java.nio.channels.ReadableByteChannel;
 import java.text.DateFormat;
 import java.util.Date;
 
-public class WebPage extends AppCompatActivity {
+public class WebPage_activity extends AppCompatActivity {
 
     WebView webView;
     final static String uidai = "https://resident.uidai.gov.in/offline-kyc";
@@ -90,7 +90,7 @@ public class WebPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //setOtp();
-                startActivity(new Intent(WebPage.this, Verification.class));
+                startActivity(new Intent(WebPage_activity.this, Verification_activity.class));
             }
         });
 
@@ -145,7 +145,7 @@ public class WebPage extends AppCompatActivity {
                         .centerCrop()
                         .placeholder(R.mipmap.ic_launcher_round)
                         .error(R.mipmap.ic_launcher_round);
-                Glide.with(WebPage.this).load(imageUrl).apply(options).into(captchaIv);
+                Glide.with(WebPage_activity.this).load(imageUrl).apply(options).into(captchaIv);
             }
         });
 
@@ -294,7 +294,7 @@ public class WebPage extends AppCompatActivity {
 
     }
 
-    /*file downloads here, zip file created after that moves to next activity (Verification)*/
+    /*file downloads here, zip file created after that moves to next activity (Verification_activity)*/
     public void downloadFile(URL url, String outputFileName) throws IOException {
 
         try (InputStream in = url.openStream();

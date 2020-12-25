@@ -41,13 +41,13 @@ import java.net.URLConnection;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-public class Register extends AppCompatActivity {
+public class Register_activity extends AppCompatActivity {
 
     final String TAG = "vijay"; // for log
 
     TextInputEditText etMobileNumber, etPassword, etFullName;
     TextInputLayout etMobileNumberLayout, etPasswordLayout, etFullNameLayout;
-    TextInputLayout lt_EnterOtp2;  // usage - if user types wrong otp
+    TextInputLayout et_EnterOtp2Layout;  // usage - if user types wrong otp
     TextView tvRegister;
     Animation animAlpha;
     // Alert Dialog
@@ -120,7 +120,7 @@ public class Register extends AppCompatActivity {
 
             @Override
             public void onVerificationCompleted(PhoneAuthCredential credential) {
-                Toast.makeText(Register.this, "Registration Successful"
+                Toast.makeText(Register_activity.this, "Registration Successful"
                         , Toast.LENGTH_LONG).show();
                 FirebaseAuth.getInstance().getFirebaseAuthSettings()
                         .setAppVerificationDisabledForTesting(true);
@@ -132,13 +132,13 @@ public class Register extends AppCompatActivity {
 
                 if (e instanceof FirebaseAuthInvalidCredentialsException) {
 
-                    Toast.makeText(Register.this, "Invalid Mobile Number",
+                    Toast.makeText(Register_activity.this, "Invalid Mobile Number",
                             Toast.LENGTH_LONG).show();
                 } else if (e instanceof FirebaseTooManyRequestsException) {
-                    Toast.makeText(Register.this, "Please try again after 30 Minutes",
+                    Toast.makeText(Register_activity.this, "Please try again after 30 Minutes",
                             Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(Register.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Register_activity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
 
                 dialogView.cancel();
@@ -170,12 +170,12 @@ public class Register extends AppCompatActivity {
     }
 
     void showOTPTextBoxAlert() {
-        View view = getLayoutInflater().inflate(R.layout.otp_dialog_view, null);
+        View view = getLayoutInflater().inflate(R.layout.alertview_otp_dialog, null);
         if (view.getParent() != null) ((ViewGroup) view.getParent()).removeView(view);
 
         final TextView cancelOtp_Tvb, tvb_verifyNow, otp_message_tv;
         final TextInputLayout lt_EnterOtp = view.findViewById(R.id.enterOtpLt);
-        lt_EnterOtp2 = lt_EnterOtp;
+        et_EnterOtp2Layout = lt_EnterOtp;
         final TextInputEditText et_EnterOtp = view.findViewById(R.id.enterOtpEt);
         final CircularProgressIndicator loader_otpView = view.findViewById(R.id.otp_progress_bar);
         cancelOtp_Tvb = view.findViewById(R.id.cancelOtp_Tvb);
@@ -256,11 +256,11 @@ public class Register extends AppCompatActivity {
 
                         if (task.isSuccessful()) {
                             dialogView.hide();
-                            startActivity(new Intent(Register.this, HomePage_nav.class));
+                            startActivity(new Intent(Register_activity.this, HomePage_activity.class));
                             finish();
                         } else {
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                lt_EnterOtp2.setError("OTP is incorrect, try again");
+                                et_EnterOtp2Layout.setError("OTP is incorrect, try again");
                                 if (loader_otpView != null) loader_otpView.setVisibility(View.GONE);
                                 ;
                             }
@@ -275,12 +275,12 @@ public class Register extends AppCompatActivity {
 
         /*This is used to notify user if they have created some mistake
          * But this activates when user try to register with errors*/
-        if (mobileNumber.length() != 10) {
+        if (fullName.length() < 5 && !fullName.contains(" ")) {
+            etFullNameLayout.setError("Please enter valid name");
+        } else if (mobileNumber.length() != 10) {
             etMobileNumberLayout.setError("Invalid Mobile Number");
         } else if (password.length() < 6) {
             etPasswordLayout.setError("Minimum 6 characters");
-        } else if (fullName.length() < 5 && !fullName.contains(" ")) {
-            etFullNameLayout.setError("Please enter valid name");
         }
 
 
@@ -354,7 +354,7 @@ public class Register extends AppCompatActivity {
         /*to customize the progress bar then go to
          * progressbar_viewxml.xml in layout folder*/
 
-        View view = getLayoutInflater().inflate(R.layout.progressbar_viewxml, null);
+        View view = getLayoutInflater().inflate(R.layout.alertview_progressbar, null);
         if (view.getParent() != null) ((ViewGroup) view.getParent()).removeView(view);
 
         CircularProgressIndicator lpi = view.findViewById(R.id.home_progress_bar);
@@ -369,20 +369,20 @@ public class Register extends AppCompatActivity {
 
     // method - to go to login Page if user is registered already
     void gotoLoginPage() {
-        Intent intent = new Intent(Register.this, Login.class);
+        Intent intent = new Intent(Register_activity.this, Login_activity.class);
         startActivity(intent);
         finish();
     }
 
     // for checking internet connectivity
     public boolean checkConnected() {
-        View view = getLayoutInflater().inflate(R.layout.no_internet_alert, null);
+        View view = getLayoutInflater().inflate(R.layout.alertview_no_internet, null);
         if (view.getParent() != null) ((ViewGroup) view.getParent()).removeView(view);
 
         TextView textView = view.findViewById(R.id.no_internet_tv);
         textView.setText("You are Offline!\nPlease Connect to Internet");
 
-        AlertDialog.Builder ab = new AlertDialog.Builder(Register.this);
+        AlertDialog.Builder ab = new AlertDialog.Builder(Register_activity.this);
         ab.setCancelable(false);
         final AlertDialog dialogViewInternet = ab.create();
         dialogViewInternet.setView(view);
@@ -403,7 +403,7 @@ public class Register extends AppCompatActivity {
         // this checks if connected or not, but instantly
         // so that we can return instantly
         ConnectivityManager cm = (ConnectivityManager)
-                Register.this.getSystemService(Context.CONNECTIVITY_SERVICE);
+                Register_activity.this.getSystemService(Context.CONNECTIVITY_SERVICE);
 
         if (cm != null) {
             NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
@@ -433,7 +433,7 @@ public class Register extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(Register.this, "Cannot Connect To Internet",
+                            Toast.makeText(Register_activity.this, "Cannot Connect To Internet",
                                     Toast.LENGTH_LONG).show();
                         }
                     });

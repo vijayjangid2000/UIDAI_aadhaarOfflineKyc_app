@@ -14,23 +14,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".HomePage_nav" />
-
-        <activity android:name=".Register" />
-
-        <activity android:name=".Login">
+        <activity android:name=".z_state_choose_alert"></activity>
+        <activity android:name=".z_selBoardElectricity" />
+        <activity android:name=".Electricity_recharge_activity" />
+        <activity android:name=".z_selOperatorRecharge" />
+        <activity android:name=".Recharge_mobile_activity" />
+        <activity android:name=".HomePage_activity" />
+        <activity android:name=".Register_activity" />
+        <activity android:name=".Login_activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".WebPage" />
-        <activity android:name=".GetUserData" />
+        <activity android:name=".WebPage_activity" />
+        <activity android:name=".GetUserData_activity" />
         <activity android:name=".Z" />
-        <activity android:name=".Verification" />
+        <activity android:name=".Verification_activity" />
 
         <meta-data
             android:name="preloaded_fonts"

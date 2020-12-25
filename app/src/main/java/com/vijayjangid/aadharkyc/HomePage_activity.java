@@ -13,7 +13,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class HomePage_nav extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class HomePage_activity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     /* this activity sets navigation drawer
      * and fragment, user cannot see this activity*/
@@ -87,7 +87,7 @@ public class HomePage_nav extends AppCompatActivity implements NavigationView.On
                         , new Help_support_fragment()).commit();
                 break;
             case R.id.nav_exit:
-                startActivity(new Intent(HomePage_nav.this, Login.class));
+                startActivity(new Intent(HomePage_activity.this, Login_activity.class));
                 finish();
                 break;
         }
