@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_margin="15dp"
+        android:layout_margin="10dp"
         app:cardCornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -55,8 +55,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="2"
+                    android:alpha="0.8"
                     android:paddingLeft="10dp"
-                    android:text="Recharge of $321 done on 23 May, 2020" />
+                    android:text="Recharge of ₹399 done on\n23 May, 2020" />
 
             </LinearLayout>
 

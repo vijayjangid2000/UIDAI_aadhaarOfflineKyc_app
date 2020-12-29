@@ -10,7 +10,10 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-public class Electricity_recharge_activity extends AppCompatActivity
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class ElectricityRecharge extends AppCompatActivity
         implements View.OnClickListener {
 
     final int REQUEST_CODE_BOARD = 98;
@@ -24,7 +27,6 @@ public class Electricity_recharge_activity extends AppCompatActivity
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Pay Electricity Bill");
-        toolbar.setBackgroundColor(getColor(R.color.colorPrimary));
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -41,7 +43,6 @@ public class Electricity_recharge_activity extends AppCompatActivity
         tv_boardHint.setOnClickListener(this);
         tv_stateName.setOnClickListener(this);
         tv_boardName.setOnClickListener(this);
-
     }
 
     @Override
@@ -56,12 +57,46 @@ public class Electricity_recharge_activity extends AppCompatActivity
 
                 break;
             case R.id.board_textview:
-                startActivityForResult(new Intent(Electricity_recharge_activity.this,
-                        z_selBoardElectricity.class), REQUEST_CODE_BOARD);
+                ArrayList<String> textList = new ArrayList<>();
+                final String BOARDS = "Ajmer Vidyut Vitran Nigam Ltd. (AVVNL)," +
+                        "Bharatpur Electricity Services Ltd. (BESL)," +
+                        "Bikaner Electricity Supply Limited," +
+                        "Jaipur Vidyut Vitran Nigam Ltd. (JVVNL)," +
+                        "Jodhpur Vidyut Vitran Nigam Ltd. (JDVVNL)," +
+                        "Kota Electricity Distribution Ltd. (KEDL)," +
+                        "TP Ajmer Distribution Ltd. (TPADL)";
+                String[] array = BOARDS.split(",");
+                Collections.addAll(textList, array);
+
+                ArrayList<String> imageLinks = new ArrayList<String>();
+                imageLinks.add("imagelink 1");
+
+                Intent intent = new Intent(ElectricityRecharge.this,
+                        z_selectImageText.class);
+
+                intent.putStringArrayListExtra("TEXT_LIST", textList);
+                intent.putStringArrayListExtra("IMAGE_LINK_LIST", imageLinks);
+                intent.putExtra("TOOLBAR_NAME", "Select Board");
+                intent.putExtra("IMAGES_ALSO", false);
+
+                startActivityForResult(intent, REQUEST_CODE_BOARD);
+
                 break;
             case R.id.state_textview:
-                startActivityForResult(new Intent(Electricity_recharge_activity.this,
-                        z_state_choose_alert.class), REQUEST_CODE_BOARD);
+                ArrayList<String> textList2 = new ArrayList<>();
+                final String STATES = "Andhra Pradesh,Assam,Bihar,Chandigarh," +
+                        "Chhattisgarh,Dadra and Nagar Haveli,Daman and Diu,Goa,Gujarat,Haryana," +
+                        "Himachal Pradesh,Jammu and Kashmir,Jharkhand,Karnataka,Kerala," +
+                        "Madhya Pradesh,Maharashtra,Manipur,Meghalaya,Mizoram,Nagaland,New Delhi," +
+                        "Odisha,Pondicherry,Punjab,Pakistan,Sikkim,Tamil Nadu,Telangana" +
+                        ",Tripura,Uttar Pradesh,Uttarakhand,West Bengal";
+                String[] array2 = STATES.split(",");
+                Collections.addAll(textList2, array2);
+
+                Intent intent1 = new Intent(ElectricityRecharge.this, z_state_choose_alert.class);
+                intent1.putStringArrayListExtra("TEXT_LIST", textList2);
+
+                startActivityForResult(intent1, REQUEST_CODE_BOARD);
                 break;
         }
     }
@@ -78,8 +113,10 @@ public class Electricity_recharge_activity extends AppCompatActivity
             }
         } else if (resultCode == REQUEST_CODE_STATE) {
             try {
+
                 String message = data.getStringExtra("MESSAGE").trim();
                 tv_stateName.setText(message);
+
             } catch (Exception ignored) {
             }
         }
@@ -90,4 +127,6 @@ public class Electricity_recharge_activity extends AppCompatActivity
         onBackPressed();
         return true;
     }
+
+
 }

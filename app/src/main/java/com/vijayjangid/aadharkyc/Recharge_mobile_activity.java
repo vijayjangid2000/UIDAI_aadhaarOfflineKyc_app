@@ -3,6 +3,7 @@ package com.vijayjangid.aadharkyc;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.DataSetObserver;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -16,13 +17,12 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -35,12 +35,11 @@ public class Recharge_mobile_activity extends AppCompatActivity
     // for operator and contact chooser
     final int REQUEST_CODE_CONTACT = 1;
     final int REQUEST_CODE_OPERATOR = 99;
-    RadioGroup pre_post_RadioG;
-    RadioButton prepaid_RadioB, postpaid_RadioB;
     TextInputEditText etMobileNumber, etAmount;
     TextInputLayout etMobileNumberLayout, etAmountLayout;
-    TextView tv_operatorName, tvb_operatorChange, tv_contactName;
-    String contactName, contact_number, temporaryNumber, amount;
+    TextView tv_operatorName, tvb_operatorChange, tv_contactName,
+            tvb_prepaid, tvb_postpaid, tvbViewPlans;
+    String contactName, contactNumber, temporaryNumber, amount;
     Button btn_proceed;
     LinearLayout linearL_operatorChange;
 
@@ -55,9 +54,8 @@ public class Recharge_mobile_activity extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        pre_post_RadioG = findViewById(R.id.pre_post_RG);
-        prepaid_RadioB = findViewById(R.id.prepaid_RB);
-        postpaid_RadioB = findViewById(R.id.postpaid_RB);
+        tvb_prepaid = findViewById(R.id.prepaid_TextB);
+        tvb_postpaid = findViewById(R.id.postpaid_TextB);
         etMobileNumber = findViewById(R.id.phoneEtRec);
         etMobileNumberLayout = findViewById(R.id.phoneEtLRec);
         tv_contactName = findViewById(R.id.contact_name);
@@ -67,9 +65,13 @@ public class Recharge_mobile_activity extends AppCompatActivity
         etAmount = findViewById(R.id.amountEtRec);
         etAmountLayout = findViewById(R.id.amountEtLRec);
         linearL_operatorChange = findViewById(R.id.operator_linearLayout);
+        tvbViewPlans = findViewById(R.id.viewPlansTvb);
 
+        tvbViewPlans.setOnClickListener(this);
         btn_proceed.setOnClickListener(this);
         tvb_operatorChange.setOnClickListener(this);
+        tvb_prepaid.setOnClickListener(this);
+        tvb_postpaid.setOnClickListener(this);
 
         // on end icon, contact choosing work
         etMobileNumberLayout.setEndIconOnClickListener(new View.OnClickListener() {
@@ -96,7 +98,8 @@ public class Recharge_mobile_activity extends AppCompatActivity
                 amount = etAmount.getText().toString().trim();
                 Toast.makeText(getApplicationContext(),
                         "Recharge Successful of Rs. " + amount +
-                                " on mobile - " + contact_number, Toast.LENGTH_LONG).show();
+                                " on mobile - " + contactNumber, Toast.LENGTH_LONG).show();
+                startActivity(new Intent(this, ChoosePaymentOption.class));
                 break;
 
             case R.id.changeOperatorTv:
@@ -105,23 +108,47 @@ public class Recharge_mobile_activity extends AppCompatActivity
                 startActivityForResult(new Intent(Recharge_mobile_activity.this,
                         z_selOperatorRecharge.class), REQUEST_CODE_OPERATOR);
                 break;
-        }
 
+            case R.id.prepaid_TextB:
+                tvb_prepaid.setTextColor(Color.WHITE);
+                tvb_prepaid.setBackground(ContextCompat.getDrawable(this,
+                        R.drawable.rounded_shape_2));
+
+                tvb_postpaid.setTextColor(getColor(R.color.colorPrimary));
+                tvb_postpaid.setBackgroundColor(Color.TRANSPARENT);
+                break;
+
+            case R.id.postpaid_TextB:
+                tvb_postpaid.setTextColor(Color.WHITE);
+                tvb_postpaid.setBackground(ContextCompat.getDrawable(this,
+                        R.drawable.rounded_shape_2));
+
+                tvb_prepaid.setTextColor(getColor(R.color.colorPrimary));
+                tvb_prepaid.setBackgroundColor(Color.TRANSPARENT);
+                break;
+
+            case R.id.viewPlansTvb:
+                tvbViewPlans.setAlpha((float) 0.4);
+                startActivity(new Intent(this, z_selBrowsePlans.class));
+                break;
+        }
     }
 
     // for changing the alpha values to normal after user choose operator
     @Override
     protected void onResume() {
         super.onResume();
-        tvb_operatorChange.setAlpha((float) 1);
+        float alphaValue = 1;
+        tvb_operatorChange.setAlpha(alphaValue);
+        tvbViewPlans.setAlpha(alphaValue);
     }
 
     // this makes sure that there is 10 digits number
     void textWatcher() {
 
-        contact_number = etMobileNumber.getText().toString().trim();
+        contactNumber = etMobileNumber.getText().toString().trim();
 
-        if (contact_number.length() != 10 && contact_number.length() != 0)
+        if (contactNumber.length() != 10 && contactNumber.length() != 0)
             etMobileNumberLayout.setError("Enter 10 digit mobile number");
 
         etMobileNumber.addTextChangedListener(new TextWatcher() {
@@ -137,13 +164,13 @@ public class Recharge_mobile_activity extends AppCompatActivity
 
             @Override
             public void afterTextChanged(Editable s) {
-                contact_number = etMobileNumber.getText().toString().trim();
-                if (contact_number.length() != 10)
+                contactNumber = etMobileNumber.getText().toString().trim();
+                if (contactNumber.length() != 10)
                     etMobileNumberLayout.setError("Enter 10 digit mobile number");
                 else etMobileNumberLayout.setError(null);
 
                 if (temporaryNumber == null) return;
-                if (!temporaryNumber.equals(contact_number))
+                if (!temporaryNumber.equals(contactNumber))
                     tv_contactName.setVisibility(View.GONE);
                 else tv_contactName.setVisibility(View.VISIBLE);
             }

@@ -208,6 +208,7 @@ public class z_selOperatorRecharge extends AppCompatActivity {
                 subListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        view.setAlpha((float) 0.4);
                         Intent intent = new Intent();
                         intent.putExtra("MESSAGE", listOperators.get(temp) + " - "
                                 + arrayList.get(position));

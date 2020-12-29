@@ -24,35 +24,47 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <RadioGroup
+        <LinearLayout
             android:id="@+id/pre_post_RG"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="10dp"
-            android:orientation="horizontal"
-            android:paddingLeft="10dp">
+            android:orientation="horizontal">
 
-            <RadioButton
-                android:id="@+id/prepaid_RB"
+            <TextView
+                android:id="@+id/prepaid_TextB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="30dp"
-                android:checked="true"
-                android:text="Prepaid" />
+                android:background="@drawable/rounded_shape_2"
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp"
+                android:text="Prepaid"
+                android:textColor="#FFFFFF" />
 
-            <RadioButton
-                android:id="@+id/postpaid_RB"
+            <TextView
+                android:id="@+id/postpaid_TextB"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PostPaid" />
-        </RadioGroup>
+                android:paddingLeft="20dp"
+                android:paddingTop="10dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="10dp"
+                android:text="PostPaid"
+                android:textColor="@color/colorPrimary" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/contact_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="15dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="20dp"
             android:visibility="gone">
 
         </TextView>
@@ -86,27 +98,29 @@
             android:id="@+id/operator_linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="5dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="20dp"
             android:layout_marginBottom="5dp"
             android:orientation="horizontal"
+            android:weightSum="1"
             android:padding="10dp">
 
             <TextView
                 android:id="@+id/operator_name_tv"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Jio - Rajasthan"
-                android:textColor="#000000" />
+                android:textColor="@color/darkText" />
 
             <TextView
                 android:id="@+id/changeOperatorTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:text="Change Operator"
+                android:paddingLeft="20dp"
+                android:textAlignment="viewEnd"
                 android:textColor="@color/colorPrimary" />
         </LinearLayout>
 
@@ -115,16 +129,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
+            android:layout_marginTop="15dp"
             android:layout_marginRight="15dp"
             android:hint="Enter Amount"
-            android:weightSum="1"
             app:hintTextColor="@color/colorPrimary"
             app:startIconDrawable="@drawable/ic_rupee_symbol">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/amountEtRec"
                 android:layout_width="match_parent"
-                android:layout_height="43dp"
+                android:layout_height="wrap_content"
                 android:defaultFocusHighlightEnabled="false"
                 android:inputType="number"
                 android:maxLength="7"
@@ -132,14 +146,27 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+
+        <TextView
+            android:id="@+id/viewPlansTvb"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:text="View Plans"
+            android:textColor="@color/colorPrimary" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="5dp"
-            android:background="#EFEFEF"
-            android:padding="8dp"
-            android:text="Recents"></TextView>
+            android:background="#57DFDDDD"
+            android:paddingLeft="20dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
+            android:text="Recent"
+            android:textSize="17sp" />
 
         <ListView
             android:id="@+id/recents_listView"
@@ -151,15 +178,11 @@
     </LinearLayout>
 
     <Button
+
         android:id="@+id/proceedRecharge_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        style="@style/Proceed_Button"
         android:layout_margin="15dp"
-        android:background="@drawable/rounded_shape_2"
         android:text="Proceed"
-        android:textAllCaps="false"
-        android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">

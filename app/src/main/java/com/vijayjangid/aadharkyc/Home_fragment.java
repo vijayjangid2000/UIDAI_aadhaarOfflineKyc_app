@@ -31,8 +31,7 @@ public class Home_fragment extends Fragment
             iv_prepaid, iv_electricity, iv_water, iv_insurance,
             iv_landLine, iv_postpaid, iv_dth, iv_dataCard, iv_fasTag;
 
-    TextView tv_accountBalance, tv_walletBalance,
-            tv_scanPay, tv_sendMoney, tv_sendAgain,
+    TextView tv_scanPay, tv_sendMoney, tv_sendAgain,
             tv_prepaid, tv_electricity, tv_water, tv_insurance,
             tv_landLine, tv_postpaid, tv_dth, tv_dataCard, tv_fasTag;
 
@@ -61,8 +60,6 @@ public class Home_fragment extends Fragment
         iv_dataCard = fragmentHomeFragmentBinding.datacardIv;
         iv_fasTag = fragmentHomeFragmentBinding.fastagIv;
 
-        tv_accountBalance = fragmentHomeFragmentBinding.accountBalanceTv;
-        tv_walletBalance = fragmentHomeFragmentBinding.walletBalanceTv;
         tv_scanPay = fragmentHomeFragmentBinding.scanpayTv;
         tv_sendMoney = fragmentHomeFragmentBinding.sendmoneyTv;
         tv_sendAgain = fragmentHomeFragmentBinding.sendAgainTv;
@@ -92,8 +89,7 @@ public class Home_fragment extends Fragment
         iv_fasTag.setOnClickListener(this);
         iv_dataCard.setOnClickListener(this);
 
-        tv_accountBalance.setOnClickListener(this);
-        tv_walletBalance.setOnClickListener(this);
+
         tv_scanPay.setOnClickListener(this);
         tv_sendMoney.setOnClickListener(this);
         tv_sendAgain.setOnClickListener(this);
@@ -156,19 +152,21 @@ public class Home_fragment extends Fragment
             case R.id.electricity_iv:
                 iv_electricity.setAlpha(alphaVal);
                 tv_electricity.setAlpha(alphaVal);
-                startActivity(new Intent(getContext(), Electricity_recharge_activity.class));
+                startActivity(new Intent(getContext(), ElectricityRecharge.class));
                 break;
 
             case R.id.water_tv:
             case R.id.water_iv:
                 iv_water.setAlpha(alphaVal);
                 tv_water.setAlpha(alphaVal);
+                startActivity(new Intent(getContext(), Water_Bill_activity.class));
                 break;
 
             case R.id.insurance_tv:
             case R.id.insurance_iv:
                 iv_insurance.setAlpha(alphaVal);
                 tv_insurance.setAlpha(alphaVal);
+                startActivity(new Intent(getContext(), InsurancePay.class));
                 break;
 
             case R.id.landline_tv:
@@ -187,12 +185,14 @@ public class Home_fragment extends Fragment
             case R.id.dth_iv:
                 iv_dth.setAlpha(alphaVal);
                 tv_dth.setAlpha(alphaVal);
+                startActivity(new Intent(getContext(), DthRecharge.class));
                 break;
 
             case R.id.datacard_tv:
             case R.id.datacard_iv:
                 iv_dataCard.setAlpha(alphaVal);
                 tv_dataCard.setAlpha(alphaVal);
+
                 break;
 
             case R.id.fastag_iv:

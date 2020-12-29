@@ -6,49 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".Home_fragment">
 
-
     <LinearLayout
+        android:id="@+id/linearLayout8"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/gradient_blue"
+        android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/cardView2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
 
-        <LinearLayout
-            android:id="@+id/balance_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/gradient_blue"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/account_balance_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="2"
-
-                android:drawableLeft="@drawable/ic_indian"
-                android:text="  Account\n  View Balance"
-                android:textColor="#169EAE" />
-
-            <TextView
-                android:id="@+id/wallet_balance_tv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:layout_weight="2"
-                android:drawableLeft="@drawable/ic_wallet"
-                android:text="  Wallet\n  ₹ 0"
-                android:textColor="#169EAE" />
-
-        </LinearLayout>
-
-        <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        <androidx.cardview.widget.CardView
             android:id="@+id/card_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -56,16 +27,14 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginRight="10dp"
-            card_view:cardCornerRadius="5dp">
+            app:cardCornerRadius="5dp">
 
             <LinearLayout
                 android:id="@+id/shortcut_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/gradient_blue"
                 android:orientation="horizontal"
-                android:paddingTop="20dp"
-                android:paddingBottom="5dp">
+                android:padding="5dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -76,8 +45,9 @@
                     <ImageView
                         android:id="@+id/scanpay_iv"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:padding="15dp"
                         app:srcCompat="@drawable/ic_scan_pay" />
 
                     <TextView
@@ -86,7 +56,10 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="Scan &amp; Pay"
-                        android:textColor="#000000" />
+                        android:textColor="#000000"
+                        android:textSize="12sp" />
+
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -98,8 +71,9 @@
                     <ImageView
                         android:id="@+id/sendmoney_iv"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
+                        android:padding="15dp"
                         app:srcCompat="@drawable/ic_upi_transfer" />
 
                     <TextView
@@ -107,8 +81,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Send Money To Anyone"
-                        android:textColor="#000000" />
+                        android:text="Send Money"
+                        android:textColor="#000000"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -120,17 +95,19 @@
                     <ImageView
                         android:id="@+id/sendagain_iv"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/ic_pay_again" />
+                        android:padding="15dp"
+                        app:srcCompat="@drawable/ic_add_wallet" />
 
                     <TextView
                         android:id="@+id/sendAgain_tv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
-                        android:text="Send Again"
-                        android:textColor="#000000" />
+                        android:text="My Wallet"
+                        android:textColor="#000000"
+                        android:textSize="12sp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -141,16 +118,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
             app:cardCornerRadius="5dp">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/gradient_blue"
                 android:orientation="vertical">
 
                 <TextView
@@ -158,11 +134,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
                     android:fontFamily="@font/convergence"
                     android:gravity="center"
                     android:text="Recharge or Pay Bills"
-                    android:textColor="#000000" />
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
 
                 <LinearLayout
                     android:id="@+id/part1"
@@ -170,7 +146,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
-                    android:layout_marginBottom="20dp"
                     android:orientation="horizontal"
                     android:padding="10dp">
 
@@ -180,23 +155,29 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/prepaid_iv"
+                        <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_margin="10dp"
                             android:layout_weight="1"
+                            app:cardCornerRadius="7dp">
 
-                            android:padding="10dp"
-                            android:src="@drawable/ic_mobile_recharge" />
+                            <ImageView
+                                android:id="@+id/prepaid_iv"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_mobile_recharge" />
+                        </androidx.cardview.widget.CardView>
 
                         <TextView
                             android:id="@+id/prepaid_tv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Prepaid"
+                            android:text="Recharge"
                             android:textColor="#111635"
-                            android:textSize="10sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -205,13 +186,21 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/electricity_iv"
+                        <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_margin="10dp"
                             android:layout_weight="1"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_electricity_bill" />
+                            app:cardCornerRadius="7dp">
+
+                            <ImageView
+                                android:id="@+id/electricity_iv"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_electricity_bill" />
+                        </androidx.cardview.widget.CardView>
 
                         <TextView
                             android:id="@+id/electricity_tv"
@@ -220,7 +209,7 @@
                             android:gravity="center"
                             android:text="Electricity"
                             android:textColor="#111635"
-                            android:textSize="10sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -229,13 +218,21 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/water_iv"
+                        <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_margin="10dp"
                             android:layout_weight="1"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_waterbill" />
+                            app:cardCornerRadius="7dp">
+
+                            <ImageView
+                                android:id="@+id/water_iv"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_waterbill" />
+                        </androidx.cardview.widget.CardView>
 
                         <TextView
                             android:id="@+id/water_tv"
@@ -244,7 +241,7 @@
                             android:gravity="center"
                             android:text="Water"
                             android:textColor="#111635"
-                            android:textSize="10sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -253,13 +250,22 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/insurance_iv"
+                        <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_margin="10dp"
                             android:layout_weight="1"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_life_insurance" />
+                            app:cardCornerRadius="7dp">
+
+                            <ImageView
+                                android:id="@+id/insurance_iv"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_life_insurance" />
+
+                        </androidx.cardview.widget.CardView>
 
                         <TextView
                             android:id="@+id/insurance_tv"
@@ -268,7 +274,7 @@
                             android:gravity="center"
                             android:text="Insurance"
                             android:textColor="#111635"
-                            android:textSize="10sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -291,61 +297,22 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/landline_iv"
+                        <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_margin="10dp"
                             android:layout_weight="1"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_telephonebill" />
+                            app:cardCornerRadius="7dp">
 
-                        <TextView
-                            android:id="@+id/landline_tv"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="LandLine"
-                            android:textColor="#111635"
-                            android:textSize="10sp" />
-                    </LinearLayout>
+                            <ImageView
+                                android:id="@+id/dth_iv"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_dth_recharge" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/postpaid_iv"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_mobile_recharge" />
-
-                        <TextView
-                            android:id="@+id/postpaid_tv"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="PostPaid"
-                            android:textColor="#111635"
-                            android:textSize="10sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/dth_iv"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_dth_recharge" />
+                        </androidx.cardview.widget.CardView>
 
                         <TextView
                             android:id="@+id/dth_tv"
@@ -354,7 +321,7 @@
                             android:gravity="center"
                             android:text="DTH"
                             android:textColor="#111635"
-                            android:textSize="10sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -363,13 +330,88 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/datacard_iv"
+                        <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:layout_margin="10dp"
                             android:layout_weight="1"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_datacard_rechage" />
+                            app:cardCornerRadius="7dp">
+
+                            <ImageView
+                                android:id="@+id/landline_iv"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_telephonebill" />
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/landline_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="LandLine"
+                            android:textColor="#111635"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="7dp">
+
+                            <ImageView
+                                android:id="@+id/postpaid_iv"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_gas_cylinder" />
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/postpaid_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Gas"
+                            android:textColor="#111635"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="7dp">
+
+                            <ImageView
+                                android:id="@+id/datacard_iv"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_datacard_rechage" />
+
+                        </androidx.cardview.widget.CardView>
 
                         <TextView
                             android:id="@+id/datacard_tv"
@@ -378,7 +420,7 @@
                             android:gravity="center"
                             android:text="Data Card"
                             android:textColor="#111635"
-                            android:textSize="10sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -387,13 +429,22 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/fastag_iv"
+                        <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
+                            android:layout_height="33dp"
+                            android:layout_margin="10dp"
                             android:layout_weight="1"
-                            android:padding="10dp"
-                            android:src="@drawable/ic_fastag" />
+                            app:cardCornerRadius="7dp">
+
+                            <ImageView
+                                android:id="@+id/fastag_iv"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_fastag" />
+
+                        </androidx.cardview.widget.CardView>
 
                         <TextView
                             android:id="@+id/fastag_tv"
@@ -402,7 +453,7 @@
                             android:gravity="center"
                             android:text="FASTag"
                             android:textColor="#111635"
-                            android:textSize="10sp" />
+                            android:textSize="12sp" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -411,5 +462,32 @@
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="20dp"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="wrap_content"
+            android:layout_height="38dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:background="@android:color/transparent"
+            android:drawableLeft="@drawable/ic_scan_pay"
+            android:paddingLeft="7dp"
+            android:paddingRight="7dp"
+            android:text="  Scan Any QR"
+            android:textAllCaps="false" />
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

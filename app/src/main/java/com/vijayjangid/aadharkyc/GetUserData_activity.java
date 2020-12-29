@@ -1,7 +1,5 @@
 package com.vijayjangid.aadharkyc;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -12,7 +10,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class GetUserData extends AppCompatActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class GetUserData_activity extends AppCompatActivity {
 
     EditText nameTv, mobileTv, emailTv, fatherTv, genderTv, birthDateTv;
     String name, mobile, email, father, gender, birthDate;
@@ -27,7 +27,7 @@ public class GetUserData extends AppCompatActivity {
 
         if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_DENIED) {
-            Toast.makeText(GetUserData.this, "Please Allow to use storage"
+            Toast.makeText(GetUserData_activity.this, "Please Allow to use storage"
                     , Toast.LENGTH_LONG).show();
             storage();
         }
@@ -90,7 +90,7 @@ public class GetUserData extends AppCompatActivity {
     }
 
     void gotoNextPage() {
-        startActivity(new Intent(GetUserData.this, WebPage.class));
+        startActivity(new Intent(GetUserData_activity.this, WebPage_activity.class));
     }
 
     public void storage() {

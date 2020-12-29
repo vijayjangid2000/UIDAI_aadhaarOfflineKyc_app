@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ElectricityRecharge">
+    tools:context=".InsurancePay">
 
     <include
         android:id="@+id/toolbar"
@@ -16,8 +16,6 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -25,89 +23,41 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <TextView
-            android:id="@+id/selectstate_textview"
+            android:id="@+id/selectBoard_textview2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="5dp"
-            android:textColor="@color/lightText"
             android:paddingLeft="10dp"
-            android:text="Select State" />
+            android:text="Select your insurer"
+            android:textColor="@color/lightText" />
 
         <TextView
-            android:id="@+id/state_textview"
+            android:id="@+id/tv_insuranceCompany"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
+            android:text="Life Insurance Premium"
             android:textColor="@color/darkText"
-            android:textSize="18sp"
-            tools:text="Rajasthan" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/stateLine"
             style="@style/LineTextView"></TextView>
 
-        <TextView
-            android:id="@+id/selectboard_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="5dp"
-            android:textColor="@color/lightText"
-            android:paddingLeft="10dp"
-            android:text="Select Board" />
-
-        <TextView
-            android:id="@+id/board_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:textColor="@color/darkText"
-            android:textSize="18sp"
-            tools:text="JVVNL" />
-
-        <TextView
-            android:id="@+id/BoardLine"
-            style="@style/LineTextView">
-
-        </TextView>
-
-        <TextView
-            android:id="@+id/selectDistrictTextview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="5dp"
-            android:textColor="@color/lightText"
-            android:paddingLeft="10dp"
-            android:text="District/Type" />
-
-        <TextView
-            android:id="@+id/districtTextview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:text="Bill Payment"
-            android:textColor="@color/darkText"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/districtLine"
-            style="@style/LineTextView"></TextView>
-
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/kNumberEtL"
+            android:id="@+id/policyNumber_Etl"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="10dp"
-            android:hint="K Number"
+            android:hint="Policy Number"
             android:weightSum="1"
             app:hintTextColor="@color/colorPrimary">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/kNumberEt"
+                android:id="@+id/policyNumber_Et"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:defaultFocusHighlightEnabled="false"
@@ -118,9 +68,11 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:text="Proceed"
-            style="@style/Proceed_Button" />
+            style="@style/Proceed_Button"
+            android:layout_marginTop="20dp"
+            android:text="Proceed" />
 
     </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
