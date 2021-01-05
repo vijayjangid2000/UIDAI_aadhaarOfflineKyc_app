@@ -13,6 +13,10 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import maes.tech.intentanim.CustomIntent;
+
+import static maes.tech.intentanim.CustomIntent.customType;
+
 public class ElectricityRecharge extends AppCompatActivity
         implements View.OnClickListener {
 
@@ -30,6 +34,7 @@ public class ElectricityRecharge extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.ic_cross_close2);
 
         tv_stateHint = findViewById(R.id.selectstate_textview);
         tv_boardHint = findViewById(R.id.selectboard_textview);
@@ -80,6 +85,7 @@ public class ElectricityRecharge extends AppCompatActivity
                 intent.putExtra("IMAGES_ALSO", false);
 
                 startActivityForResult(intent, REQUEST_CODE_BOARD);
+                customType(this, "bottom-to-up");
 
                 break;
             case R.id.state_textview:
@@ -97,6 +103,7 @@ public class ElectricityRecharge extends AppCompatActivity
                 intent1.putStringArrayListExtra("TEXT_LIST", textList2);
 
                 startActivityForResult(intent1, REQUEST_CODE_BOARD);
+                customType(this, "bottom-to-up");
                 break;
         }
     }
@@ -128,5 +135,9 @@ public class ElectricityRecharge extends AppCompatActivity
         return true;
     }
 
-
+    @Override
+    public void finish() {
+        super.finish();
+        CustomIntent.customType(this, "fadein-to-fadeout");
+    }
 }

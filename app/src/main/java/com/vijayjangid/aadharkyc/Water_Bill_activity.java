@@ -12,6 +12,10 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import maes.tech.intentanim.CustomIntent;
+
+import static maes.tech.intentanim.CustomIntent.customType;
+
 public class Water_Bill_activity extends AppCompatActivity {
 
     TextView tvbWaterBoard;
@@ -26,6 +30,7 @@ public class Water_Bill_activity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.ic_cross_close2);
 
         tvbWaterBoard = findViewById(R.id.selectBoard_textview2);
         tvbWaterBoard.setOnClickListener(new View.OnClickListener() {
@@ -54,7 +59,7 @@ public class Water_Bill_activity extends AppCompatActivity {
                 intent.putExtra("IMAGES_ALSO", false);
 
                 startActivity(intent);
-
+                customType(Water_Bill_activity.this, "bottom-to-up");
             }
         });
     }
@@ -63,6 +68,12 @@ public class Water_Bill_activity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        CustomIntent.customType(this, "fadein-to-fadeout");
     }
 
 }

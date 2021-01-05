@@ -12,6 +12,10 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import maes.tech.intentanim.CustomIntent;
+
+import static maes.tech.intentanim.CustomIntent.customType;
+
 public class InsurancePay extends AppCompatActivity {
 
     TextView company;
@@ -26,6 +30,7 @@ public class InsurancePay extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.ic_cross_close2);
 
         company = findViewById(R.id.tv_insuranceCompany);
 
@@ -59,6 +64,7 @@ public class InsurancePay extends AppCompatActivity {
                 intent.putExtra("IMAGES_ALSO", false);
 
                 startActivity(intent);
+                customType(InsurancePay.this, "bottom-to-up");
             }
         });
     }
@@ -67,5 +73,11 @@ public class InsurancePay extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        CustomIntent.customType(this, "fadein-to-fadeout");
     }
 }

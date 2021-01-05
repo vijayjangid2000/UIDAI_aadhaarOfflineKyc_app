@@ -30,8 +30,7 @@
             android:padding="10dp"
             android:text="Select options to pay"
             android:textColor="#393838"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/textView13"

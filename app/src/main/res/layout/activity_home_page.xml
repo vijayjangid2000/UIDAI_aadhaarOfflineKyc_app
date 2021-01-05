@@ -13,27 +13,66 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <include
+        <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/toolbar"
-            layout="@layout/toolbar_custom" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#054B75"
+            android:elevation="5dp"
+            android:layoutDirection="rtl"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#054B75"
+                    android:src="@drawable/ic_scan_pay"
+                    android:tint="@color/white"></ImageButton>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:paddingLeft="10dp"
+                    android:text="OI Payments"
+                    android:textAlignment="textStart"
+                    android:textSize="22sp"></TextView>
+
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
 
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></FrameLayout>
+            android:layout_height="match_parent"
+            android:layout_weight="1"></FrameLayout>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bottomNavigationView"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="@drawable/gradient_blue"
+            app:menu="@menu/bottom_drawer" />
+
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="@drawable/gradient_blue"
+        android:layout_gravity="left"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/home_nav_header"
         app:itemTextColor="#000000"
+        app:itemIconTint="#29536A"
         app:menu="@menu/home_drawer">
-
     </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -31,7 +31,7 @@ public class ChoosePaymentOption extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_choose_payment_option);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("IO Lab");
+        toolbar.setTitle("OI Lab");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

@@ -29,6 +29,10 @@ import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 
+import maes.tech.intentanim.CustomIntent;
+
+import static maes.tech.intentanim.CustomIntent.customType;
+
 public class Recharge_mobile_activity extends AppCompatActivity
         implements View.OnClickListener {
 
@@ -53,6 +57,7 @@ public class Recharge_mobile_activity extends AppCompatActivity
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.ic_cross_close2);
 
         tvb_prepaid = findViewById(R.id.prepaid_TextB);
         tvb_postpaid = findViewById(R.id.postpaid_TextB);
@@ -100,6 +105,7 @@ public class Recharge_mobile_activity extends AppCompatActivity
                         "Recharge Successful of Rs. " + amount +
                                 " on mobile - " + contactNumber, Toast.LENGTH_LONG).show();
                 startActivity(new Intent(this, ChoosePaymentOption.class));
+                customType(this, "bottom-to-up");
                 break;
 
             case R.id.changeOperatorTv:
@@ -107,6 +113,7 @@ public class Recharge_mobile_activity extends AppCompatActivity
                 tvb_operatorChange.setAlpha((float) 0.4);
                 startActivityForResult(new Intent(Recharge_mobile_activity.this,
                         z_selOperatorRecharge.class), REQUEST_CODE_OPERATOR);
+                customType(this, "bottom-to-up");
                 break;
 
             case R.id.prepaid_TextB:
@@ -130,6 +137,7 @@ public class Recharge_mobile_activity extends AppCompatActivity
             case R.id.viewPlansTvb:
                 tvbViewPlans.setAlpha((float) 0.4);
                 startActivity(new Intent(this, z_selBrowsePlans.class));
+                customType(this, "bottom-to-up");
                 break;
         }
     }
@@ -320,5 +328,16 @@ public class Recharge_mobile_activity extends AppCompatActivity
         public boolean isEmpty() {
             return false;
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        CustomIntent.customType(this, "fadein-to-fadeout");
     }
 }

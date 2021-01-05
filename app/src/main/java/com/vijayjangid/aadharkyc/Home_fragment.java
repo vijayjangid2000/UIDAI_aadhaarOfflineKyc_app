@@ -1,6 +1,7 @@
 package com.vijayjangid.aadharkyc;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,14 +14,23 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.progressindicator.CircularProgressIndicator;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.vijayjangid.aadharkyc.databinding.FragmentHomeFragmentBinding;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
+import static maes.tech.intentanim.CustomIntent.customType;
 
 public class Home_fragment extends Fragment
         implements View.OnClickListener {
@@ -35,6 +45,8 @@ public class Home_fragment extends Fragment
             tv_prepaid, tv_electricity, tv_water, tv_insurance,
             tv_landLine, tv_postpaid, tv_dth, tv_dataCard, tv_fasTag;
 
+    ViewPager2 viewPager2;
+    TabLayout tabLayout;
     Animation animation;
 
     @Override
@@ -43,7 +55,6 @@ public class Home_fragment extends Fragment
 
         fragmentHomeFragmentBinding = FragmentHomeFragmentBinding.inflate(getLayoutInflater());
         View root = fragmentHomeFragmentBinding.getRoot();
-
 
         // setting id's for views here
 
@@ -72,6 +83,8 @@ public class Home_fragment extends Fragment
         tv_dth = fragmentHomeFragmentBinding.dthTv;
         tv_dataCard = fragmentHomeFragmentBinding.datacardTv;
         tv_fasTag = fragmentHomeFragmentBinding.fastagTv;
+        viewPager2 = fragmentHomeFragmentBinding.viewpagerHome;
+        tabLayout = fragmentHomeFragmentBinding.tablayout;
 
         // making animation
         animation = AnimationUtils.loadAnimation(getContext(), R.anim.anim_aplha);
@@ -89,7 +102,6 @@ public class Home_fragment extends Fragment
         iv_fasTag.setOnClickListener(this);
         iv_dataCard.setOnClickListener(this);
 
-
         tv_scanPay.setOnClickListener(this);
         tv_sendMoney.setOnClickListener(this);
         tv_sendAgain.setOnClickListener(this);
@@ -102,6 +114,28 @@ public class Home_fragment extends Fragment
         tv_dth.setOnClickListener(this);
         tv_dataCard.setOnClickListener(this);
         tv_fasTag.setOnClickListener(this);
+
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("");
+        arrayList.add("");
+        arrayList.add("");
+        viewPager2.setAdapter(new ViewPagerAdapter(getContext(), arrayList, viewPager2));
+
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            }
+        });
+
+        TabLayoutMediator tabLayoutMediator1 = new TabLayoutMediator(tabLayout, viewPager2, true, new TabLayoutMediator.TabConfigurationStrategy() {
+            @Override
+            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+
+            }
+        });
+
+        tabLayoutMediator1.attach();
 
         return root;
     }
@@ -146,6 +180,7 @@ public class Home_fragment extends Fragment
                 iv_prepaid.setAlpha(alphaVal);
                 tv_prepaid.setAlpha(alphaVal);
                 startActivity(new Intent(getContext(), Recharge_mobile_activity.class));
+                customType(getContext(), "fadein-to-fadeout");
                 break;
 
             case R.id.electricity_tv:
@@ -153,6 +188,7 @@ public class Home_fragment extends Fragment
                 iv_electricity.setAlpha(alphaVal);
                 tv_electricity.setAlpha(alphaVal);
                 startActivity(new Intent(getContext(), ElectricityRecharge.class));
+                customType(getContext(), "fadein-to-fadeout");
                 break;
 
             case R.id.water_tv:
@@ -160,6 +196,7 @@ public class Home_fragment extends Fragment
                 iv_water.setAlpha(alphaVal);
                 tv_water.setAlpha(alphaVal);
                 startActivity(new Intent(getContext(), Water_Bill_activity.class));
+                customType(getContext(), "fadein-to-fadeout");
                 break;
 
             case R.id.insurance_tv:
@@ -167,6 +204,7 @@ public class Home_fragment extends Fragment
                 iv_insurance.setAlpha(alphaVal);
                 tv_insurance.setAlpha(alphaVal);
                 startActivity(new Intent(getContext(), InsurancePay.class));
+                customType(getContext(), "fadein-to-fadeout");
                 break;
 
             case R.id.landline_tv:
@@ -186,6 +224,7 @@ public class Home_fragment extends Fragment
                 iv_dth.setAlpha(alphaVal);
                 tv_dth.setAlpha(alphaVal);
                 startActivity(new Intent(getContext(), DthRecharge.class));
+                customType(getContext(), "fadein-to-fadeout");
                 break;
 
             case R.id.datacard_tv:
@@ -200,6 +239,46 @@ public class Home_fragment extends Fragment
                 iv_fasTag.setAlpha(alphaVal);
                 tv_fasTag.setAlpha(alphaVal);
                 break;
+        }
+    }
+
+    public static class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.ViewHolder> {
+
+        private List<String> mData;
+        private LayoutInflater mInflater;
+        private ViewPager2 viewPager2;
+
+        ViewPagerAdapter(Context context, List<String> data, ViewPager2 viewPager2) {
+            this.mInflater = LayoutInflater.from(context);
+            this.mData = data;
+            this.viewPager2 = viewPager2;
+        }
+
+        @Override
+        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            View view = mInflater.inflate(R.layout.layout_viewpager, parent, false);
+            return new ViewHolder(view);
+        }
+
+        /*this comes again and again*/
+        @Override
+        public void onBindViewHolder(ViewHolder holder, int position) {
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return mData.size();
+        }
+
+
+        public class ViewHolder extends RecyclerView.ViewHolder {
+
+
+            ViewHolder(View itemView) {
+                super(itemView);
+                /*here will be id and on click listeners*/
+            }
         }
     }
 
@@ -270,4 +349,5 @@ public class Home_fragment extends Fragment
             }
         }
     }
+
 }

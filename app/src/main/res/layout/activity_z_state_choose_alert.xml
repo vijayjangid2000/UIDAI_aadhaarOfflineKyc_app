@@ -21,6 +21,8 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         app:cardCornerRadius="7dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
@@ -29,7 +31,6 @@
             android:id="@+id/searchview_list2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
             android:iconifiedByDefault="false" />
 
     </androidx.cardview.widget.CardView>

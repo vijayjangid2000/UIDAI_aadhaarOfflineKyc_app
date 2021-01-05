@@ -29,7 +29,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_margin="30dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="15dp"
             card_view:cardCornerRadius="5dp">
 
             <LinearLayout
@@ -112,6 +114,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:padding="5dp"
+                    android:textSize="13sp"
                     android:text="We will send you an OTP for verification"
                     android:textAlignment="center"
                     android:textColor="#4fa5d5"
@@ -124,6 +127,7 @@
                     android:layout_margin="10dp"
                     android:checkMark="@drawable/ic_electricity_bill"
                     android:checked="true"
+                    android:textSize="11sp"
                     android:fontFamily="@font/convergence"
                     android:text="By clicking Sign Up, You agree to our Terms and Conditions"
                     android:textAlignment="center"
@@ -134,7 +138,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
                     android:background="@drawable/rounded_shape_2"
                     android:paddingLeft="20dp"

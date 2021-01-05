@@ -14,6 +14,10 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import maes.tech.intentanim.CustomIntent;
+
+import static maes.tech.intentanim.CustomIntent.customType;
+
 public class DthRecharge extends AppCompatActivity {
 
     Button btn_proceed;
@@ -29,6 +33,7 @@ public class DthRecharge extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.ic_cross_close2);
 
 
         tvbOperatorName = findViewById(R.id.d2h_tv);
@@ -53,6 +58,7 @@ public class DthRecharge extends AppCompatActivity {
                 intent.putExtra("IMAGES_ALSO", false);
 
                 startActivity(intent);
+                customType(DthRecharge.this, "bottom-to-up");
 
             }
         });
@@ -65,5 +71,10 @@ public class DthRecharge extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+        CustomIntent.customType(this, "fadein-to-fadeout");
+    }
 
 }

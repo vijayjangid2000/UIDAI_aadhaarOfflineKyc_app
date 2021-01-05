@@ -20,6 +20,8 @@ import androidx.appcompat.widget.Toolbar;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static maes.tech.intentanim.CustomIntent.customType;
+
 public class z_selOperatorRecharge extends AppCompatActivity {
 
     // add operator , separated by comma with two spaces
@@ -213,6 +215,7 @@ public class z_selOperatorRecharge extends AppCompatActivity {
                         intent.putExtra("MESSAGE", listOperators.get(temp) + " - "
                                 + arrayList.get(position));
                         setResult(99, intent);
+                        customType(z_selOperatorRecharge.this, "bottom-to-up");
                         finish();
                     }
                 });
