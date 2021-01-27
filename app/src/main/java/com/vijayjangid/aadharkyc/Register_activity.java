@@ -333,10 +333,6 @@ public class Register_activity extends AppCompatActivity {
         queue.add(jsonObjReq);
     }
 
-
-
-
-
     /* NOT EDITABLE METHODS BELOW */
 
     boolean isAllDataInvalid() {

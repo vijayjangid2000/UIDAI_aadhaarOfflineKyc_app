@@ -141,18 +141,25 @@ public class Kyc extends AppCompatActivity {
     void getZipFile() {
 
         if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                == PackageManager.PERMISSION_DENIED) {
+                == PackageManager.PERMISSION_DENIED ||
+                checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_DENIED) {
             Toast.makeText(Kyc.this, "Please Allow to use storage"
                     , Toast.LENGTH_LONG).show();
             askStoragePermission();
             return;
         }
 
-        File file = new File(Environment.getExternalStorageDirectory() + "/"
-                + Environment.DIRECTORY_DOWNLOADS);
+        String path = getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getAbsolutePath();
+        path = "storage/emulated/0/Download";
+        File file = new File(path);
         File[] array = file.listFiles();
         String old = "";
         boolean found = false;
+
+        if (array == null) {
+            tv_status.setText("Please download the file first");
+        }
 
         for (File value : array) {
             if (value.getName().contains("offlineaadhaar")
@@ -168,7 +175,7 @@ public class Kyc extends AppCompatActivity {
             tv_status.setText("Document Found:\n" + file.getAbsolutePath());
             tv_status.setTextColor(Color.parseColor("#487E0A"));
         } else {
-            tv_status.setText("Please download the file");
+            tv_status.setText("Please download the file + " + file.getAbsolutePath());
             tv_status.setTextColor(Color.RED);
         }
 
@@ -221,6 +228,7 @@ public class Kyc extends AppCompatActivity {
             File folderUnzipped = new File(zipFilePath.getParent() + "/" + zipFilePath.getName().split("\\.")[0]);
             if (folderUnzipped.exists()) recursiveDelete(folderUnzipped);
         } catch (Exception ignored) {
+
         }
 
         // if not extracted then unzipping here
@@ -237,7 +245,7 @@ public class Kyc extends AppCompatActivity {
             if (filesInsideFolder.length != 0) fileObj_certificate = filesInsideFolder[0];
             tv_status.setText("Successfully unzipped");
         } catch (Exception e) {
-            tv_status.setText(unzipErrorStatement);
+            tv_status.setText(unzipErrorStatement + " " + e.getMessage());
             return;
         }
 
@@ -458,6 +466,12 @@ public class Kyc extends AppCompatActivity {
                 == PackageManager.PERMISSION_DENIED) {
             String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
             requestPermissions(permissions, 1);
+        }
+
+        if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_DENIED) {
+            String[] permissions = {Manifest.permission.READ_EXTERNAL_STORAGE};
+            requestPermissions(permissions, 2);
         }
     }
 
