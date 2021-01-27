@@ -19,19 +19,12 @@
         <item
             android:id="@+id/nav_transaction_history"
             android:icon="@drawable/ic_clock"
-            android:title="Transaction History" />
+            android:title="Transactions" />
 
         <item
-            android:id="@+id/nav_pay_reminders"
-            android:icon="@drawable/ic_paymen_reminder"
-            android:iconTint="@color/colorPrimaryDark"
-            android:title="Reminders" />
-
-        <item
-            android:id="@+id/nav_help_support"
-            android:icon="@drawable/ic_phone_number"
-            android:title="Help &amp; Support" />
-
+            android:id="@+id/nav_reward"
+            android:icon="@drawable/ic_reward"
+            android:title="Rewards" />
 
     </group>
 </menu>

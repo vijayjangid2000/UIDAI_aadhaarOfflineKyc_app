@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Add_money_activity">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <include
+                android:id="@+id/toolbar"
+                layout="@layout/toolbar_custom"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/optionUpi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/design_btn_blue"
+                    android:gravity="center"
+                    android:padding="7dp"
+                    android:text="UPI"
+                    android:textColor="@color/white"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/optionCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_textview_thin"
+                    android:gravity="center"
+                    android:padding="7dp"
+                    android:text="Payment Gateway"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <TextView style="@style/LineTextView"></TextView>
+
+            <LinearLayout
+                android:id="@+id/upiLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/border_textview_thin"
+                android:orientation="vertical"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/phoneEtL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:hint="Amount"
+                    app:errorEnabled="true"
+                    app:startIconDrawable="@drawable/ic_rupee_symbol">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/addFund_Et"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:defaultFocusHighlightEnabled="false"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:textCursorDrawable="@drawable/cursor_style" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/upiHolderNameL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:hint="Payee Virtual Address"
+                    app:errorEnabled="true"
+                    app:startIconDrawable="@drawable/ic_fullname">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/upiHolderName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:defaultFocusHighlightEnabled="false"
+                        android:inputType="text"
+                        android:textCursorDrawable="@drawable/cursor_style" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/cardLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="15dp"
+                android:background="@drawable/border_textview_thin_grey2"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="10dp"
+                    android:text="ENTER YOUR CARD DETAILS" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_cardNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_textview_thin_grey"
+                        android:digits="0123456789-"
+                        android:ems="10"
+                        android:hint="Card number"
+                        android:inputType="number"
+                        android:maxLength="19"
+                        android:maxLines="1"
+                        android:paddingLeft="10dp" />
+
+                    <ImageView
+                        android:id="@+id/iv_cardImage"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        tools:srcCompat="@tools:sample/avatars" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:paddingLeft="10dp"
+                        android:text="Expiry / Validity Date" />
+
+                    <TextView
+                        android:id="@+id/textView24"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Help?    "
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/et_mmyy"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="50dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_textview_thin_grey"
+                        android:ems="10"
+                        android:hint="MM/YY"
+                        android:inputType="numberSigned"
+                        android:maxLength="5"
+                        android:paddingLeft="10dp" />
+
+                    <EditText
+                        android:id="@+id/et_cvv"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                        android:layout_margin="10dp"
+                        android:layout_weight="2"
+                        android:background="@drawable/border_textview_thin_grey"
+                        android:ems="10"
+                        android:hint="CVV"
+                        android:inputType="numberSigned"
+                        android:maxLength="3"
+                        android:paddingLeft="10dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <CheckBox
+                android:id="@+id/checkBox_saveCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Save this card for faster payments" />
+
+            <Button
+                android:id="@+id/btn_startPayment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@drawable/design_btn_blue"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="Start Payment"
+                android:textColor="@color/white"
+                android:textStyle="bold">
+
+            </Button>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:alpha="0.8"
+                android:gravity="center"
+                android:text="Zero Charges to add money using UPI" />
+
+            <TextView style="@style/LineTextView" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:alpha="0.8"
+                android:gravity="center"
+                android:text="Topup between ₹ 100 to ₹ 2,00,000 in a single transaction." />
+
+            <TextView style="@style/LineTextView" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:alpha="0.8"
+                android:gravity="center"
+                android:text="Pending / Timeout transactions may take upto 2 working days to reflect in your account " />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

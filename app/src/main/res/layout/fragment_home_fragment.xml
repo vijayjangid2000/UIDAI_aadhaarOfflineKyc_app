@@ -7,12 +7,15 @@
     tools:context=".Home_fragment">
 
     <ScrollView
+        android:id="@+id/homescrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
@@ -21,32 +24,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/viewpagerHome"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/viewPagerAddMoney"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp">
-
-            </androidx.viewpager2.widget.ViewPager2>
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tablayout"
-                android:layout_width="100dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                app:tabBackground="@drawable/indicator_selector"
-                app:tabIndicatorHeight="0dp" />
+                android:layout_marginRight="10dp" />
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="@drawable/gradient_blue_rounded"
+                android:background="@drawable/gradient_home_purple"
                 android:orientation="vertical">
 
                 <TextView
@@ -71,6 +62,7 @@
                         android:id="@+id/shortcut_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
                         android:orientation="horizontal"
                         android:padding="5dp">
 
@@ -86,16 +78,16 @@
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
                                 android:padding="15dp"
-                                android:tint="#E6E6E6"
-                                app:srcCompat="@drawable/ic_scan_pay" />
+                                android:tint="#E2EDF3"
+                                app:srcCompat="@drawable/aeps" />
 
                             <TextView
                                 android:id="@+id/scanpay_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="Scan &amp; Pay"
-                                android:textColor="#14445E"
+                                android:text="AEPS"
+                                android:textColor="@color/white"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
 
@@ -113,17 +105,17 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:padding="15dp"
-                                android:tint="#07438E"
-                                app:srcCompat="@drawable/ic_upi_transfer" />
+                                android:padding="10dp"
+                                android:tint="#E2F0F8"
+                                app:srcCompat="@drawable/ic_dmt" />
 
                             <TextView
                                 android:id="@+id/sendmoney_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="Send Money"
-                                android:textColor="#14445E"
+                                android:text="DMT"
+                                android:textColor="@color/white"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
                         </LinearLayout>
@@ -139,111 +131,19 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
-                                android:padding="15dp"
-                                android:tint="#07438E"
-                                app:srcCompat="@drawable/ic_add_wallet" />
+                                android:padding="5dp"
+                                android:tint="#E2F0F8"
+                                app:srcCompat="@drawable/aadhaarpay" />
 
                             <TextView
                                 android:id="@+id/sendAgain_tv"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
-                                android:text="My Wallet"
-                                android:textColor="#14445E"
+                                android:text="Aadhaar Pay"
+                                android:textColor="@color/white"
                                 android:textSize="12sp"
                                 android:textStyle="bold" />
-                        </LinearLayout>
-
-                    </LinearLayout>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:padding="5dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:padding="15dp"
-                                android:tint="#07438E"
-                                app:srcCompat="@drawable/ic_upi_transfer" />
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Send Money"
-                                android:textColor="#14445E"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <ImageView
-
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:padding="15dp"
-                                android:tint="#07438E"
-                                app:srcCompat="@drawable/ic_add_wallet" />
-
-                            <TextView
-
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="My Wallet"
-                                android:textColor="#14445E"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="80dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <ImageView
-
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:padding="15dp"
-                                android:tint="#E6E6E6"
-                                app:srcCompat="@drawable/ic_scan_pay" />
-
-                            <TextView
-
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:text="Scan &amp; Pay"
-                                android:textColor="#14445E"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
-
-
                         </LinearLayout>
 
                     </LinearLayout>
@@ -252,10 +152,13 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/rechargelll"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/gradient_blue_rounded"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/gradient_home_purple"
                 android:orientation="vertical">
 
                 <TextView
@@ -309,7 +212,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Recharge"
-                            android:textColor="#123C52"
+                            android:textColor="@color/white"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -343,7 +246,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Electricity"
-                            android:textColor="#123C52"
+                            android:textColor="@color/white"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -377,7 +280,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Water"
-                            android:textColor="#123C52"
+                            android:textColor="@color/white"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -412,7 +315,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Insurance"
-                            android:textColor="#123C52"
+                            android:textColor="@color/white"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -461,7 +364,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="DTH"
-                            android:textColor="#123C52"
+                            android:textColor="@color/white"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -496,7 +399,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="LandLine"
-                            android:textColor="#123C52"
+                            android:textColor="@color/white"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -531,7 +434,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Gas"
-                            android:textColor="#123C52"
+                            android:textColor="@color/white"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -566,22 +469,9 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Data Card"
-                            android:textColor="#123C52"
+                            android:textColor="@color/white"
                             android:textSize="12sp" />
                     </LinearLayout>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal"
-                    android:padding="10dp"
-                    tools:layout_editor_absoluteX="10dp"
-                    tools:layout_editor_absoluteY="291dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -615,266 +505,76 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="FASTag"
-                            android:textColor="#123C52"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            app:cardBackgroundColor="#E1F4FE"
-                            app:cardCornerRadius="7dp">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:padding="10dp"
-                                android:src="@drawable/ic_gas_cylinder"
-                                android:tint="#07438E" />
-
-                        </androidx.cardview.widget.CardView>
-
-                        <TextView
-
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Book Gas"
-                            android:textColor="#123C52"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            app:cardBackgroundColor="#E1F4FE"
-                            app:cardCornerRadius="7dp">
-
-                            <ImageView
-
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:padding="10dp"
-                                android:src="@drawable/ic_dth_recharge"
-                                android:tint="#07438E" />
-
-                        </androidx.cardview.widget.CardView>
-
-                        <TextView
-
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Credit"
-                            android:textColor="#123C52"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            app:cardBackgroundColor="#E1F4FE"
-                            app:cardCornerRadius="7dp">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:padding="10dp"
-                                android:src="@drawable/ic_datacard_rechage" />
-
-                        </androidx.cardview.widget.CardView>
-
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Data Card"
-                            android:textColor="#123C52"
+                            android:textColor="@color/white"
                             android:textSize="12sp" />
                     </LinearLayout>
 
                 </LinearLayout>
 
-                <LinearLayout
 
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+            </LinearLayout>
+
+            <TextView style="@style/LineTextView" />
+
+            <LinearLayout
+                android:id="@+id/invitelll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:gravity="center"
+                android:padding="15dp">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="40dp"
+                    android:layout_height="50dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal"
-                    android:padding="10dp"
-                    tools:layout_editor_absoluteX="10dp"
-                    tools:layout_editor_absoluteY="291dp">
+                    app:srcCompat="@drawable/ic_loud_speaker" />
 
-                    <LinearLayout
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView31"
                         android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:alpha="0.6"
+                        android:paddingLeft="10dp"
+                        android:text="Invite your friends" />
 
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            app:cardBackgroundColor="#E1F4FE"
-                            app:cardCornerRadius="7dp">
-
-                            <ImageView
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:padding="10dp"
-                                android:src="@drawable/ic_dth_recharge"
-                                android:tint="#07438E" />
-
-                        </androidx.cardview.widget.CardView>
-
-                        <TextView
-
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="DTH"
-                            android:textColor="#123C52"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            app:cardBackgroundColor="#E1F4FE"
-                            app:cardCornerRadius="7dp">
-
-                            <ImageView
-
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:padding="10dp"
-                                android:src="@drawable/ic_telephonebill"
-                                android:tint="#07438E" />
-
-                        </androidx.cardview.widget.CardView>
-
-                        <TextView
-
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="LandLine"
-                            android:textColor="#123C52"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            app:cardBackgroundColor="#E1F4FE"
-                            app:cardCornerRadius="7dp">
-
-                            <ImageView
-
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:padding="10dp"
-                                android:src="@drawable/ic_gas_cylinder"
-                                android:tint="#07438E" />
-
-                        </androidx.cardview.widget.CardView>
-
-                        <TextView
-
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Gas"
-                            android:textColor="#123C52"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            app:cardBackgroundColor="#E1F4FE"
-                            app:cardCornerRadius="7dp">
-
-                            <ImageView
-
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:padding="10dp"
-                                android:src="@drawable/ic_datacard_rechage"
-                                android:tint="#07438E" />
-
-                        </androidx.cardview.widget.CardView>
-
-                        <TextView
-
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Data Card"
-                            android:textColor="#123C52"
-                            android:textSize="12sp" />
-                    </LinearLayout>
+                    <TextView
+                        android:id="@+id/shareCodeFragment"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:drawableRight="@drawable/ic_copy"
+                        android:gravity="center"
+                        android:text="gddl8d   "
+                        android:textAlignment="textEnd"
+                        android:textColor="@color/colorPrimary"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/btn_inviteFragment"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/border_textview_thin"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="5dp"
+                    android:text="Invite"
+                    android:textColor="#595858" />
             </LinearLayout>
 
         </LinearLayout>

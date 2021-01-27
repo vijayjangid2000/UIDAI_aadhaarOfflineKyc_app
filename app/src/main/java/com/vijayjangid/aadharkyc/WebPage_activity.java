@@ -154,8 +154,6 @@ public class WebPage_activity extends AppCompatActivity {
 
     }
 
-
-
     /*here is the code I tried to download the zip file
     * I think the file is generated at runtime in javascript
     * and I found that this is called blob file

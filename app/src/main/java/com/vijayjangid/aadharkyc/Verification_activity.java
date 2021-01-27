@@ -1,6 +1,9 @@
 package com.vijayjangid.aadharkyc;
 
+import android.Manifest;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -336,4 +339,49 @@ public class Verification_activity extends AppCompatActivity {
 
         return createdHashCode.equals(SHA256);
     }
+
+    void browseFiles() {
+
+        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_DENIED) {
+            Toast.makeText(this, "Please Allow to use storage"
+                    , Toast.LENGTH_LONG).show();
+            askStoragePermission();
+            return;
+        }
+
+        Intent browseIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        browseIntent.setType("application/zip");
+        //browseIntent.setType("*/*");
+        startActivityForResult(browseIntent, 10);
+    }
+
+    public void askStoragePermission() {
+        if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_DENIED) {
+            String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+            requestPermissions(permissions, 1);
+        }
+    }
+
+    /*void onFileSelected(int requestCode, int resultCode, @Nullable Intent data) {
+        String path = getPath(data.getData());
+        String testingPath = Environment.getExternalStorageDirectory() + "/"
+                + Environment.DIRECTORY_DOWNLOADS + "/" + "offlineaadhaar20210123013523099.zip";
+        //tv_status.setText(testingPath);
+        File file = new File(path);
+        zipFileObject = file;
+
+        if (!file.getName().contains(".zip")) {
+            tv_status.setText("Please select valid document file for verification " + file.getAbsolutePath());
+            tv_status.setTextColor(Color.RED);
+            btn_verifyNow.setEnabled(true);
+        } else {
+            tv_status.setText("Document Found:\n" + file.getAbsolutePath());
+            tv_status.setTextColor(Color.parseColor("#487E0A"));
+            btn_verifyNow.setEnabled(true);
+        }
+
+        ll_afterBrowse.setVisibility(View.VISIBLE);
+    }*/
 }

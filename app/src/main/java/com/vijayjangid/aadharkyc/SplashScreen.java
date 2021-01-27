@@ -49,7 +49,7 @@ public class SplashScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         startActivity(new Intent(this, HomePage_activity.class));
-        authenticateApp();
+        //authenticateApp();
         checkLocation();
 
         // make the activity on full screen

@@ -5,26 +5,21 @@
 
     <group android:checkableBehavior="single">
 
-    <item
+       <!-- <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
-            android:title="Home" />
-
-
-        <item
-            android:id="@+id/nav_addFund"
-            android:icon="@drawable/ic_wallet"
-            android:title="Add Fund" />
+            android:title="Home" />-->
 
         <item
-            android:id="@+id/nav_security"
-            android:icon="@drawable/ic_secure_payment"
-            android:title="Security" />
+            android:id="@+id/nav_my_profile"
+            android:icon="@drawable/ic_user_profile"
+            android:title="My Profile" />
 
         <item
             android:id="@+id/nav_change_password"
             android:icon="@drawable/ic_key"
             android:title="Change Password" />
+
 
         <item
             android:id="@+id/nav_rate_us"
@@ -32,8 +27,14 @@
             android:title="Rate Us" />
 
         <item
+            android:id="@+id/nav_help_support"
+            android:icon="@drawable/ic_phone_number"
+            android:title="Help &amp; Support" />
+
+        <item
             android:id="@+id/nav_exit"
             android:icon="@drawable/ic_exit"
             android:title="Exit" />
+
     </group>
 </menu>

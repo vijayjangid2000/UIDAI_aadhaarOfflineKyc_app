@@ -9,40 +9,53 @@
     tools:openDrawer="start">
 
     <LinearLayout
+        android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.appcompat.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#054B75"
+            android:background="@drawable/btn_gradient_style_pointed"
             android:elevation="5dp"
-            android:layoutDirection="rtl"
+            android:layoutDirection="ltr"
             android:theme="@style/ThemeOverlay.MaterialComponents.Dark">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
                 android:gravity="center"
                 android:orientation="horizontal">
-
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#054B75"
-                    android:src="@drawable/ic_scan_pay"
-                    android:tint="@color/white"></ImageButton>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:paddingLeft="10dp"
+                    android:paddingStart="10dp"
                     android:text="OI Payments"
                     android:textAlignment="textStart"
-                    android:textSize="22sp"></TextView>
+                    android:textSize="22sp" />
+
+                <ImageButton
+                    android:id="@+id/ivb_notification"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginRight="20dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_notification"
+                    android:tint="@color/white"></ImageButton>
+
+
+                <ImageButton
+                    android:id="@+id/ivb_scanner"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@android:color/transparent"
+                    android:src="@drawable/ic_scan_pay"
+                    android:tint="@color/white"></ImageButton>
 
             </LinearLayout>
 
@@ -51,28 +64,54 @@
         <FrameLayout
             android:id="@+id/fragment_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"></FrameLayout>
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigationView"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@drawable/gradient_blue"
+
             app:menu="@menu/bottom_drawer" />
 
     </LinearLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="match_parent"
         android:layout_gravity="left"
+        android:background="@drawable/bg_gradient_style"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/home_nav_header"
-        app:itemTextColor="#000000"
         app:itemIconTint="#29536A"
+
+        app:itemTextColor="@color/white"
         app:menu="@menu/home_drawer">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Version 12.0"
+
+                android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="OI Lab"
+                android:textStyle="bold" />
+        </LinearLayout>
+
     </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>

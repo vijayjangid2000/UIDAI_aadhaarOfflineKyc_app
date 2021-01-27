@@ -24,7 +24,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
-        <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        <androidx.cardview.widget.CardView
             android:id="@+id/card_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginTop="30dp"
             android:layout_marginRight="15dp"
-            card_view:cardCornerRadius="5dp">
+            app:cardCornerRadius="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -58,12 +58,12 @@
                         android:layout_height="wrap_content"
                         android:defaultFocusHighlightEnabled="false"
                         android:inputType="textPersonName|textVisiblePassword"
-                        android:maxLength="26"
+                        android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                        android:maxLength="50"
                         android:maxLines="1"
                         android:textCursorDrawable="@drawable/cursor_style" />
 
                 </com.google.android.material.textfield.TextInputLayout>
-
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/mobileREtL"
@@ -82,8 +82,31 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:defaultFocusHighlightEnabled="false"
+                        android:digits="1234567890"
                         android:inputType="number|textVisiblePassword"
                         android:maxLength="10"
+                        android:textCursorDrawable="@drawable/cursor_style" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/emailREtL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email"
+                    app:endIconMode="custom"
+                    app:hintTextColor="@color/colorPrimary"
+                    app:startIconDrawable="@drawable/ic_email">
+
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/emailREt"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:defaultFocusHighlightEnabled="false"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="100"
                         android:textCursorDrawable="@drawable/cursor_style" />
 
                 </com.google.android.material.textfield.TextInputLayout>
@@ -103,7 +126,7 @@
                         android:layout_height="wrap_content"
                         android:defaultFocusHighlightEnabled="false"
                         android:inputType="textPassword"
-                        android:maxLength="100"
+                        android:maxLength="15"
                         android:textCursorDrawable="@drawable/cursor_style" />
 
                 </com.google.android.material.textfield.TextInputLayout>

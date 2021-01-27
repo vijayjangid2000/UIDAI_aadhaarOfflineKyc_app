@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30
 
     viewBinding{
         enabled = true
@@ -11,11 +11,15 @@ android {
     defaultConfig {
         applicationId "com.vijayjangid.aadharkyc"
         minSdkVersion 26
-        targetSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 
     buildTypes {
@@ -28,11 +32,14 @@ android {
 }
 
 dependencies {
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.viewpager:viewpager:1.0.0'
+    implementation 'androidx.gridlayout:gridlayout:1.0.0'
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
@@ -47,16 +54,16 @@ dependencies {
     implementation 'com.gemalto.jp2:jp2-android:1.0'
 
     // material design
-    implementation 'com.google.android.material:material:1.3.0-beta01'
+    implementation 'com.google.android.material:material:1.3.0-rc01'
 
     // digital signature
-    implementation group: 'org.apache.santuario', name: 'xmlsec', version: '2.0.4'
+    implementation group: 'org.apache.santuario', name: 'xmlsec', version: '2.2.1'
 
     // Import the BoM for the Firebase platform
     implementation platform('com.google.firebase:firebase-bom:26.1.1')
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
-    implementation 'com.google.firebase:firebase-auth:20.0.1'
-    implementation 'com.github.jumadeveloper:networkmanager:0.0.2'
+    implementation 'com.google.firebase:firebase-auth:20.0.2'
+
     implementation "androidx.cardview:cardview:1.0.0"
     implementation 'com.google.android.play:core:1.9.0'
     implementation 'com.google.firebase:firebase-analytics'
@@ -64,10 +71,34 @@ dependencies {
     implementation "androidx.viewpager2:viewpager2:1.0.0"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
+    /* if no internet then it helps to shows alert*/
+    implementation 'com.github.jumadeveloper:networkmanager:0.0.2'
+
+    /* these are for intent animations*/
     implementation 'com.github.hajiyevelnur92:intentanimation:1.0'
     implementation 'com.labo.kaji:fragmentanimations:0.1.1'
 
+    /* for otp authentication*/
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
     implementation 'com.google.android.gms:play-services-auth-api-phone:17.5.0'
+
+    /*Qr code scanner from github*/
+    implementation 'com.google.android.gms:play-services-vision:20.1.3'
+    implementation 'com.budiyev.android:code-scanner:2.1.0'
+
+    /* for showing instructions when user use app for first time*/
+    implementation 'com.github.mreram:ShowCaseView:1.0.5'
+
+    /* for saving objects of classes in shared preferences as json */
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    /*phone number identifier for SMS retriever */
+    implementation 'com.google.android.gms:play-services-base:17.5.0'
+    implementation 'com.google.android.gms:play-services-identity:17.0.0'
+
+    /* for scratch view in reward screen */
+    implementation 'com.github.cooltechworks:ScratchView:v1.1'
+
+    implementation 'com.android.volley:volley:1.0.0'
 
 }

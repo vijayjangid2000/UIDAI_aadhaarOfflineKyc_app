@@ -1,36 +1,54 @@
 package com.vijayjangid.aadharkyc;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.content.pm.PackageManager;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Point;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.os.Bundle;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.ItemTouchHelper;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.progressindicator.CircularProgressIndicator;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 import com.vijayjangid.aadharkyc.databinding.FragmentHomeFragmentBinding;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
+import java.util.Queue;
+
+import smartdevelop.ir.eram.showcaseviewlib.GuideView;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static maes.tech.intentanim.CustomIntent.customType;
+
 
 public class Home_fragment extends Fragment
         implements View.OnClickListener {
@@ -41,22 +59,74 @@ public class Home_fragment extends Fragment
             iv_prepaid, iv_electricity, iv_water, iv_insurance,
             iv_landLine, iv_postpaid, iv_dth, iv_dataCard, iv_fasTag;
 
+    static View root2;
     TextView tv_scanPay, tv_sendMoney, tv_sendAgain,
             tv_prepaid, tv_electricity, tv_water, tv_insurance,
-            tv_landLine, tv_postpaid, tv_dth, tv_dataCard, tv_fasTag;
+            tv_landLine, tv_postpaid, tv_dth, tv_dataCard, tv_fasTag, tv_shareCode,
+            tvb_shareCode;
+    RecyclerView recyclerView;
 
-    ViewPager2 viewPager2;
-    TabLayout tabLayout;
     Animation animation;
+    ScrollView scrollView;
+    View root;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
         fragmentHomeFragmentBinding = FragmentHomeFragmentBinding.inflate(getLayoutInflater());
-        View root = fragmentHomeFragmentBinding.getRoot();
+        root = fragmentHomeFragmentBinding.getRoot();
+        root2 = fragmentHomeFragmentBinding.getRoot();
 
-        // setting id's for views here
+        idAndListeners();
+        newFeature();
+
+        //ShowIntro("Scan to pay", "Scan any QR code to pay", R.id.scanpay_iv, 1);
+
+
+        return root;
+    }
+
+    private void ShowIntro(String title, String text, int viewId, final int type) {
+
+        new GuideView.Builder(getContext())
+                .setTitle(title)
+                .setContentText(text)
+                .setTargetView(root.findViewById(viewId))
+                .setContentTextSize(12)//optional
+                .setTitleTextSize(14)//optional
+                .setDismissType(GuideView.DismissType.anywhere) //optional - default dismissible by TargetView
+                .setGuideListener(new GuideView.GuideListener() {
+                    @Override
+                    public void onDismiss(View view) {
+
+                        if (type == 1) {
+                            ShowIntro("Pay", "Send money to friends using UPI", R.id.sendmoney_iv, 2);
+                        } else if (type == 2) {
+                            ShowIntro("Wallet", "Manage your wallet", R.id.sendagain_iv, 3);
+                        } else if (type == 3) {
+                            ShowIntro("Pay from home", "Recharge and pay your bills from home", R.id.rechargelll, 4);
+                        } else if (type == 4) {
+                            scrollView.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    scrollView.scrollTo(0, root.findViewById(R.id.invitelll).getBottom());
+                                }
+                            });
+
+                            ShowIntro("Share", "Invite your friends and earn when they send their first payment", R.id.invitelll, 6);
+                        } else if (type == 6) {
+                            Toast.makeText(getContext(), "Welcome to IOLab", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                })
+                .build()
+                .show();
+    }
+
+    // setting all id and OnClickListeners
+    void idAndListeners() {
 
         iv_scanPay = fragmentHomeFragmentBinding.scanpayIv;
         iv_sendMoney = fragmentHomeFragmentBinding.sendmoneyIv;
@@ -83,8 +153,10 @@ public class Home_fragment extends Fragment
         tv_dth = fragmentHomeFragmentBinding.dthTv;
         tv_dataCard = fragmentHomeFragmentBinding.datacardTv;
         tv_fasTag = fragmentHomeFragmentBinding.fastagTv;
-        viewPager2 = fragmentHomeFragmentBinding.viewpagerHome;
-        tabLayout = fragmentHomeFragmentBinding.tablayout;
+        recyclerView = fragmentHomeFragmentBinding.viewPagerAddMoney;
+        tv_shareCode = fragmentHomeFragmentBinding.shareCodeFragment;
+        tvb_shareCode = fragmentHomeFragmentBinding.btnInviteFragment;
+        scrollView = fragmentHomeFragmentBinding.homescrollview;
 
         // making animation
         animation = AnimationUtils.loadAnimation(getContext(), R.anim.anim_aplha);
@@ -114,30 +186,93 @@ public class Home_fragment extends Fragment
         tv_dth.setOnClickListener(this);
         tv_dataCard.setOnClickListener(this);
         tv_fasTag.setOnClickListener(this);
+        tvb_shareCode.setOnClickListener(this);
+        tv_shareCode.setOnClickListener(this);
+    }
 
-        ArrayList<String> arrayList = new ArrayList<>();
-        arrayList.add("");
-        arrayList.add("");
-        arrayList.add("");
-        viewPager2.setAdapter(new ViewPagerAdapter(getContext(), arrayList, viewPager2));
+    /* recycler view android */
+    void newFeature() {
 
-        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        ArrayList<RecyclerEntity> arrayList = new ArrayList<>();
+        RecyclerEntity entity = new RecyclerEntity();
+        arrayList.add(entity);
+
+        final RecyclerViewAdapter adapter = new RecyclerViewAdapter(getContext(), arrayList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(adapter);
+
+/*
+        ItemTouchHelper.SimpleCallback touchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            private final ColorDrawable background = new ColorDrawable(Color.LTGRAY);
+
             @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                super.onPageScrolled(position, positionOffset, positionOffsetPixels);
+            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+                return false;
             }
-        });
 
-        TabLayoutMediator tabLayoutMediator1 = new TabLayoutMediator(tabLayout, viewPager2, true, new TabLayoutMediator.TabConfigurationStrategy() {
             @Override
-            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+            public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+                adapter.showMenu(viewHolder.getAdapterPosition());
+            }
+
+            @Override
+            public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+                                    float dX, float dY, int actionState, boolean isCurrentlyActive) {
+
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+
+                View itemView = viewHolder.itemView;
+
+                if (dX > 0) {
+                    background.setBounds(itemView.getLeft(), itemView.getTop(),
+                            itemView.getLeft() + ((int) dX), itemView.getBottom());
+
+                } else if (dX < 0) {
+                    background.setBounds(itemView.getRight() + ((int) dX), itemView.getTop(),
+                            itemView.getRight(), itemView.getBottom());
+
+                } else {
+                    background.setBounds(0, 0, 0, 0);
+                }
+
+                background.draw(c);
+            }
+        };
+        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(touchHelperCallback);
+        itemTouchHelper.attachToRecyclerView(recyclerView);*/
+
+        SwipeHelper swipeHelper = new SwipeHelper(getContext(), recyclerView) {
+            @Override
+            public void instantiateUnderlayButton(RecyclerView.ViewHolder viewHolder, List<UnderlayButton> underlayButtons) {
+
+                underlayButtons.add(new SwipeHelper.UnderlayButton(
+                        "Manage Wallet",
+                        0,
+                        Color.TRANSPARENT,
+                        new SwipeHelper.UnderlayButtonClickListener() {
+                            @Override
+                            public void onClick(int pos) {
+                                startActivity(new Intent(getActivity(), WalletManage.class));
+                            }
+                        }
+                ));
 
             }
-        });
+        };
+    }
 
-        tabLayoutMediator1.attach();
+    boolean checkCameraPermission() {
+        /* calling this method checks if location permission is given or not
+        if not then ask and if yes then skips */
 
-        return root;
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(getActivity(),
+                    new String[]{Manifest.permission.CAMERA}, 1);
+        }
+
+        return ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED;
     }
 
     @Override
@@ -151,14 +286,8 @@ public class Home_fragment extends Fragment
                 iv_scanPay.setAlpha(alphaVal);
                 tv_scanPay.setAlpha(alphaVal);
 
-                try {
-                    Intent intent = new Intent("com.google.zxing.client.android.SCAN");
-                    intent.putExtra("SCAN_MODE", "QR_CODE_MODE"); // "PRODUCT_MODE for bar codes
-                    startActivityForResult(intent, 0);
-                } catch (Exception e) {
-                    Uri marketUri = Uri.parse("market://details?id=com.google.zxing.client.android");
-                    Intent marketIntent = new Intent(Intent.ACTION_VIEW, marketUri);
-                    startActivity(marketIntent);
+                if (!checkCameraPermission()) {
+                    startActivity(new Intent(getActivity(), ScanQrCode.class));
                 }
 
                 break;
@@ -239,46 +368,366 @@ public class Home_fragment extends Fragment
                 iv_fasTag.setAlpha(alphaVal);
                 tv_fasTag.setAlpha(alphaVal);
                 break;
+
+            case R.id.shareCodeFragment:
+                Toast.makeText(getContext(), "Copied to Clipboard", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.btn_inviteFragment:
+                startActivity(new Intent(getContext(), InviteAndEarn.class));
+                break;
         }
     }
 
-    public static class ViewPagerAdapter extends RecyclerView.Adapter<ViewPagerAdapter.ViewHolder> {
+    public abstract static class SwipeHelper extends ItemTouchHelper.SimpleCallback {
 
-        private List<String> mData;
+        public static final int BUTTON_WIDTH = 300;
+        private RecyclerView recyclerView;
+        private List<UnderlayButton> buttons;
+        private GestureDetector gestureDetector;
+        private int swipedPos = -1;
+        private float swipeThreshold = 0.5f;
+        private Map<Integer, List<UnderlayButton>> buttonsBuffer;
+        private Queue<Integer> recoverQueue;
+
+        private GestureDetector.SimpleOnGestureListener gestureListener = new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onSingleTapConfirmed(MotionEvent e) {
+                for (UnderlayButton button : buttons) {
+                    if (button.onClick(e.getX(), e.getY()))
+                        break;
+                }
+                return true;
+            }
+        };
+
+        private View.OnTouchListener onTouchListener = new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent e) {
+                if (swipedPos < 0) return false;
+                Point point = new Point((int) e.getRawX(), (int) e.getRawY());
+
+                RecyclerView.ViewHolder swipedViewHolder = recyclerView.findViewHolderForAdapterPosition(swipedPos);
+                View swipedItem = swipedViewHolder.itemView;
+                Rect rect = new Rect();
+                swipedItem.getGlobalVisibleRect(rect);
+
+                if (e.getAction() == MotionEvent.ACTION_DOWN || e.getAction() == MotionEvent.ACTION_UP
+                        || e.getAction() == MotionEvent.ACTION_MOVE) {
+                    if (rect.top < point.y && rect.bottom > point.y)
+                        gestureDetector.onTouchEvent(e);
+                    else {
+                        recoverQueue.add(swipedPos);
+                        swipedPos = -1;
+                        recoverSwipedItem();
+                    }
+                }
+                return false;
+            }
+        };
+
+        public SwipeHelper(Context context, RecyclerView recyclerView) {
+            super(0, ItemTouchHelper.LEFT);
+            this.recyclerView = recyclerView;
+            this.buttons = new ArrayList<>();
+            this.gestureDetector = new GestureDetector(context, gestureListener);
+            this.recyclerView.setOnTouchListener(onTouchListener);
+            buttonsBuffer = new HashMap<>();
+            recoverQueue = new LinkedList<Integer>() {
+                @Override
+                public boolean add(Integer o) {
+                    if (contains(o))
+                        return false;
+                    else
+                        return super.add(o);
+                }
+            };
+
+            attachSwipe();
+        }
+
+
+        @Override
+        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+            int pos = viewHolder.getAdapterPosition();
+
+            root2.getContext().startActivity(new Intent(root2.getContext(), WalletManage.class));
+
+            if (swipedPos != pos)
+                recoverQueue.add(swipedPos);
+
+            swipedPos = pos;
+
+            if (buttonsBuffer.containsKey(swipedPos))
+                buttons = buttonsBuffer.get(swipedPos);
+            else
+                buttons.clear();
+
+            buttonsBuffer.clear();
+            swipeThreshold = 0.5f * buttons.size() * BUTTON_WIDTH;
+            recoverSwipedItem();
+        }
+
+        @Override
+        public float getSwipeThreshold(RecyclerView.ViewHolder viewHolder) {
+            return swipeThreshold;
+        }
+
+        @Override
+        public float getSwipeEscapeVelocity(float defaultValue) {
+            return 0.1f * defaultValue;
+        }
+
+        @Override
+        public float getSwipeVelocityThreshold(float defaultValue) {
+            return 5.0f * defaultValue;
+        }
+
+        @Override
+        public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+            int pos = viewHolder.getAdapterPosition();
+            float translationX = dX;
+            View itemView = viewHolder.itemView;
+
+            if (pos < 0) {
+                swipedPos = pos;
+                return;
+            }
+
+            if (actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+                if (dX < 0) {
+                    List<UnderlayButton> buffer = new ArrayList<>();
+
+                    if (!buttonsBuffer.containsKey(pos)) {
+                        instantiateUnderlayButton(viewHolder, buffer);
+                        buttonsBuffer.put(pos, buffer);
+                    } else {
+                        buffer = buttonsBuffer.get(pos);
+                    }
+
+                    translationX = dX * buffer.size() * BUTTON_WIDTH / itemView.getWidth();
+                    drawButtons(c, itemView, buffer, pos, translationX);
+                }
+            }
+
+            super.onChildDraw(c, recyclerView, viewHolder, translationX, dY, actionState, isCurrentlyActive);
+        }
+
+        private synchronized void recoverSwipedItem() {
+            while (!recoverQueue.isEmpty()) {
+                int pos = recoverQueue.poll();
+                if (pos > -1) {
+                    recyclerView.getAdapter().notifyItemChanged(pos);
+                }
+            }
+        }
+
+        private void drawButtons(Canvas c, View itemView, List<UnderlayButton> buffer, int pos, float dX) {
+            float right = itemView.getRight();
+            float dButtonWidth = (-1) * dX / buffer.size();
+
+            for (UnderlayButton button : buffer) {
+                float left = right - dButtonWidth;
+                button.onDraw(
+                        c,
+                        new RectF(
+                                left,
+                                itemView.getTop(),
+                                right,
+                                itemView.getBottom()
+                        ),
+                        pos
+                );
+
+                right = left;
+            }
+        }
+
+        public void attachSwipe() {
+            ItemTouchHelper itemTouchHelper = new ItemTouchHelper(this);
+            itemTouchHelper.attachToRecyclerView(recyclerView);
+        }
+
+        public abstract void instantiateUnderlayButton(RecyclerView.ViewHolder viewHolder, List<UnderlayButton> underlayButtons);
+
+        public interface UnderlayButtonClickListener {
+            void onClick(int pos);
+        }
+
+        public class UnderlayButton {
+            private String text;
+            private int imageResId;
+            private int color;
+            private int pos;
+            private RectF clickRegion;
+            private UnderlayButtonClickListener clickListener;
+
+            public UnderlayButton(String text, int imageResId, int color, UnderlayButtonClickListener clickListener) {
+                this.text = text;
+                this.imageResId = imageResId;
+                this.color = color;
+                this.clickListener = clickListener;
+            }
+
+            public boolean onClick(float x, float y) {
+                if (clickRegion != null && clickRegion.contains(x, y)) {
+                    clickListener.onClick(pos);
+                    return true;
+                }
+
+                return false;
+            }
+
+            public void onDraw(Canvas c, RectF rect, int pos) {
+                Paint p = new Paint();
+
+                // Draw background
+                p.setColor(color);
+                c.drawRect(rect, p);
+
+                // Draw Text
+                p.setColor(Color.BLACK);
+                p.setTextSize(36);
+
+                Rect r = new Rect();
+                float cHeight = rect.height();
+                float cWidth = rect.width();
+                p.setTextAlign(Paint.Align.LEFT);
+                p.getTextBounds(text, 0, text.length(), r);
+                float x = cWidth / 2f - r.width() / 2f - r.left;
+                float y = cHeight / 2f + r.height() / 2f - r.bottom;
+                c.drawText(text, rect.left + x, rect.top + y, p);
+
+                clickRegion = rect;
+                this.pos = pos;
+            }
+        }
+    }
+
+    /*public class SwipeController extends ItemTouchHelper.Callback {
+
+
+        @Override
+        public int getMovementFlags(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
+            return makeMovementFlags(0, LEFT | RIGHT);
+        }
+
+        @Override
+        public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
+                              RecyclerView.ViewHolder target) {
+
+            return false;
+        }
+
+        @Override
+        public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
+
+        }
+    }*/
+
+    public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+
+        private List<RecyclerEntity> list;
         private LayoutInflater mInflater;
-        private ViewPager2 viewPager2;
 
-        ViewPagerAdapter(Context context, List<String> data, ViewPager2 viewPager2) {
+        RecyclerViewAdapter(Context context, List<RecyclerEntity> data) {
             this.mInflater = LayoutInflater.from(context);
-            this.mData = data;
-            this.viewPager2 = viewPager2;
+            this.list = data;
         }
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View view = mInflater.inflate(R.layout.layout_viewpager, parent, false);
+            View view = mInflater.inflate(R.layout.listview_wallet_info, parent, false);
             return new ViewHolder(view);
         }
 
-        /*this comes again and again*/
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         }
+
+        /*this comes again and again*/
 
         @Override
         public int getItemCount() {
-            return mData.size();
+            return list.size();
         }
 
+        public void showMenu(int position) {
+            for (int i = 0; i < list.size(); i++) {
+                list.get(i).setShowMenu(false);
+            }
+            list.get(position).setShowMenu(true);
+            notifyDataSetChanged();
+        }
+
+        public boolean isMenuShown() {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).isShowMenu()) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public void closeMenu() {
+            for (int i = 0; i < list.size(); i++) {
+                list.get(i).setShowMenu(false);
+            }
+            notifyDataSetChanged();
+        }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
-
 
             ViewHolder(View itemView) {
                 super(itemView);
                 /*here will be id and on click listeners*/
             }
+        }
+
+    }
+
+    public class RecyclerEntity {
+        private String title;
+        private boolean showMenu = false;
+        private int image;
+
+        public RecyclerEntity() {
+        }
+
+        public RecyclerEntity(String title, int image, boolean showMenu) {
+            this.title = title;
+            this.showMenu = showMenu;
+            this.image = image;
+        }
+
+        public int getImage() {
+            return image;
+        }
+
+        public void setImage(int image) {
+            this.image = image;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public boolean isShowMenu() {
+            return showMenu;
+        }
+
+        public void setShowMenu(boolean showMenu) {
+            this.showMenu = showMenu;
         }
     }
 

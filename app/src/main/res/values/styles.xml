@@ -29,4 +29,9 @@
         <item name="android:background">@drawable/rounded_shape_2</item>
     </style>
 
+
+    <style name="service_box">
+
+    </style>
+
 </resources>

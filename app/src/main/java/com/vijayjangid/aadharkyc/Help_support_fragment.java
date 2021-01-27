@@ -1,63 +1,119 @@
 package com.vijayjangid.aadharkyc;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Help_support_fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class Help_support_fragment extends Fragment {
+public class Help_support_fragment extends AppCompatActivity implements View.OnClickListener {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    View root;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    ImageView ivb_copyWebsite, ivb_copyMail, ivb_copyNumber, ivb_copyLocation,
+            ivb_shareWebsite, ivb_shareMail, ivb_shareNumber, ivb_shareLocation;
 
-    public Help_support_fragment() {
-        // Required empty public constructor
+    TextView tv_email, tv_emailData, tv_location, tv_locationData,
+            tv_website, tv_websiteData, tv_number, tv_numberData;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.fragment_help_support_fragment);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("Get Help");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        toolbar.setNavigationIcon(R.drawable.ic_cross_close2);
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Help_support_fragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Help_support_fragment newInstance(String param1, String param2) {
-        Help_support_fragment fragment = new Help_support_fragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    // for back option in toolbar (left side top)
+    public boolean onOptionsItemSelected(MenuItem item) {
+        onBackPressed();
+        return true;
+    }
+
+    void idAndListeners() {
+
+        ivb_copyWebsite = root.findViewById(R.id.ivb_copyWebsite);
+        ivb_copyMail = root.findViewById(R.id.ivb_copyEmail);
+        ivb_copyNumber = root.findViewById(R.id.ivb_copyCall);
+        ivb_copyLocation = root.findViewById(R.id.ivb_copyLocation);
+
+        ivb_shareWebsite = root.findViewById(R.id.ivb_websiteShare);
+        ivb_shareMail = root.findViewById(R.id.ivb_emailShare);
+        ivb_shareNumber = root.findViewById(R.id.ivb_callShare);
+        ivb_shareLocation = root.findViewById(R.id.ivb_locationShare);
+
+        tv_email = root.findViewById(R.id.tv_email);
+        tv_emailData = root.findViewById(R.id.tv_emailData);
+        tv_location = root.findViewById(R.id.tv_location);
+        tv_locationData = root.findViewById(R.id.tv_locationData);
+        tv_website = root.findViewById(R.id.tv_website);
+        tv_websiteData = root.findViewById(R.id.tv_websiteData);
+        tv_number = root.findViewById(R.id.tv_call);
+        tv_numberData = root.findViewById(R.id.tv_callData);
+
+        ivb_copyWebsite.setOnClickListener(this);
+        ivb_copyMail.setOnClickListener(this);
+        ivb_copyNumber.setOnClickListener(this);
+        ivb_copyLocation.setOnClickListener(this);
+        ivb_shareWebsite.setOnClickListener(this);
+        ivb_shareMail.setOnClickListener(this);
+        ivb_shareNumber.setOnClickListener(this);
+        ivb_shareLocation.setOnClickListener(this);
+        tv_email.setOnClickListener(this);
+        tv_emailData.setOnClickListener(this);
+        tv_location.setOnClickListener(this);
+        tv_locationData.setOnClickListener(this);
+        tv_website.setOnClickListener(this);
+        tv_websiteData.setOnClickListener(this);
+        tv_number.setOnClickListener(this);
+        tv_numberData.setOnClickListener(this);
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.ivb_copyWebsite:
+            case R.id.ivb_copyCall:
+            case R.id.ivb_copyEmail:
+            case R.id.ivb_copyLocation:
+                Toast.makeText(this, "Copied to Clipboard", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.ivb_callShare:
+            case R.id.ivb_emailShare:
+            case R.id.ivb_locationShare:
+            case R.id.ivb_websiteShare:
+                Toast.makeText(this, "Open share via intent", Toast.LENGTH_SHORT).show();
+                break;
+
+            case R.id.tv_email:
+            case R.id.tv_emailData:
+
+            case R.id.tv_location:
+            case R.id.tv_locationData:
+
+
+            case R.id.tv_call:
+            case R.id.tv_callData:
+
+            case R.id.tv_website:
+            case R.id.tv_websiteData:
+                Toast.makeText(this, "Open CustomChromeTab", Toast.LENGTH_SHORT).show();
+                break;
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_help_support_fragment, container, false);
-    }
+
 }

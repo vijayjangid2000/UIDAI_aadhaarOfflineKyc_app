@@ -3,6 +3,6 @@
     android:id="@+id/toolbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#054B75"
+    android:background="@drawable/btn_gradient_style_pointed"
     android:elevation="5dp"
     android:theme="@style/ThemeOverlay.MaterialComponents.Dark"></androidx.appcompat.widget.Toolbar>

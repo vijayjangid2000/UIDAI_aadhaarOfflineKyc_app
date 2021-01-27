@@ -1,13 +1,14 @@
 package com.vijayjangid.aadharkyc;
 
+import android.Manifest;
 import android.app.AlertDialog;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
@@ -22,57 +23,64 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.androidstudy.networkmanager.Monitor;
 import com.androidstudy.networkmanager.Tovuti;
 import com.google.android.gms.auth.api.phone.SmsRetriever;
-import com.google.android.gms.auth.api.phone.SmsRetrieverClient;
-import com.google.android.gms.common.api.CommonStatusCodes;
-import com.google.android.gms.common.api.Status;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.FirebaseTooManyRequestsException;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 
+import org.json.JSONObject;
+
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class Register_activity extends AppCompatActivity {
+import static android.Manifest.permission.READ_PHONE_NUMBERS;
+import static android.Manifest.permission.READ_PHONE_STATE;
+import static android.Manifest.permission.READ_SMS;
 
-    final String TAG = "vijay"; // for log
+public class Register_activity extends AppCompatActivity {
 
     private static final int REQ_USER_CONSENT = 200;
 
-    TextInputEditText etMobileNumber, etPassword, etFullName;
-    TextInputLayout etMobileNumberLayout, etPasswordLayout, etFullNameLayout;
+    TextInputEditText etMobileNumber, etPassword, etFullName, etEmail;
+    TextInputLayout etMobileNumberLayout, etPasswordLayout, etFullNameLayout, etEmailLayout;
     TextInputLayout et_EnterOtp2Layout;  // usage - if user types wrong otp
+    TextInputEditText et_EnterOtp2; // usage - for getting OTP automatically
+    TextView tvb_verifyNow2; // usage textViewButton for automatic registration
     TextView tvRegister;
     Animation animAlpha;
     // Alert Dialog
     AlertDialog dialogView;
     // string data used in registration
-    String mobileNumber, password, fullName, OTP;
+    String mobileNumber, password, fullName, OTP, email;
     // firebase authentication
     private String mVerificationId;
     private PhoneAuthProvider.ForceResendingToken mResendToken;
     private PhoneAuthProvider.OnVerificationStateChangedCallbacks mCallbacks;
 
     SmsBroadcastReceiver smsBroadcastReceiver;
+    boolean isInformationValid;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -87,6 +95,8 @@ public class Register_activity extends AppCompatActivity {
         tvRegister = findViewById(R.id.registerTv);
         etFullName = findViewById(R.id.fullNameREt);
         etFullNameLayout = findViewById(R.id.fullNameREtL);
+        etEmail = findViewById(R.id.emailREt);
+        etEmailLayout = findViewById(R.id.emailREtL);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Sign Up");
@@ -94,21 +104,23 @@ public class Register_activity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
         // setting alpha animations
         animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_aplha);
-
 
         tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 tvRegister.startAnimation(animAlpha);
-                if (checkConnected()) startRegistrationProcess();
+                //if (checkConnected()) startRegistrationProcess();
+                sendRegistrationRequest(null);
             }
         });
 
-        startSmsUserConsent();
-
+        etFullName.setText("Vijay Jangid");
+        etMobileNumber.setText("8952962167");
+        etEmail.setText("jangid84529vijay@gmail.com");
+        etPassword.setText("Vijay84529@");
+        setMobileNumberAutomatically();
     }
 
     void startRegistrationProcess() {
@@ -121,15 +133,7 @@ public class Register_activity extends AppCompatActivity {
          * 5. then we show alertBox where user types otp
          * and after that when verify clicked (& succeeds) we move to next Page*/
 
-        mobileNumber = Objects.requireNonNull(etMobileNumber.getText()).toString().trim();
-        password = Objects.requireNonNull(etPassword.getText()).toString().trim();
-        fullName = Objects.requireNonNull(etFullName.getText()).toString().trim();
-
-        if (mobileNumber.length() != 10 || password.length() < 6 ||
-                (fullName.length() < 5 && !fullName.contains(" "))) {
-            errorCatcherEditText();
-            return;
-        }
+        if (isAllDataInvalid()) return;
 
         showProgressBar(true, "Please wait, Sending OTP");
 
@@ -137,11 +141,8 @@ public class Register_activity extends AppCompatActivity {
 
             @Override
             public void onVerificationCompleted(PhoneAuthCredential credential) {
-                Toast.makeText(Register_activity.this, "Registration Successful"
-                        , Toast.LENGTH_LONG).show();
-                FirebaseAuth.getInstance().getFirebaseAuthSettings()
-                        .setAppVerificationDisabledForTesting(true);
-                signInWithPhoneAuthCredential(null, credential);
+                sendRegistrationRequest(credential);
+                showProgressBar(false, "");
             }
 
             @Override
@@ -152,7 +153,7 @@ public class Register_activity extends AppCompatActivity {
                     Toast.makeText(Register_activity.this, "Invalid Mobile Number",
                             Toast.LENGTH_LONG).show();
                 } else if (e instanceof FirebaseTooManyRequestsException) {
-                    Toast.makeText(Register_activity.this, "Please try again after 30 Minutes",
+                    Toast.makeText(Register_activity.this, "Too many OTP requests, wait for few hours or change number",
                             Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(Register_activity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -171,11 +172,13 @@ public class Register_activity extends AppCompatActivity {
                 dialogView.cancel();
                 showOTPTextBoxAlert();
             }
+
+
         };
 
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
         // below line will disable captcha verification
-        firebaseAuth.getFirebaseAuthSettings().setAppVerificationDisabledForTesting(true);
+        //firebaseAuth.getFirebaseAuthSettings().setAppVerificationDisabledForTesting(true);
         // below code sends OTP on user phone number
         PhoneAuthOptions options =
                 PhoneAuthOptions.newBuilder(firebaseAuth)
@@ -195,9 +198,11 @@ public class Register_activity extends AppCompatActivity {
         final TextInputLayout lt_EnterOtp = view.findViewById(R.id.enterOtpLt);
         et_EnterOtp2Layout = lt_EnterOtp;
         final TextInputEditText et_EnterOtp = view.findViewById(R.id.enterOtpEt);
+        et_EnterOtp2 = et_EnterOtp;
         final CircularProgressIndicator loader_otpView = view.findViewById(R.id.otp_progress_bar);
         cancelOtp_Tvb = view.findViewById(R.id.cancelOtp_Tvb);
         tvb_verifyNow = view.findViewById(R.id.verifyNow_tvb);
+        tvb_verifyNow2 = tvb_verifyNow;
         otp_message_tv = view.findViewById(R.id.otp_message_tv);
         loader_otpView.setVisibility(View.GONE);
 
@@ -268,24 +273,88 @@ public class Register_activity extends AppCompatActivity {
 
         // this is final sign In using credentials
         FirebaseAuth.getInstance().signInWithCredential(credential)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
+                .addOnCompleteListener(this, task -> {
 
-                        if (task.isSuccessful()) {
-                            dialogView.hide();
-                            startActivity(new Intent(Register_activity.this, HomePage_activity.class));
-                            finish();
-                        } else {
-                            if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
-                                et_EnterOtp2Layout.setError("OTP is incorrect, try again");
-                                if (loader_otpView != null) loader_otpView.setVisibility(View.GONE);
-                                ;
-                            }
+                    if (task.isSuccessful()) {
+                        dialogView.hide();
+                        startActivity(new Intent(Register_activity.this, HomePage_activity.class));
+                        finish();
+                    } else {
+                        if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
+                            et_EnterOtp2Layout.setError("OTP is incorrect, try again");
+                            if (loader_otpView != null) loader_otpView.setVisibility(View.GONE);
                         }
                     }
                 });
     }
+
+    public void sendRegistrationRequest(PhoneAuthCredential credential) {
+
+        if (isAllDataInvalid()) return;
+
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        String baseUrl = "https://prod.excelonestopsolution.com/";
+        String registrationUrl = "mobileapp/api/registration";
+
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.POST, baseUrl + registrationUrl, null,
+                (Response.Listener<JSONObject>) response -> {
+                    if (response.toString().contains("Registration Successful")) {
+                        Toast.makeText(Register_activity.this, "Registration Successful"
+                                , Toast.LENGTH_LONG).show();
+                        //signInWithPhoneAuthCredential(null, credential);
+                    } else {
+                        Toast.makeText(this, "Something went wrong, please try again later", Toast.LENGTH_SHORT).show();
+                    }
+
+                    TextView textview = findViewById(R.id.textView3);
+                    textview.setText(response.toString());
+                },
+                error -> {
+
+                    TextView textview = findViewById(R.id.textView3);
+                    textview.setText(error.getMessage());
+
+                }) {
+
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("name", fullName);
+                params.put("mobile", mobileNumber);
+                params.put("password", password);
+                params.put("confirm_password", password);
+                params.put("email", email);
+
+                return params;
+            }
+        };
+
+        queue.add(jsonObjReq);
+    }
+
+
+
+
+
+    /* NOT EDITABLE METHODS BELOW */
+
+    boolean isAllDataInvalid() {
+
+        mobileNumber = Objects.requireNonNull(etMobileNumber.getText()).toString().trim();
+        password = Objects.requireNonNull(etPassword.getText()).toString().trim();
+        fullName = Objects.requireNonNull(etFullName.getText()).toString().trim();
+        email = Objects.requireNonNull(etFullName.getText()).toString().trim();
+
+        if (mobileNumber.length() != 10 || password.length() < 8 || password.length() > 15 ||
+                fullName.length() < 5 || fullName.length() > 50) {
+            errorCatcherEditText();
+            return true;
+        }
+
+        return false;
+    }
+
 
     // this checks mobile, password typed correctly
     // (not connected with authentication at all)
@@ -297,7 +366,7 @@ public class Register_activity extends AppCompatActivity {
             etFullNameLayout.setError("Please enter valid name");
         } else if (mobileNumber.length() != 10) {
             etMobileNumberLayout.setError("Invalid Mobile Number");
-        } else if (password.length() < 6) {
+        } else if (password.length() < 8) {
             etPasswordLayout.setError("Minimum 6 characters");
         }
 
@@ -315,7 +384,7 @@ public class Register_activity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 password = Objects.requireNonNull(etPassword.getText()).toString().trim();
-                if (password.length() < 6) etPasswordLayout.setError("Minimum 6 characters");
+                if (password.length() < 8) etPasswordLayout.setError("Minimum 8 characters");
                 else etPasswordLayout.setError(null);
             }
         });
@@ -360,6 +429,26 @@ public class Register_activity extends AppCompatActivity {
                     etFullNameLayout.setError("Please enter valid name");
                 } else {
                     etFullNameLayout.setError(null);
+                }
+            }
+        });
+
+        etEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                email = editable.toString();
+                if (email.length() == 0 || !email.contains("@") || !email.contains(".")) {
+                    etEmailLayout.setError("Please enter valid E-mail");
                 }
             }
         });
@@ -465,8 +554,13 @@ public class Register_activity extends AppCompatActivity {
 
     @Override
     protected void onStop() {
-        Tovuti.from(this).stop();
         super.onStop();
+        Tovuti.from(this).stop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
         unregisterReceiver(smsBroadcastReceiver);
     }
 
@@ -483,37 +577,24 @@ public class Register_activity extends AppCompatActivity {
         finish();
     }
 
-    // here for auto reading messages while making
-
-    private void startSmsUserConsent() {
-        SmsRetrieverClient client = SmsRetriever.getClient(this);
-        //We can add sender phone number or leave it blank
-        // I'm adding null here
-        client.startSmsUserConsent(null).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void aVoid) {
-                Toast.makeText(getApplicationContext(), "On Success", Toast.LENGTH_LONG).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(getApplicationContext(), "On OnFailure", Toast.LENGTH_LONG).show();
-            }
-        });
-    }
-
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == REQ_USER_CONSENT) {
             if ((resultCode == RESULT_OK) && (data != null)) {
                 //That gives all message to us.
                 // We need to get the code from inside with regex
                 String message = data.getStringExtra(SmsRetriever.EXTRA_SMS_MESSAGE);
-                Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
-                getOtpFromMessage(message);
+                // HERE IS THE MESSAGE WE WILL GET
+                try {
+                    getOtpFromMessage(message);
+                } catch (Exception ignored) {
+                }
             }
         }
+
     }
 
     private void getOtpFromMessage(String message) {
@@ -521,60 +602,48 @@ public class Register_activity extends AppCompatActivity {
         Pattern pattern = Pattern.compile("(|^)\\d{6}");
         Matcher matcher = pattern.matcher(message);
         if (matcher.find()) {
-            Toast.makeText(this, "OTP found -> " + matcher.group(0), Toast.LENGTH_SHORT).show();
+            et_EnterOtp2.setText(matcher.group(0));
+            tvb_verifyNow2.performClick();
         }
     }
 
-    private void registerBroadcastReceiver() {
-        smsBroadcastReceiver = new SmsBroadcastReceiver();
-        smsBroadcastReceiver.smsBroadcastReceiverListener =
-                new SmsBroadcastReceiver.SmsBroadcastReceiverListener() {
-                    @Override
-                    public void onSuccess(Intent intent) {
-                        startActivityForResult(intent, REQ_USER_CONSENT);
-                    }
+    private void setMobileNumberAutomatically() {
 
-                    @Override
-                    public void onFailure() {
-                    }
-                };
+        if (ActivityCompat.checkSelfPermission(this, READ_SMS) ==
+                PackageManager.PERMISSION_GRANTED
+                &&
+                ActivityCompat.checkSelfPermission(this, READ_PHONE_NUMBERS) ==
+                        PackageManager.PERMISSION_GRANTED
+                &&
+                ActivityCompat.checkSelfPermission(this, READ_PHONE_STATE) ==
+                        PackageManager.PERMISSION_GRANTED) {
 
-        IntentFilter intentFilter = new IntentFilter(SmsRetriever.SMS_RETRIEVED_ACTION);
-        registerReceiver(smsBroadcastReceiver, intentFilter);
+            TelephonyManager tMgr = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+            String mPhoneNumber = tMgr.getLine1Number();
+            etMobileNumber.setText(mPhoneNumber.substring(2, 12));
+
+        } else {
+            requestPermission();
+        }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        registerBroadcastReceiver();
+    private void requestPermission() {
+        requestPermissions(new String[]{READ_SMS, READ_PHONE_NUMBERS, READ_PHONE_STATE}, 100);
     }
 
-
-    public static class SmsBroadcastReceiver extends BroadcastReceiver {
-
-        SmsBroadcastReceiverListener smsBroadcastReceiverListener;
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction() == SmsRetriever.SMS_RETRIEVED_ACTION) {
-                Bundle extras = intent.getExtras();
-                Status smsRetrieverStatus = (Status) extras.get(SmsRetriever.EXTRA_STATUS);
-                switch (smsRetrieverStatus.getStatusCode()) {
-                    case CommonStatusCodes.SUCCESS:
-                        Intent messageIntent = extras.getParcelable(SmsRetriever.EXTRA_CONSENT_INTENT);
-                        smsBroadcastReceiverListener.onSuccess(messageIntent);
-                        break;
-                    case CommonStatusCodes.TIMEOUT:
-                        smsBroadcastReceiverListener.onFailure();
-                        break;
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch (requestCode) {
+            case 100:
+                TelephonyManager tMgr = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_SMS) !=
+                        PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this,
+                        Manifest.permission.READ_PHONE_NUMBERS) != PackageManager.PERMISSION_GRANTED &&
+                        ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                    return;
                 }
-            }
-        }
-
-        public interface SmsBroadcastReceiverListener {
-            void onSuccess(Intent intent);
-
-            void onFailure();
+                String mPhoneNumber = tMgr.getLine1Number();
+                etMobileNumber.setText(mPhoneNumber.substring(2, 12));
+                break;
         }
     }
 

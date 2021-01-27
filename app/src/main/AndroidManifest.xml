@@ -2,11 +2,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.vijayjangid.aadharkyc">
 
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_NUMBERS" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="true" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
         android:allowBackup="true"
@@ -15,12 +26,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SplashScreen">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".TransactionSummary" />
+
+        <!--
+               Set to true if your app is Standalone, that is, it does not require the handheld
+               app to run.
+        -->
+        <meta-data
+            android:name="com.google.android.wearable.standalone"
+            android:value="true" />
+
+        <activity android:name=".Notification" />
+        <activity android:name=".AddCardObject" />
+        <activity android:name=".Kyc" />
+        <activity android:name=".InviteAndEarn" />
+        <activity android:name=".ScanQrCode" />
+        <activity android:name=".SplashScreen"></activity>
         <activity android:name=".DthRecharge" />
         <activity android:name=".InsurancePay" />
         <activity android:name=".ChoosePaymentOption" />
@@ -32,17 +53,30 @@
         <activity android:name=".ElectricityRecharge" />
         <activity android:name=".z_selOperatorRecharge" />
         <activity android:name=".Recharge_mobile_activity" />
-        <activity android:name=".HomePage_activity" />
+        <activity android:name=".HomePage_activity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Rate_activity" />
         <activity android:name=".Register_activity" />
         <activity android:name=".Login_activity" />
         <activity android:name=".WebPage_activity" />
-        <activity android:name=".GetUserData_activity" />
-        <activity android:name=".Z" />
+        <activity android:name=".Add_money_activity" />
+        <activity android:name=".MyProfile_fragment" />
+        <activity android:name=".Change_password_fragment" />
+        <activity android:name=".Help_support_fragment" />
         <activity android:name=".Verification_activity" />
+        <activity android:name=".WalletManage" />
 
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <meta-data
+            android:name="com.google.android.gms.vision.DEPENDENCIES"
+            android:value="barcode" />
     </application>
 
 </manifest>
