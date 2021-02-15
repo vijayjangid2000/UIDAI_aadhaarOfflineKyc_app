@@ -10,8 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -23,6 +25,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.vijayjangid.aadharkyc.login.Login_activity;
 
 import smartdevelop.ir.eram.showcaseviewlib.GuideView;
 
@@ -35,6 +38,7 @@ public class HomePage_activity extends AppCompatActivity
     DrawerLayout drawerLayout;
     Toolbar toolbar;
     int whichFragmentIsVisible = 1;
+
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -89,6 +93,9 @@ public class HomePage_activity extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
+
+        /* check if user is already log in */
+        ifAlreadyLoggedIn();
 
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -193,6 +200,10 @@ public class HomePage_activity extends AppCompatActivity
                 break;
 
             case R.id.nav_exit:
+                UserData userData = new UserData(this);
+                userData.setIsLoggedInAlready(false);
+                userData.applyUpdate();
+                toast("Logout Successful");
                 startActivity(new Intent(getContext(), Login_activity.class));
                 finish();
                 break;
@@ -219,9 +230,35 @@ public class HomePage_activity extends AppCompatActivity
                 Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED;
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 1) {
+            if (ContextCompat.checkSelfPermission(HomePage_activity.this,
+                    Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED)
+                startActivity(new Intent(HomePage_activity.this, ScanQrCode.class));
+        }
+    }
+
     // for back option in toolbar (left side top)
     public boolean onOptionsItemSelected(MenuItem item) {
         onBackPressed();
         return true;
     }
+
+    void ifAlreadyLoggedIn() {
+        UserData userData = new UserData(this);
+        if (!userData.getIsLoggedInAlready()) {
+            // if it is not true then we will send them to login page
+            startActivity(new Intent(this, Login_activity.class));
+            finish();
+        }
+    }
+
+    void toast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+
 }

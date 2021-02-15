@@ -19,7 +19,8 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="X  Airtel"
-            android:textSize="20sp" />
+            android:textColor="@color/colorPrimary"
+            android:textSize="17sp" />
 
         <TextView
             android:id="@+id/grayline"

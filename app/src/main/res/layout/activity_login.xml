@@ -37,14 +37,14 @@
             android:text="A Tradition of Trust"
             android:textSize="20sp" />
 
-        <androidx.cardview.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        <androidx.cardview.widget.CardView
             android:id="@+id/card_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            card_view:cardCornerRadius="5dp">
+            app:cardCornerRadius="5dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -63,7 +63,8 @@
                     app:hintTextColor="@color/colorPrimary"
                     app:prefixText="+91"
 
-                    app:startIconDrawable="@drawable/ic_phone_number">
+                    app:startIconDrawable="@drawable/ic_phone_number"
+                    app:startIconTint="@color/colorPrimary">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/phoneEt"
@@ -78,25 +79,45 @@
 
                 <!--Here is the code for password field-->
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/passwordEtL"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Password"
-                    app:endIconMode="password_toggle"
-                    app:hintTextColor="@color/colorPrimary"
-                    app:startIconDrawable="@drawable/ic_password">
+                    android:layout_height="match_parent">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/passwordEt"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/passwordEtL"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:defaultFocusHighlightEnabled="false"
-                        android:inputType="textPassword"
-                        android:maxLength="100"
-                        android:textCursorDrawable="@drawable/cursor_style" />
+                        android:layout_weight="1"
+                        android:hint="Password"
+                        app:endIconMode="password_toggle"
+                        app:hintTextColor="@color/colorPrimary"
+                        app:passwordToggleTint="@color/colorPrimary"
+                        app:startIconDrawable="@drawable/ic_password"
+                        app:startIconTint="@color/colorPrimary">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/passwordEt"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:defaultFocusHighlightEnabled="false"
+                            android:inputType="textPassword"
+                            android:maxLength="100"
+                            android:textCursorDrawable="@drawable/cursor_style" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/ivb_showPassInfo"
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="15dp"
+                        android:paddingRight="5dp"
+                        android:paddingBottom="5dp"
+                        app:srcCompat="@drawable/ic_information"
+                        app:tint="@color/colorPrimary" />
+
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/forgotTv"
@@ -107,7 +128,7 @@
                     android:alpha="0.7"
                     android:text="Forgot Password?"
                     android:textAlignment="viewEnd"
-                    android:textColor="#4fa5d5" />
+                    android:textColor="@color/colorPrimary" />
 
                 <TextView
                     android:id="@+id/loginTv"
@@ -115,11 +136,11 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginTop="10dp"
-                    android:background="@drawable/rounded_shape_2"
+                    android:background="@drawable/btn_gradient_style"
                     android:paddingLeft="15dp"
-                    android:paddingTop="5dp"
+                    android:paddingTop="7dp"
                     android:paddingRight="15dp"
-                    android:paddingBottom="5dp"
+                    android:paddingBottom="7dp"
 
                     android:text="LOG IN"
                     android:textAlignment="center"

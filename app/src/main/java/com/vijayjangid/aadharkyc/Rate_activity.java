@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -153,7 +154,7 @@ public class Rate_activity extends AppCompatActivity implements View.OnClickList
         /*to customize the progress bar then go to
          * progressbar_viewxml.xml in layout folder*/
 
-        View view = getLayoutInflater().inflate(R.layout.alertview_progressbar_rating, null);
+        View view = getLayoutInflater().inflate(R.layout.layout_progressbar_rating, null);
         if (view.getParent() != null) ((ViewGroup) view.getParent()).removeView(view);
 
         CircularProgressIndicator lpi = view.findViewById(R.id.home_progress_bar);
@@ -163,6 +164,8 @@ public class Rate_activity extends AppCompatActivity implements View.OnClickList
                 .setCancelable(false);
         dialogView = alertBldr_loading.create();
         dialogView.setView(view);
+        Window window = dialogView.getWindow();
+        if (window != null) window.setBackgroundDrawableResource(R.color.Transparent);
         dialogView.show();
     }
 

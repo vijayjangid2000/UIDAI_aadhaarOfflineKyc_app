@@ -1,14 +1,31 @@
+buildscript {
+    repositories {
+        maven { url 'https://plugins.gradle.org/m2/' }
+    }
+    dependencies {
+        classpath 'gradle.plugin.com.onesignal:onesignal-gradle-plugin:0.12.10'
+    }
+}
+apply plugin: 'com.onesignal.androidsdk.onesignal-gradle-plugin'
+
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 30
 
-    viewBinding{
+    viewBinding {
         enabled = true
     }
 
     defaultConfig {
+
+        manifestPlaceholders = [
+                onesignal_app_id               : '77ed321c-9de5-4492-99b8-21dfb9ea7783',
+                // Project number pulled from dashboard, local value is ignored.
+                onesignal_google_project_number: 'REMOTE'
+        ]
+
         applicationId "com.vijayjangid.aadharkyc"
         minSdkVersion 26
         targetSdkVersion 30
@@ -29,11 +46,19 @@ android {
         }
     }
 
+    externalNativeBuild {
+        cmake {
+            path 'src/CMakeLists.txt'
+        }
+    }
+
 }
 
 dependencies {
 
     implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation files('libs/simple-xml-2.7.1.jar')
+
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
@@ -54,7 +79,7 @@ dependencies {
     implementation 'com.gemalto.jp2:jp2-android:1.0'
 
     // material design
-    implementation 'com.google.android.material:material:1.3.0-rc01'
+    implementation 'com.google.android.material:material:1.3.0'
 
     // digital signature
     implementation group: 'org.apache.santuario', name: 'xmlsec', version: '2.2.1'
@@ -65,7 +90,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth:20.0.2'
 
     implementation "androidx.cardview:cardview:1.0.0"
-    implementation 'com.google.android.play:core:1.9.0'
+    implementation 'com.google.android.play:core:1.9.1'
     implementation 'com.google.firebase:firebase-analytics'
 
     implementation "androidx.viewpager2:viewpager2:1.0.0"
@@ -93,12 +118,28 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
 
     /*phone number identifier for SMS retriever */
-    implementation 'com.google.android.gms:play-services-base:17.5.0'
+    implementation 'com.google.android.gms:play-services-base:17.6.0'
     implementation 'com.google.android.gms:play-services-identity:17.0.0'
 
     /* for scratch view in reward screen */
     implementation 'com.github.cooltechworks:ScratchView:v1.1'
 
-    implementation 'com.android.volley:volley:1.0.0'
+    implementation 'com.android.volley:volley:1.1.1'
+
+    /* for permission handling */
+    implementation 'com.karumi:dexter:6.2.2'
+
+    //One signal (for sending push notifications)
+    implementation 'com.onesignal:OneSignal:3.15.6'
+
+    //Progress Bar
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.16'
+    implementation 'com.intuit.sdp:sdp-android:1.0.3'
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+    implementation 'com.karumi:dexter:6.2.2'
 
 }

@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:id="@+id/ll_success"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_white_5"
+        android:orientation="vertical"
+        android:padding="2dp">
+
+        <TextView
+            android:id="@+id/tv_heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="Success"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/TextStyleCommission"
+                android:text="Total Sale" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  :  " />
+
+
+            <TextView
+
+                android:id="@+id/tv_totalSale"
+                style="@style/TextStyleCommission"
+                android:layout_weight="1"
+                android:text="0.00" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/TextStyleCommission"
+                android:text="Comm" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  :  " />
+
+            <TextView
+
+                android:id="@+id/tv_commission"
+                style="@style/TextStyleCommission"
+                android:layout_weight="1"
+                android:text="0.00" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/TextStyleCommission"
+                android:text="Charge" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  :  " />
+
+
+            <TextView
+
+                android:id="@+id/tv_charge"
+                style="@style/TextStyleCommission"
+                android:layout_weight="1"
+                android:text="0.00" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/TextStyleCommission"
+                android:text="Txn Count" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="  :  " />
+
+
+            <TextView
+
+                android:id="@+id/tv_txnCount"
+                style="@style/TextStyleCommission"
+                android:layout_weight="1"
+                android:text="0.00" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

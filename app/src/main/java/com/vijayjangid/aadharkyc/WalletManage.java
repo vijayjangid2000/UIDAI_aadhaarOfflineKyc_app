@@ -16,11 +16,11 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.gson.Gson;
+import com.vijayjangid.aadharkyc.kyc.Kyc;
 
 import java.util.ArrayList;
 
@@ -78,16 +78,18 @@ public class WalletManage extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
+        float half = 0.5f;
+
         switch (v.getId()) {
 
             case R.id.tvb_upgradeNow:
+                tvb_upgradeNow.setAlpha(half);
                 startActivity(new Intent(this, Kyc.class));
                 break;
 
             case R.id.tvb_balanceDetails:
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.replace(R.id.fragment_container, new WalletTransactionFragment());
-                transaction.commit();
+                tvb_balanceDetails.setAlpha(half);
+                Toast.makeText(this, "Button Clicked", Toast.LENGTH_SHORT).show();
                 break;
 
             case R.id.tvb_transferToBank:
@@ -96,6 +98,7 @@ public class WalletManage extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btn_addMoney:
+                btn_addMoney.setAlpha(half);
                 startActivity(new Intent(this, Add_money_activity.class));
                 break;
 
@@ -105,6 +108,7 @@ public class WalletManage extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.tvb_addNewCard:
+                tvb_addNewCard.setAlpha(half);
                 startActivity(new Intent(this, AddCardObject.class));
         }
     }
@@ -130,6 +134,12 @@ public class WalletManage extends AppCompatActivity implements View.OnClickListe
         } catch (Exception ignored) {
 
         }
+
+        float full = 1;
+        tvb_upgradeNow.setAlpha(full);
+        btn_addMoney.setAlpha(full);
+        tvb_addNewCard.setAlpha(full);
+        tvb_balanceDetails.setAlpha(full);
     }
 
     // for back option in toolbar (left side top)

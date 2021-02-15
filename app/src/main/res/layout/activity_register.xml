@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Register_activity">
+    tools:context=".login.Register_activity">
 
     <include
         android:id="@+id/toolbar"
@@ -49,7 +49,8 @@
                     android:hint="Name"
                     app:hintTextColor="@color/colorPrimary"
 
-                    app:startIconDrawable="@drawable/ic_fullname">
+                    app:startIconDrawable="@drawable/ic_fullname"
+                    app:startIconTint="@color/colorPrimary">
 
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -57,8 +58,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:defaultFocusHighlightEnabled="false"
-                        android:inputType="textPersonName|textVisiblePassword"
                         android:digits="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ "
+                        android:inputType="textPersonName|textVisiblePassword"
                         android:maxLength="50"
                         android:maxLines="1"
                         android:textCursorDrawable="@drawable/cursor_style" />
@@ -74,7 +75,8 @@
                     app:hintTextColor="@color/colorPrimary"
 
                     app:prefixText="+91"
-                    app:startIconDrawable="@drawable/ic_phone_number">
+                    app:startIconDrawable="@drawable/ic_phone_number"
+                    app:startIconTint="@color/colorPrimary">
 
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -97,7 +99,8 @@
                     android:hint="Email"
                     app:endIconMode="custom"
                     app:hintTextColor="@color/colorPrimary"
-                    app:startIconDrawable="@drawable/ic_email">
+                    app:startIconDrawable="@drawable/ic_email"
+                    app:startIconTint="@color/colorPrimary">
 
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -111,19 +114,62 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/passwordEtRL"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="Password"
-                    app:endIconMode="password_toggle"
-                    app:hintTextColor="@color/colorPrimary"
-                    app:startIconDrawable="@drawable/ic_password">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/passwordEtR"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/passwordEtRL"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="Password"
+                        app:endIconMode="password_toggle"
+                        app:hintTextColor="@color/colorPrimary"
+                        app:passwordToggleTint="@color/colorPrimary"
+                        app:startIconDrawable="@drawable/ic_password"
+                        app:startIconTint="@color/colorPrimary">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/passwordEtR"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:defaultFocusHighlightEnabled="false"
+                            android:inputType="textPassword"
+                            android:maxLength="100"
+                            android:textCursorDrawable="@drawable/cursor_style" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <ImageView
+                        android:id="@+id/ivb_showPassInfoR"
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="15dp"
+                        android:paddingRight="5dp"
+                        android:paddingBottom="5dp"
+                        app:srcCompat="@drawable/ic_information"
+                        app:tint="@color/colorPrimary" />
+
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/confirmPasswordEtRL"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Confirm Password"
+                    app:endIconMode="password_toggle"
+                    app:hintTextColor="@color/colorPrimary"
+                    app:startIconDrawable="@drawable/ic_password"
+                    app:startIconTint="@color/colorPrimary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/confirmPasswordEtR"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="30dp"
                         android:defaultFocusHighlightEnabled="false"
                         android:inputType="textPassword"
                         android:maxLength="15"
@@ -132,15 +178,15 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/tv_errorStatus"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
                     android:padding="5dp"
-                    android:textSize="13sp"
                     android:text="We will send you an OTP for verification"
                     android:textAlignment="center"
-                    android:textColor="#4fa5d5"
+                    android:textColor="#3B82FA"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
                 <TextView
@@ -150,11 +196,11 @@
                     android:layout_margin="10dp"
                     android:checkMark="@drawable/ic_electricity_bill"
                     android:checked="true"
-                    android:textSize="11sp"
                     android:fontFamily="@font/convergence"
                     android:text="By clicking Sign Up, You agree to our Terms and Conditions"
                     android:textAlignment="center"
-                    android:textColor="#012032" />
+                    android:textColor="#012032"
+                    android:textSize="11sp" />
 
                 <TextView
                     android:id="@+id/registerTv"
@@ -163,7 +209,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/rounded_shape_2"
+                    android:background="@drawable/btn_gradient_style"
                     android:paddingLeft="20dp"
                     android:paddingTop="10dp"
                     android:paddingRight="20dp"

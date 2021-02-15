@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Water_Bill_activity">
+    tools:context="Water.Water_Bill_activity">
 
 
     <include
@@ -24,17 +24,17 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <TextView
-            android:id="@+id/selectBoard_textview2"
+            android:id="@+id/tvb_board"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:layout_marginBottom="5dp"
             android:paddingLeft="10dp"
-            android:text="Select Board"
+            android:text="Change Board"
             android:textColor="@color/lightText" />
 
         <TextView
-            android:id="@+id/state_textview"
+            android:id="@+id/tv_boardName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
@@ -47,7 +47,7 @@
             style="@style/LineTextView"></TextView>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/kNumberEtL"
+            android:id="@+id/etl_consumer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -58,20 +58,43 @@
             app:hintTextColor="@color/colorPrimary">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/kNumberEt"
+                android:id="@+id/et_consumerId"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:defaultFocusHighlightEnabled="false"
                 android:inputType="number"
-                android:maxLength="7"
+                android:maxLength="50"
+                android:textCursorDrawable="@drawable/cursor_style" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etl_mobileWater"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:hint="Mobile Number"
+            android:weightSum="1"
+            app:hintTextColor="@color/colorPrimary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_mobileWater"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:defaultFocusHighlightEnabled="false"
+                android:inputType="number"
+                android:maxLength="10"
                 android:textCursorDrawable="@drawable/cursor_style" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             style="@style/Proceed_Button"
+            android:id="@+id/btn_fetchWaterBill"
             android:layout_marginTop="20dp"
-            android:text="Proceed" />
+            android:text="Fetch Bill" />
 
     </LinearLayout>
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".z_selBrowsePlans">
+    tools:context=".mobileRecharge.BrowsePlans">
 
 
     <include
@@ -46,11 +46,13 @@
 
         </androidx.cardview.widget.CardView>
 
-        <ListView
-            android:id="@+id/browsePlanListView"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_plans"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,6 +10,10 @@
     <color name="white">#FFFFFF</color>
     <color name="ErrorRedColor">#FBE1E1</color>
 
+    <color name="Red">#DC0808</color>
+    <color name="Green">#67B112</color>
+    <color name="Transparent">#00000000</color>
+
     <color name="gradient_start_color">#4c84ff</color>
     <color name="gradient_end_color">#18a3fe</color>
 
@@ -19,4 +23,24 @@
     <color name="tab_indicator_gray">#c0c0c0</color>
     <color name="intro_title_color">#000000</color>
     <color name="intro_description_color">#656565</color>
+
+
+    <color name="light_blue">#AAE5EC</color>
+    <color name="text_color_1">#495C50</color>
+    <color name="text_color_2">#394D43</color>
+    <color name="text_color_3">#0964A2</color>
+    <color name="black">#000000</color>
+    <color name="grey">#A6504D4D</color>
+    <color name="green">#2B772E</color>
+    <color name="colorDarkRed">#7A0606</color>
+    <color name="success">#4CAF50</color>
+    <color name="failed">#F44336</color>
+    <color name="warning">#D16D20</color>
+    <color name="bgWhiteStroke">#073C68</color>
+
+    <color name="item_color">#1C67A3</color>
+
+
+    <color name="lightRedBackground">#FFB9B9</color>
+    <color name="lightGreenBackground">#D5FFBB</color>
 </resources>

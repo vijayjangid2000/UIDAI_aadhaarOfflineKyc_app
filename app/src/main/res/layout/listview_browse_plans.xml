@@ -23,58 +23,54 @@
             app:layout_constraintStart_toStartOf="parent">
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/tv_planCost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/rounded_shape_4"
-                android:paddingLeft="10dp"
+                android:paddingLeft="20dp"
                 android:paddingTop="7dp"
-                android:paddingRight="10dp"
+                android:paddingRight="20dp"
                 android:paddingBottom="7dp"
                 android:text="Rs. 199"
                 android:textColor="#000000"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView9"
+                android:id="@+id/tv_validity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:text="Validity 28 Days"
-                android:textColor="#2E2D2D" />
+                android:textColor="#2E2D2D"
+                android:visibility="invisible" />
 
             <Button
-                android:id="@+id/button"
+                android:id="@+id/btn_selectPlan"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:layout_gravity="end"
                 android:background="@drawable/border_textview_thin"
                 android:text="Select"
-                android:textColor="@color/colorPrimary" />
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp" />
         </LinearLayout>
 
-        <TextView style="@style/LineTextView"></TextView>
-
         <TextView
-            android:id="@+id/textView11"
+            android:id="@+id/tv_data"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/ic_wifi"
             android:paddingLeft="10dp"
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
-            android:text=" Data: 5 GB/Day" />
+            android:text=" Data: 5 GB/Day"
+            android:visibility="gone" />
 
         <TextView
-            android:id="@+id/line"
-            style="@style/LineTextView"></TextView>
-
-        <TextView
-            android:id="@+id/textView10"
+            android:id="@+id/tv_planDetail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp"

@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -12,6 +14,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.graphics.RectF;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -35,20 +38,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.vijayjangid.aadharkyc.databinding.FragmentHomeFragmentBinding;
+import com.vijayjangid.aadharkyc.mobileRecharge.RechargePrepaid;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Queue;
 
+import Electricity.ElectricityRecharge;
+import Water.Water_Bill_activity;
 import smartdevelop.ir.eram.showcaseviewlib.GuideView;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 import static maes.tech.intentanim.CustomIntent.customType;
-
 
 public class Home_fragment extends Fragment
         implements View.OnClickListener {
@@ -69,6 +75,10 @@ public class Home_fragment extends Fragment
     Animation animation;
     ScrollView scrollView;
     View root;
+
+    /*copied from other*/
+    public static final String PROVIDER_TYPE = "provider_type";
+    public static final String PROVIDER = "provider";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -243,7 +253,8 @@ public class Home_fragment extends Fragment
 
         SwipeHelper swipeHelper = new SwipeHelper(getContext(), recyclerView) {
             @Override
-            public void instantiateUnderlayButton(RecyclerView.ViewHolder viewHolder, List<UnderlayButton> underlayButtons) {
+            public void instantiateUnderlayButton(RecyclerView.ViewHolder viewHolder
+                    , List<UnderlayButton> underlayButtons) {
 
                 underlayButtons.add(new SwipeHelper.UnderlayButton(
                         "Manage Wallet",
@@ -308,7 +319,8 @@ public class Home_fragment extends Fragment
             case R.id.prepaid_iv:
                 iv_prepaid.setAlpha(alphaVal);
                 tv_prepaid.setAlpha(alphaVal);
-                startActivity(new Intent(getContext(), Recharge_mobile_activity.class));
+                Intent intent = new Intent(getActivity(), RechargePrepaid.class);
+                Objects.requireNonNull(getActivity()).startActivity(intent);
                 customType(getContext(), "fadein-to-fadeout");
                 break;
 
@@ -630,6 +642,63 @@ public class Home_fragment extends Fragment
         }
     }*/
 
+    void showProgressBar(boolean showText, String text) {
+
+        /*to customize the progress bar then go to
+         * progressbar_viewxml.xml in layout folder*/
+
+        View view = getLayoutInflater().inflate(R.layout.layout_progressbar, null);
+        if (view.getParent() != null) ((ViewGroup) view.getParent()).removeView(view);
+
+        CircularProgressIndicator lpi = view.findViewById(R.id.home_progress_bar);
+        TextView textView = view.findViewById(R.id.progress_text_tv);
+        if (showText) textView.setText(text);
+        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+        alert.setView(view);
+        alert.setCancelable(false);
+        alert.setIcon(null);
+        alert.show();
+    }
+
+    public class RecyclerEntity {
+        private String title;
+        private boolean showMenu = false;
+        private int image;
+
+        public RecyclerEntity() {
+        }
+
+        public RecyclerEntity(String title, int image, boolean showMenu) {
+            this.title = title;
+            this.showMenu = showMenu;
+            this.image = image;
+        }
+
+        public int getImage() {
+            return image;
+        }
+
+        public void setImage(int image) {
+            this.image = image;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public boolean isShowMenu() {
+            return showMenu;
+        }
+
+        public void setShowMenu(boolean showMenu) {
+            this.showMenu = showMenu;
+        }
+    }
+
     public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
         private List<RecyclerEntity> list;
@@ -642,8 +711,22 @@ public class Home_fragment extends Fragment
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
             View view = mInflater.inflate(R.layout.listview_wallet_info, parent, false);
+            TextView mobileNumberUser = view.findViewById(R.id.tv_mobileNumVP);
+            TextView walletBalance = view.findViewById(R.id.tv_walletBalanceVP);
+            ImageView userPic = view.findViewById(R.id.iv_vp);
+
+            UserData userData = new UserData(getContext());
+            mobileNumberUser.setText(userData.getMobile());
+            //walletBalance.setText("100");
+
+            byte[] decodedString = Base64.decode(userData.getPhotoByteCode(), 0);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+            if (userData.getPhotoByteCode().length() > 200) userPic.setImageBitmap(bitmap);
+
             return new ViewHolder(view);
+
         }
 
         @Override
@@ -690,63 +773,6 @@ public class Home_fragment extends Fragment
             }
         }
 
-    }
-
-    public class RecyclerEntity {
-        private String title;
-        private boolean showMenu = false;
-        private int image;
-
-        public RecyclerEntity() {
-        }
-
-        public RecyclerEntity(String title, int image, boolean showMenu) {
-            this.title = title;
-            this.showMenu = showMenu;
-            this.image = image;
-        }
-
-        public int getImage() {
-            return image;
-        }
-
-        public void setImage(int image) {
-            this.image = image;
-        }
-
-        public String getTitle() {
-            return title;
-        }
-
-        public void setTitle(String title) {
-            this.title = title;
-        }
-
-        public boolean isShowMenu() {
-            return showMenu;
-        }
-
-        public void setShowMenu(boolean showMenu) {
-            this.showMenu = showMenu;
-        }
-    }
-
-    void showProgressBar(boolean showText, String text) {
-
-        /*to customize the progress bar then go to
-         * progressbar_viewxml.xml in layout folder*/
-
-        View view = getLayoutInflater().inflate(R.layout.alertview_progressbar, null);
-        if (view.getParent() != null) ((ViewGroup) view.getParent()).removeView(view);
-
-        CircularProgressIndicator lpi = view.findViewById(R.id.home_progress_bar);
-        TextView textView = view.findViewById(R.id.progress_text_tv);
-        if (showText) textView.setText(text);
-        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
-        alert.setView(view);
-        alert.setCancelable(false);
-        alert.setIcon(null);
-        alert.show();
     }
 
     @Override

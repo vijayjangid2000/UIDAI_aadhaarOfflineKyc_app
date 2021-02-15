@@ -27,6 +27,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
+import com.vijayjangid.aadharkyc.login.Login_activity;
 
 import java.util.ArrayList;
 import java.util.List;
