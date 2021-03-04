@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MoneyTransaction">
+    tools:context="Reports.Ledger.MoneyTransaction">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,27 +41,36 @@
                 android:tint="@color/white" />
 
             <ImageView
-                android:id="@+id/ivb_searchTransaction"
+                android:id="@+id/btn_search"
                 android:layout_width="60dp"
                 android:layout_height="match_parent"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:scaleType="fitCenter"
-                android:tint="@color/white"
-                app:srcCompat="@android:drawable/ic_menu_search" />
+                app:srcCompat="@android:drawable/ic_menu_search"
+                app:tint="@color/white" />
         </LinearLayout>
 
-        <SearchView
-            android:id="@+id/searchview_moneytransa"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="visible" />
-
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_moneyTransaction"
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="10dp" />
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:scrollbarStyle="outsideInset"
+            android:scrollbars="vertical" />
+
+
+        <TextView
+            android:id="@+id/tv_noResult"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="No transactions yet"
+            android:textColor="@color/text_color_2"
+            android:textSize="22sp"
+            android:visibility="gone"
+            tools:visibility="visible" />
     </LinearLayout>
 
 </FrameLayout>

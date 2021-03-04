@@ -87,10 +87,10 @@ public class SplashScreen extends AppCompatActivity {
         mList.add(new ScreenItemObject("Bill Payments",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, consectetur  consectetur adipiscing elit",
                 R.drawable.temporary2));
-        mList.add(new ScreenItemObject("DTH Recharge",
+        mList.add(new ScreenItemObject("DTH ElecRecharge",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, consectetur  consectetur adipiscing elit",
                 R.drawable.temporary3));
-        mList.add(new ScreenItemObject("Mobile Recharge",
+        mList.add(new ScreenItemObject("Mobile ElecRecharge",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua, consectetur  consectetur adipiscing elit",
                 R.drawable.temporary4));
         mList.add(new ScreenItemObject("Send Money to anyone",

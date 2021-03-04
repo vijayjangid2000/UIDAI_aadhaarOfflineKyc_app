@@ -46,7 +46,7 @@
                     android:layout_marginRight="20dp"
                     android:background="@android:color/transparent"
                     android:src="@drawable/ic_notification"
-                    android:tint="@color/white"></ImageButton>
+                    android:tint="@color/white" />
 
 
                 <ImageButton

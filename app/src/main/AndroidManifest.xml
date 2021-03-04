@@ -19,6 +19,7 @@
         android:required="true" />
 
     <application
+        android:name=".in.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -26,10 +27,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="Water.WaterProviders"></activity>
-        <activity android:name=".mobileRecharge.RechargePostpaid" />
+        <activity android:name="Dmt.DmtMain" />
+        <activity android:name="Aeps.AepsActivity" />
+        <activity android:name="Aeps.AepsSettllementActivity" />
+        <activity android:name="Aeps.MiniStatementActivity" />
+        <activity android:name="Aeps.ViewPdfActivity" />
+        <activity android:name="Reports.Ledger.ReportSearchActivity" />
+        <activity android:name="FastTag.Providers" />
+        <activity android:name="FastTag.Fastag" />
+        <activity android:name="a2z_wallet.A2ZWalletActivity" />
+        <activity android:name="Dth.Providers" />
+        <activity android:name="Dth.DthRecharge" />
+        <activity android:name="Insurance.Providers" />
+        <activity android:name="Insurance.Insurance" />
+        <activity android:name="Loan.Providers" />
+        <activity android:name="Loan.LoanRecharge" />
+        <activity android:name="Gas.Providers" />
+        <activity android:name="Gas.GasRecharge" />
+        <activity android:name="Water.WaterProviders" />
+        <activity android:name="Electricity.ElecRecharge" />
+        <activity android:name="MobRecharge.RechargePostpaid" />
         <activity android:name=".TransactionSummary" />
-        <activity android:name=".mobileRecharge.ProviderActivity" />
+        <activity android:name="MobRecharge.ProviderActivity" />
         <activity android:name=".Notification" />
         <activity android:name=".AddCardObject" />
         <activity android:name=".kyc.Kyc" />
@@ -37,19 +56,18 @@
         <activity android:name=".ScanQrCode" />
         <activity android:name=".SplashScreen" />
         <activity android:name=".DthRecharge" />
-        <activity android:name=".InsurancePay" />
         <activity android:name=".ChoosePaymentOption" />
         <activity android:name="Water.Water_Bill_activity" />
-        <activity android:name=".mobileRecharge.BrowsePlans" />
+        <activity android:name="MobRecharge.BrowsePlans" />
         <activity android:name=".z_selectSomething_alert" />
         <activity android:name=".z_state_choose_alert" />
         <activity android:name=".z_selectImageText" />
-        <activity android:name="Electricity.ElectricityRecharge" />
-        <activity android:name=".mobileRecharge.SelectOperator" />
-        <activity android:name=".mobileRecharge.RechargePrepaid" />
+        <activity android:name="MobRecharge.SelectOperator" />
+        <activity android:name="MobRecharge.RechargePrepaid" />
         <activity android:name=".HomePage_activity" />
         <activity android:name=".Rate_activity" />
         <activity android:name=".login.Register_activity" />
+        <activity android:name="Electricity.Providers" />
         <activity android:name=".login.Login_activity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

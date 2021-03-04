@@ -4,6 +4,8 @@
     android:id="@+id/ll_main_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
     android:layout_marginBottom="8dp"
     android:background="@drawable/bg_light_gray_10"
     android:orientation="vertical"
@@ -12,7 +14,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -25,9 +27,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
+                android:paddingLeft="5dp"
                 android:text="Name"
-                android:textColor="@color/text_color_2"
-                android:textSize="15sp" />
+                android:textColor="@color/text_color_2" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -56,9 +58,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
+                android:paddingLeft="5dp"
                 android:text="Account Number"
-                android:textColor="@color/text_color_2"
-                android:textSize="15sp" />
+                android:textColor="@color/text_color_2" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -87,9 +89,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
+                android:paddingLeft="5dp"
                 android:text="Bank Name"
-                android:textColor="@color/text_color_2"
-                android:textSize="15sp" />
+                android:textColor="@color/text_color_2" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -118,9 +120,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.7"
+                android:paddingLeft="5dp"
                 android:text="IFSC Code"
-                android:textColor="@color/text_color_2"
-                android:textSize="15sp" />
+                android:textColor="@color/text_color_2" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -145,7 +147,8 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:background="#DAD4D4" />
 
     <RelativeLayout
@@ -161,6 +164,7 @@
             android:background="@drawable/bg_light_blue_5"
             android:gravity="center"
             android:text="Transfer"
+            android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="12sp" />
 
@@ -173,6 +177,7 @@
             android:backgroundTint="@color/green"
             android:gravity="center"
             android:text="Verify"
+            android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="12sp" />
 
@@ -196,7 +201,8 @@
             android:layout_height="30dp"
             android:background="@drawable/bg_red_5"
             android:gravity="center"
-            android:text="delete"
+            android:text="Delete"
+            android:textAllCaps="false"
             android:textColor="@color/white"
             android:textSize="12sp" />
 

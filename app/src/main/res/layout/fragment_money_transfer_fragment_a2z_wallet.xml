@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/myLinearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tv_beneName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp"
+                        android:gravity="center_horizontal"
+                        android:textSize="22sp"
+                        tools:text="Beneficiary Name" />
+
+                    <TextView
+                        android:id="@+id/tv_accountNo"
+                        style="@style/TextStyle1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="0dp"
+                        android:layout_marginTop="0dp"
+                        android:gravity="center_horizontal"
+                        android:text="Account Number"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/tv_bankName"
+                        style="@style/TextStyle1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="0dp"
+                        android:gravity="center_horizontal"
+
+                        android:text="Bank Name" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/colorPrimary" />
+
+
+                <TextView
+                    style="@style/TextStyle1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Transfer Type" />
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/bg_white_5"
+                    android:gravity="left"
+                    android:inputType="number"
+                    android:orientation="horizontal"
+                    android:singleLine="true">
+
+                    <Spinner
+
+                        android:id="@+id/spn_transferType"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="left"
+                        android:inputType="number" />
+
+                </LinearLayout>
+
+                <TextView
+                    style="@style/TextStyle1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Amount" />
+
+                <EditText
+                    android:id="@+id/ed_amount"
+                    style="@style/AppEditText"
+                    android:background="@drawable/bg_white"
+                    android:hint="Enter Amount"
+                    android:inputType="number" />
+
+                <TextView
+                    android:id="@+id/tv_amountInWord"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginRight="30dp"
+                    android:text=""
+                    android:textColor="@color/text_color_2"
+                    android:textSize="13sp" />
+
+                <TextView
+                    style="@style/TextStyle1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Transaction Pin" />
+
+                <EditText
+                    android:id="@+id/ed_transactionPin"
+                    style="@style/AppEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:background="@drawable/bg_white"
+                    android:hint="Enter Transaction pin"
+                    android:inputType="numberPassword" />
+
+
+                <TextView
+                    android:id="@+id/tv_incorrect"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginRight="30dp"
+                    android:background="@drawable/errorbox"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="Something went wrong!"
+                    android:textColor="@color/text_color_2"
+                    android:textSize="15sp"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center">
+
+                    <Button
+                        android:id="@+id/btn_transfer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="35dp"
+                        android:background="@drawable/btn_gradient_style"
+                        android:text="Transfer"
+                        android:textAllCaps="false"
+                        android:textColor="#fff" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_progress"
+                        android:layout_width="match_parent"
+                        android:layout_height="46dp"
+                        android:layout_marginLeft="60dp"
+                        android:layout_marginRight="60dp"
+                        android:background="@drawable/bg_orange_5"
+                        android:text="Login"
+                        android:textColor="#fff"
+                        android:visibility="gone">
+
+                        <ProgressBar
+                            android:id="@+id/progressBar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:visibility="invisible"
+                            tools:visibility="visible" />
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+</ScrollView>

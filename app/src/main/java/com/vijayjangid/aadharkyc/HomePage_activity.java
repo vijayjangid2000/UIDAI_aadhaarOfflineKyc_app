@@ -25,8 +25,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
+import com.vijayjangid.aadharkyc.enums.ReportTypes;
 import com.vijayjangid.aadharkyc.login.Login_activity;
 
+import Reports.Ledger.ReportFragment;
 import smartdevelop.ir.eram.showcaseviewlib.GuideView;
 
 public class HomePage_activity extends AppCompatActivity
@@ -34,6 +36,8 @@ public class HomePage_activity extends AppCompatActivity
 
     /* this activity sets navigation drawer
      * and fragment, user cannot see this activity*/
+
+    private int layout = R.layout.activity_home_page;
 
     DrawerLayout drawerLayout;
     Toolbar toolbar;
@@ -63,7 +67,8 @@ public class HomePage_activity extends AppCompatActivity
                         case R.id.nav_transaction_history:
                             if (whichFragmentIsVisible == 3) return false;
                             else whichFragmentIsVisible = 3;
-                            fragment = new MoneyTransaction();
+                            //fragment = new MoneyTransaction();
+                            fragment = ReportFragment.newInstance(ReportTypes.LEDGER_REPORT);
                             break;
 
                         case R.id.nav_reward:
@@ -88,6 +93,7 @@ public class HomePage_activity extends AppCompatActivity
                     return true;
                 }
             };
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

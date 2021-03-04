@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context=".activity.aeps.AddBankFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="vertical">
+
+
+        <TextView
+            style="@style/TextStyle2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Bank Name" />
+
+        <EditText
+            android:id="@+id/atv_bank_name"
+            style="@style/AppEditText2"
+            android:layout_marginTop="2dp"
+            android:hint="Enter Bank Name" />
+
+        <TextView
+            style="@style/TextStyle2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Branch Name" />
+
+        <EditText
+            android:id="@+id/atv_branch_name"
+            style="@style/AppEditText2"
+            android:layout_marginTop="2dp"
+            android:hint="Enter Branch Name" />
+
+        <TextView
+            style="@style/TextStyle2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="IFSC Code" />
+
+        <EditText
+            android:id="@+id/ed_ifsce_code"
+            style="@style/AppEditText2"
+            android:hint="Enter IFSC Code" />
+
+        <TextView
+            style="@style/TextStyle2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Account Number" />
+
+        <LinearLayout
+
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/ed_account_number"
+                style="@style/AppEditText2"
+                android:layout_width="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/bg_white"
+                android:hint="Enter Account Number"
+                android:inputType="number" />
+
+        </LinearLayout>
+
+        <TextView
+            style="@style/TextStyle2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Account Holder Name" />
+
+        <EditText
+            android:id="@+id/ed_beneName"
+            style="@style/AppEditText2"
+            android:hint="Enter Account Holder Name" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+
+            >
+
+            <Button
+                android:id="@+id/btn_add_bene"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:background="@drawable/bg_light_blue_5"
+                android:text="Add Bank"
+                android:textColor="#fff" />
+
+            <RelativeLayout
+                android:id="@+id/rl_progress"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:background="@drawable/bg_orange_5"
+                android:text="Login"
+                android:textColor="#fff"
+                android:visibility="gone">
+
+                <ProgressBar
+                    android:id="@+id/progressRR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:indeterminateDrawable="@drawable/myprogress_style"
+                    android:visibility="invisible"
+                    tools:visibility="visible" />
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tv_error_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/bg_orange_5"
+            android:padding="10dp"
+            android:textColor="@color/white"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:visibility="invisible"
+            tools:visibility="visible" />
+
+
+    </LinearLayout>
+
+</ScrollView>

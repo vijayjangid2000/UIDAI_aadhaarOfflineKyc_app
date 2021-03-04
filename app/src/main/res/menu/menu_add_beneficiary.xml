@@ -1,0 +1,22 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.a2zsuvidhaa.in.activity.ReportsActivity">
+
+    <item
+        android:id="@+id/history"
+        android:orderInCategory="100"
+        android:title="History"
+
+        app:showAsAction="always" />
+
+    <item
+
+        android:id="@+id/add_beneficiary"
+        android:icon="@drawable/ic_add_beneficiary"
+        android:orderInCategory="100"
+        android:title="Add Beneficiary"
+        app:showAsAction="always" />
+
+
+</menu>

@@ -20,6 +20,8 @@ import java.util.List;
 
 public class ReportAdapter2 extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
+    private int layout = R.layout.list_ledger_report2;
+
     private static final int ITEM = 0;
     private static final int LOADING = 1;
     private ReportTypes reportType;

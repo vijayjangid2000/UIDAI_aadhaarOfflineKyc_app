@@ -38,18 +38,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.vijayjangid.aadharkyc.databinding.FragmentHomeFragmentBinding;
-import com.vijayjangid.aadharkyc.mobileRecharge.RechargePrepaid;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Queue;
 
-import Electricity.ElectricityRecharge;
+import Aeps.AepsActivity;
+import Electricity.ElecRecharge;
+import FastTag.Fastag;
+import Gas.GasRecharge;
+import Insurance.Insurance;
+import Loan.LoanRecharge;
+import MobRecharge.RechargePrepaid;
 import Water.Water_Bill_activity;
+import a2z_wallet.A2ZWalletActivity;
 import smartdevelop.ir.eram.showcaseviewlib.GuideView;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -59,17 +64,20 @@ import static maes.tech.intentanim.CustomIntent.customType;
 public class Home_fragment extends Fragment
         implements View.OnClickListener {
 
-    FragmentHomeFragmentBinding fragmentHomeFragmentBinding;
+    /* NOTE - VIEW BINDING ENABLED FOR THIS ACTIVITY */
 
     ImageView iv_scanPay, iv_sendMoney, iv_sendAgain,
             iv_prepaid, iv_electricity, iv_water, iv_insurance,
-            iv_landLine, iv_postpaid, iv_dth, iv_dataCard, iv_fasTag;
+            iv_loanRepay, iv_gas, iv_dth, iv_dataCard, iv_fasTag;
 
-    static View root2;
+    FragmentHomeFragmentBinding fragmentHomeFragmentBinding;
     TextView tv_scanPay, tv_sendMoney, tv_sendAgain,
             tv_prepaid, tv_electricity, tv_water, tv_insurance,
-            tv_landLine, tv_postpaid, tv_dth, tv_dataCard, tv_fasTag, tv_shareCode,
+            tv_loan, tv_gas, tv_dth, tv_dataCard, tv_fasTag, tv_shareCode,
             tvb_shareCode;
+
+    static View root2;
+    private int activity_view = R.layout.fragment_home_fragment;
     RecyclerView recyclerView;
 
     Animation animation;
@@ -115,7 +123,7 @@ public class Home_fragment extends Fragment
                         } else if (type == 2) {
                             ShowIntro("Wallet", "Manage your wallet", R.id.sendagain_iv, 3);
                         } else if (type == 3) {
-                            ShowIntro("Pay from home", "Recharge and pay your bills from home", R.id.rechargelll, 4);
+                            ShowIntro("Pay from home", "ElecRecharge and pay your bills from home", R.id.rechargelll, 4);
                         } else if (type == 4) {
                             scrollView.post(new Runnable() {
                                 @Override
@@ -145,8 +153,8 @@ public class Home_fragment extends Fragment
         iv_electricity = fragmentHomeFragmentBinding.electricityIv;
         iv_water = fragmentHomeFragmentBinding.waterIv;
         iv_insurance = fragmentHomeFragmentBinding.insuranceIv;
-        iv_landLine = fragmentHomeFragmentBinding.landlineIv;
-        iv_postpaid = fragmentHomeFragmentBinding.postpaidIv;
+        iv_loanRepay = fragmentHomeFragmentBinding.ivLoanRepay;
+        iv_gas = fragmentHomeFragmentBinding.ivGas;
         iv_dth = fragmentHomeFragmentBinding.dthIv;
         iv_dataCard = fragmentHomeFragmentBinding.datacardIv;
         iv_fasTag = fragmentHomeFragmentBinding.fastagIv;
@@ -158,8 +166,8 @@ public class Home_fragment extends Fragment
         tv_electricity = fragmentHomeFragmentBinding.electricityTv;
         tv_water = fragmentHomeFragmentBinding.waterTv;
         tv_insurance = fragmentHomeFragmentBinding.insuranceTv;
-        tv_landLine = fragmentHomeFragmentBinding.landlineTv;
-        tv_postpaid = fragmentHomeFragmentBinding.postpaidTv;
+        tv_loan = fragmentHomeFragmentBinding.tvLoanRepay;
+        tv_gas = fragmentHomeFragmentBinding.tvGas;
         tv_dth = fragmentHomeFragmentBinding.dthTv;
         tv_dataCard = fragmentHomeFragmentBinding.datacardTv;
         tv_fasTag = fragmentHomeFragmentBinding.fastagTv;
@@ -177,9 +185,9 @@ public class Home_fragment extends Fragment
         iv_sendAgain.setOnClickListener(this);
         iv_electricity.setOnClickListener(this);
         iv_water.setOnClickListener(this);
-        iv_landLine.setOnClickListener(this);
+        iv_loanRepay.setOnClickListener(this);
         iv_insurance.setOnClickListener(this);
-        iv_postpaid.setOnClickListener(this);
+        iv_gas.setOnClickListener(this);
         iv_dth.setOnClickListener(this);
         iv_fasTag.setOnClickListener(this);
         iv_dataCard.setOnClickListener(this);
@@ -191,8 +199,8 @@ public class Home_fragment extends Fragment
         tv_electricity.setOnClickListener(this);
         tv_water.setOnClickListener(this);
         tv_insurance.setOnClickListener(this);
-        tv_landLine.setOnClickListener(this);
-        tv_postpaid.setOnClickListener(this);
+        tv_loan.setOnClickListener(this);
+        tv_gas.setOnClickListener(this);
         tv_dth.setOnClickListener(this);
         tv_dataCard.setOnClickListener(this);
         tv_fasTag.setOnClickListener(this);
@@ -296,17 +304,16 @@ public class Home_fragment extends Fragment
             case R.id.scanpay_iv:
                 iv_scanPay.setAlpha(alphaVal);
                 tv_scanPay.setAlpha(alphaVal);
-
                 if (!checkCameraPermission()) {
-                    startActivity(new Intent(getActivity(), ScanQrCode.class));
+                    startActivity(new Intent(getActivity(), AepsActivity.class));
                 }
-
                 break;
 
             case R.id.sendmoney_tv:
             case R.id.sendmoney_iv:
                 iv_sendMoney.setAlpha(alphaVal);
                 tv_sendMoney.setAlpha(alphaVal);
+                startActivity(new Intent(getContext(), A2ZWalletActivity.class));
                 break;
 
             case R.id.sendAgain_tv:
@@ -319,8 +326,7 @@ public class Home_fragment extends Fragment
             case R.id.prepaid_iv:
                 iv_prepaid.setAlpha(alphaVal);
                 tv_prepaid.setAlpha(alphaVal);
-                Intent intent = new Intent(getActivity(), RechargePrepaid.class);
-                Objects.requireNonNull(getActivity()).startActivity(intent);
+                startActivity(new Intent(getContext(), RechargePrepaid.class));
                 customType(getContext(), "fadein-to-fadeout");
                 break;
 
@@ -328,7 +334,7 @@ public class Home_fragment extends Fragment
             case R.id.electricity_iv:
                 iv_electricity.setAlpha(alphaVal);
                 tv_electricity.setAlpha(alphaVal);
-                startActivity(new Intent(getContext(), ElectricityRecharge.class));
+                startActivity(new Intent(getContext(), ElecRecharge.class));
                 customType(getContext(), "fadein-to-fadeout");
                 break;
 
@@ -344,27 +350,31 @@ public class Home_fragment extends Fragment
             case R.id.insurance_iv:
                 iv_insurance.setAlpha(alphaVal);
                 tv_insurance.setAlpha(alphaVal);
-                startActivity(new Intent(getContext(), InsurancePay.class));
+                startActivity(new Intent(getContext(), Insurance.class));
                 customType(getContext(), "fadein-to-fadeout");
                 break;
 
-            case R.id.landline_tv:
-            case R.id.landline_iv:
-                iv_landLine.setAlpha(alphaVal);
-                tv_landLine.setAlpha(alphaVal);
+            case R.id.iv_loanRepay:
+            case R.id.tv_loanRepay:
+                iv_loanRepay.setAlpha(alphaVal);
+                tv_loan.setAlpha(alphaVal);
+                startActivity(new Intent(getContext(), LoanRecharge.class));
+                customType(getContext(), "fadein-to-fadeout");
                 break;
 
-            case R.id.postpaid_tv:
-            case R.id.postpaid_iv:
-                iv_postpaid.setAlpha(alphaVal);
-                tv_postpaid.setAlpha(alphaVal);
+            case R.id.tv_gas:
+            case R.id.iv_gas:
+                iv_gas.setAlpha(alphaVal);
+                tv_gas.setAlpha(alphaVal);
+                startActivity(new Intent(getContext(), GasRecharge.class));
+                customType(getContext(), "fadein-to-fadeout");
                 break;
 
             case R.id.dth_tv:
             case R.id.dth_iv:
                 iv_dth.setAlpha(alphaVal);
                 tv_dth.setAlpha(alphaVal);
-                startActivity(new Intent(getContext(), DthRecharge.class));
+                startActivity(new Intent(getContext(), Dth.DthRecharge.class));
                 customType(getContext(), "fadein-to-fadeout");
                 break;
 
@@ -379,6 +389,7 @@ public class Home_fragment extends Fragment
             case R.id.fastag_tv:
                 iv_fasTag.setAlpha(alphaVal);
                 tv_fasTag.setAlpha(alphaVal);
+                startActivity(new Intent(getContext(), Fastag.class));
                 break;
 
             case R.id.shareCodeFragment:
@@ -795,10 +806,10 @@ public class Home_fragment extends Fragment
         tv_water.setAlpha(normalDark);
         iv_insurance.setAlpha(normalDark);
         tv_insurance.setAlpha(normalDark);
-        iv_landLine.setAlpha(normalDark);
-        tv_landLine.setAlpha(normalDark);
-        iv_postpaid.setAlpha(normalDark);
-        tv_postpaid.setAlpha(normalDark);
+        iv_loanRepay.setAlpha(normalDark);
+        tv_loan.setAlpha(normalDark);
+        iv_gas.setAlpha(normalDark);
+        tv_gas.setAlpha(normalDark);
         iv_dth.setAlpha(normalDark);
         tv_dth.setAlpha(normalDark);
         iv_dataCard.setAlpha(normalDark);
@@ -808,7 +819,6 @@ public class Home_fragment extends Fragment
     }
 
     // for scanner
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

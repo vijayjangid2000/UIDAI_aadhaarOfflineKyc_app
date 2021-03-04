@@ -190,21 +190,18 @@ public class Kyc extends AppCompatActivity {
 
     }
 
-    void afterVerificationSuccess() {
-        SheetClass sheetClass = new SheetClass();
-        sheetClass.show(getSupportFragmentManager(), "exampleBottomSheet");
-    }
-
     void getZipFile() {
 
         if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_DENIED ||
                 checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
                         == PackageManager.PERMISSION_DENIED) {
+
             Toast.makeText(Kyc.this, "Please Allow to use storage"
                     , Toast.LENGTH_LONG).show();
             askStoragePermission();
             return;
+
         }
 
         File file = new File(Environment.getExternalStorageDirectory()
@@ -217,7 +214,8 @@ public class Kyc extends AppCompatActivity {
         if (array != null) {
             for (File value : array) {
                 if (value.getName().contains("offlineaadhaar")
-                        && value.getName().contains(".zip") && old.compareTo(value.getName()) < 0) {
+                        && value.getName().contains(".zip")
+                        && old.compareTo(value.getName()) < 0) {
                     found = true;
                     old = value.getName();
                     file = new File(value.getAbsoluteFile().getAbsolutePath());
@@ -233,7 +231,8 @@ public class Kyc extends AppCompatActivity {
                     false, false);
             tv_status.setTextColor(Color.parseColor("#487E0A"));
         } else {
-            String message = "Document not found. Please download the Aadhaar Offline Verification Document by clicking above button.";
+            String message = "Document not found. Please download the Aadhaar " +
+                    "Offline Verification Document by clicking above button.";
             showCustomSnack(btn_downloadAadhar.getRootView(), message, true, true);
         }
 
@@ -241,6 +240,7 @@ public class Kyc extends AppCompatActivity {
     }
 
     void startFinalVerification() {
+
         String shareCode = et_shareCode.getText().toString().trim();
 
         if (shareCode.length() != 4) {
@@ -249,6 +249,7 @@ public class Kyc extends AppCompatActivity {
         } else {
             unzip(fileObj_zipFile, shareCode);
         }
+
     }
 
     /*unzip file using shareCode, then extract then send file address*/
@@ -285,6 +286,7 @@ public class Kyc extends AppCompatActivity {
             showCustomSnack(btn_downloadAadhar.getRootView(),
                     unzipErrorStatement,
                     true, true);
+            Toast.makeText(contextZ, "Take Screenshot: " + e.getMessage(), Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -306,6 +308,11 @@ public class Kyc extends AppCompatActivity {
         }
 
         afterVerificationSuccess();
+    }
+
+    void afterVerificationSuccess() {
+        SheetClass sheetClass = new SheetClass();
+        sheetClass.show(getSupportFragmentManager(), "exampleBottomSheet");
     }
 
     boolean checkMobileNumberMatched() {
@@ -550,12 +557,7 @@ public class Kyc extends AppCompatActivity {
         if (isIndefinite) snackbar.setDuration(Snackbar.LENGTH_INDEFINITE);
         if (isError) snackBarView.setBackgroundColor(getColor(R.color.Red));
 
-        snackBarView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                snackbar.dismiss();
-            }
-        });
+        snackBarView.setOnClickListener(view1 -> snackbar.dismiss());
         snackbar.show();
     }
 

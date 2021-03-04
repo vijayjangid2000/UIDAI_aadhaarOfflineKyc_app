@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class Report implements Parcelable {
+
     public static final Creator<Report> CREATOR = new Creator<Report>() {
         @Override
         public Report createFromParcel(Parcel in) {
@@ -15,6 +16,7 @@ public class Report implements Parcelable {
             return new Report[size];
         }
     };
+
     private String id;
     private String date;
     private String mobileNumber;
@@ -62,6 +64,7 @@ public class Report implements Parcelable {
     public Report(String id, String date, String number, String mobileNumber, String userName, String txnId, String refId,
                   String providerName, String amount, String gst, String credtAmount, String debitAmount,
                   String tds, String txnType, String status, String statusId, String mode, String opId) {
+
         this.id = id;
         this.date = date;
         this.number = number;
@@ -538,6 +541,7 @@ public class Report implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
+
         parcel.writeString(id);
         parcel.writeString(date);
         parcel.writeString(mobileNumber);
@@ -577,5 +581,6 @@ public class Report implements Parcelable {
         parcel.writeString(name);
         parcel.writeByte((byte) (isHide ? 1 : 0));
         parcel.writeByte((byte) (isStatus ? 1 : 0));
+
     }
 }

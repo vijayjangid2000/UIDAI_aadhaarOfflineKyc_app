@@ -132,7 +132,7 @@ public class Login_activity extends AppCompatActivity {
         zSnack = tvb_ForgotPass.getRootView();
 
         et_MobileNumber.setText("8875673907");
-        et_Password.setText("A2z@9876");
+        et_Password.setText("Ram@12345");
     }
 
     /* flow of login is below*/
@@ -217,7 +217,6 @@ public class Login_activity extends AppCompatActivity {
     }
 
     void onServerResponse(String response) throws JSONException {
-        dialogView.dismiss();
 
         JSONObject object = new JSONObject(response);
         Log.d(TAG, "onServerResponse: \n\n" + response + "\n\n");
@@ -243,6 +242,8 @@ public class Login_activity extends AppCompatActivity {
             tempError = "Error: " + object.getString("message");
             showCustomSnack(zSnack, tempError, true, true);
         }
+
+        dialogView.dismiss();
     }
 
     void onLoginSuccessful(String response) throws Exception {

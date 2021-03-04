@@ -22,6 +22,7 @@ import java.util.List;
 
 public class Notification extends AppCompatActivity {
 
+    private int layout = R.layout.activity_notification;
     RecyclerView recyclerView;
     LinearLayout ll_noNotification;
     TextView tvb_notificationSetting;

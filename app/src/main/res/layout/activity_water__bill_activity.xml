@@ -31,7 +31,7 @@
             android:layout_marginBottom="5dp"
             android:paddingLeft="10dp"
             android:text="Change Board"
-            android:textColor="@color/lightText" />
+            android:textColor="@color/colorPrimary" />
 
         <TextView
             android:id="@+id/tv_boardName"

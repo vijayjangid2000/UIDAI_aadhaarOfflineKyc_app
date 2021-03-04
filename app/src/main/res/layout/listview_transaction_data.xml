@@ -23,17 +23,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="5dp"
+                android:layout_marginLeft="5dp"
+                android:padding="3dp"
                 android:text="Payment Number"
-                android:textColor="@color/colorPrimary"
-                android:textSize="12sp" />
+                android:textColor="@color/colorPrimary" />
 
             <TextView
                 android:id="@+id/tv_row2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:padding="5dp"
+                android:layout_marginRight="10dp"
+                android:gravity="right"
+                android:padding="3dp"
                 android:text="8862 743 623" />
 
         </LinearLayout>

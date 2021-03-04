@@ -383,7 +383,7 @@
                             app:cardCornerRadius="7dp">
 
                             <ImageView
-                                android:id="@+id/landline_iv"
+                                android:id="@+id/iv_loanRepay"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -394,11 +394,11 @@
                         </androidx.cardview.widget.CardView>
 
                         <TextView
-                            android:id="@+id/landline_tv"
+                            android:id="@+id/tv_loanRepay"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="LandLine"
+                            android:text="Loan"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -418,7 +418,7 @@
                             app:cardCornerRadius="7dp">
 
                             <ImageView
-                                android:id="@+id/postpaid_iv"
+                                android:id="@+id/iv_gas"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1"
@@ -429,46 +429,11 @@
                         </androidx.cardview.widget.CardView>
 
                         <TextView
-                            android:id="@+id/postpaid_tv"
+                            android:id="@+id/tv_gas"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="Gas"
-                            android:textColor="@color/white"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="80dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-
-                        <androidx.cardview.widget.CardView
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_margin="10dp"
-                            android:layout_weight="1"
-                            app:cardBackgroundColor="#E1F4FE"
-                            app:cardCornerRadius="7dp">
-
-                            <ImageView
-                                android:id="@+id/datacard_iv"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_weight="1"
-                                android:padding="10dp"
-                                android:src="@drawable/ic_datacard_rechage"
-                                android:tint="#07438E" />
-
-                        </androidx.cardview.widget.CardView>
-
-                        <TextView
-                            android:id="@+id/datacard_tv"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:text="Data Card"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
                     </LinearLayout>
@@ -505,6 +470,41 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:text="FASTag"
+                            android:textColor="@color/white"
+                            android:textSize="12sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="80dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="10dp"
+                            android:layout_weight="1"
+                            app:cardBackgroundColor="#E1F4FE"
+                            app:cardCornerRadius="7dp">
+
+                            <ImageView
+                                android:id="@+id/datacard_iv"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:padding="10dp"
+                                android:src="@drawable/ic_datacard_rechage"
+                                android:tint="#07438E" />
+
+                        </androidx.cardview.widget.CardView>
+
+                        <TextView
+                            android:id="@+id/datacard_tv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Data Card"
                             android:textColor="@color/white"
                             android:textSize="12sp" />
                     </LinearLayout>

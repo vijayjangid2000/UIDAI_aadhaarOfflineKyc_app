@@ -7,7 +7,6 @@
         android:id="@+id/loadmore_progress"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:indeterminateDrawable="@drawable/myprogress_style" />
+        android:layout_gravity="center" />
 
 </FrameLayout>

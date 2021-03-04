@@ -30,7 +30,6 @@ import com.vijayjangid.aadharkyc.R;
 import com.vijayjangid.aadharkyc.UserData;
 import com.vijayjangid.aadharkyc.enums.ProviderType;
 import com.vijayjangid.aadharkyc.in.RequestHandler;
-import com.vijayjangid.aadharkyc.mobileRecharge.OperatorModel;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,6 +37,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+
+import MobRecharge.OperatorModel;
 
 import static maes.tech.intentanim.CustomIntent.customType;
 

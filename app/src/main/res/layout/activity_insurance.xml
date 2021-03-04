@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="Insurance.Insurance">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_custom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+        <TextView
+            android:id="@+id/tv_selectBoard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:paddingLeft="10dp"
+            android:text="Change Policy"
+            android:textColor="@color/lightText" />
+
+        <TextView
+            android:id="@+id/tvb_selectBoard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10dp"
+            android:textColor="@color/colorPrimary"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            tools:text="LIC" />
+
+        <TextView
+            android:id="@+id/BoardLine"
+            style="@style/LineTextView"
+            android:background="@color/colorPrimary">
+
+        </TextView>
+
+        <!-- <TextView
+             android:id="@+id/selectDistrictTextview"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="20dp"
+             android:layout_marginBottom="5dp"
+             android:textColor="@color/lightText"
+             android:paddingLeft="10dp"
+             android:text="District/Type" />
+
+         <TextView
+             android:id="@+id/districtTextview"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:paddingLeft="10dp"
+             android:text="Bill Payment"
+             android:textColor="@color/darkText"
+             android:textSize="16sp" />-->
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etl_mobileElec"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:hint="Proposer Mobile Number"
+            android:weightSum="1"
+            app:hintTextColor="@color/colorPrimary"
+            app:startIconDrawable="@drawable/ic_phone_number">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_mobileElec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:defaultFocusHighlightEnabled="false"
+                android:digits="0987654321"
+                android:inputType="number"
+                android:maxLength="10"
+                android:textCursorDrawable="@drawable/cursor_style" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etl_connectionNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:hint="Policy Number"
+            android:weightSum="1"
+            app:hintTextColor="@color/colorPrimary">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_connectionNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:defaultFocusHighlightEnabled="false"
+                android:digits="0987654321"
+                android:inputType="number"
+                android:maxLength="12"
+                android:textCursorDrawable="@drawable/cursor_style" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/btn_fetchElec"
+            style="@style/Proceed_Button"
+            android:text="Get Premium" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

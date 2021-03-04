@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="Electricity.ElectricityRecharge">
+    tools:context="Electricity.ElecRecharge">
 
     <include
         android:id="@+id/toolbar"
@@ -25,100 +25,99 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar">
 
         <TextView
-            android:id="@+id/selectstate_textview"
+            android:id="@+id/tv_selectBoard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
-            android:textColor="@color/lightText"
+            android:text="Change Board"
             android:paddingLeft="10dp"
-            android:text="Select State" />
+            android:textColor="@color/colorPrimary" />
 
         <TextView
-            android:id="@+id/state_textview"
+            android:id="@+id/tvb_selectBoard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:textColor="@color/darkText"
             android:textSize="16sp"
-            tools:text="Rajasthan" />
-
-        <TextView
-            android:id="@+id/stateLine"
-            style="@style/LineTextView"></TextView>
-
-        <TextView
-            android:id="@+id/selectboard_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
             android:layout_marginBottom="5dp"
-            android:textColor="@color/lightText"
-            android:paddingLeft="10dp"
-            android:text="Select Board" />
-
-        <TextView
-            android:id="@+id/board_textview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:textColor="@color/darkText"
-            android:textSize="16sp"
             tools:text="JVVNL" />
 
-        <TextView
-            android:id="@+id/BoardLine"
-            style="@style/LineTextView">
+        <!-- <TextView
+             android:id="@+id/selectDistrictTextview"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="20dp"
+             android:layout_marginBottom="5dp"
+             android:textColor="@color/lightText"
+             android:paddingLeft="10dp"
+             android:text="District/Type" />
 
-        </TextView>
-
-        <TextView
-            android:id="@+id/selectDistrictTextview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="5dp"
-            android:textColor="@color/lightText"
-            android:paddingLeft="10dp"
-            android:text="District/Type" />
-
-        <TextView
-            android:id="@+id/districtTextview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingLeft="10dp"
-            android:text="Bill Payment"
-            android:textColor="@color/darkText"
-            android:textSize="16sp" />
+         <TextView
+             android:id="@+id/districtTextview"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:paddingLeft="10dp"
+             android:text="Bill Payment"
+             android:textColor="@color/darkText"
+             android:textSize="16sp" />-->
 
         <TextView
             android:id="@+id/districtLine"
-            style="@style/LineTextView"></TextView>
+            style="@style/LineTextView" />
+
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/kNumberEtL"
+            android:id="@+id/etl_mobileElec"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginRight="10dp"
+            android:hint="Customer Mobile Number"
+            android:weightSum="1"
+            app:hintTextColor="@color/colorPrimary"
+            app:startIconDrawable="@drawable/ic_phone_number">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/et_mobileElec"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:defaultFocusHighlightEnabled="false"
+                android:digits="0987654321"
+                android:inputType="number"
+                android:maxLength="10"
+                android:textCursorDrawable="@drawable/cursor_style" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/etl_connectionNo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginRight="10dp"
             android:hint="K Number"
             android:weightSum="1"
             app:hintTextColor="@color/colorPrimary">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/kNumberEt"
+                android:id="@+id/et_connectionNo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:defaultFocusHighlightEnabled="false"
                 android:inputType="number"
-                android:maxLength="7"
+                android:digits="0987654321"
+                android:maxLength="12"
                 android:textCursorDrawable="@drawable/cursor_style" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:text="Proceed"
+            android:id="@+id/btn_fetchElec"
+            android:text="Fetch Bill"
             style="@style/Proceed_Button" />
 
     </LinearLayout>

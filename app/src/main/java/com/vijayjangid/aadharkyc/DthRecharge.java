@@ -29,7 +29,7 @@ public class DthRecharge extends AppCompatActivity {
         setContentView(R.layout.activity_dth_recharge);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle("Dth Recharge");
+        toolbar.setTitle("Dth ElecRecharge");
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);

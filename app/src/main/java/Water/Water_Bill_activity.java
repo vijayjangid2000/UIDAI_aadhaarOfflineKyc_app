@@ -31,8 +31,6 @@ import com.vijayjangid.aadharkyc.R;
 import com.vijayjangid.aadharkyc.UserData;
 import com.vijayjangid.aadharkyc.activity.AppInProgressActivity;
 import com.vijayjangid.aadharkyc.in.RequestHandler;
-import com.vijayjangid.aadharkyc.mobileRecharge.BottomSheetConfirm;
-import com.vijayjangid.aadharkyc.mobileRecharge.OperatorModel;
 import com.vijayjangid.aadharkyc.util.AppDialogs;
 import com.vijayjangid.aadharkyc.util.MakeToast;
 import com.vijayjangid.aadharkyc.util.SessionManager;
@@ -45,10 +43,13 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
-import maes.tech.intentanim.CustomIntent;
+import MobRecharge.BottomSheetConfirm;
+import MobRecharge.OperatorModel;
 
 public class Water_Bill_activity extends AppCompatActivity
         implements BottomSheetConfirm.ConfirmInterface {
+
+    private int activityLayout = R.layout.activity_water__bill_activity;
 
     final int REQUEST_CODE_OPERATOR = 100;
     final String INTENT_PUT_EXTRA = "Provider";
@@ -62,7 +63,6 @@ public class Water_Bill_activity extends AppCompatActivity
     BottomSheetConfirm sheetClass;
     AlertDialog dialogView;
     UserData userData;
-
 
     TextView tvb_changeBoard, tv_boardName;
 
@@ -124,7 +124,7 @@ public class Water_Bill_activity extends AppCompatActivity
     }
 
     void fetchBill() {
-
+        btn_fetchBill.requestFocus();
         showProgressBar(true, "Fetching Bill, It will take few seconds");
 
         String url = "https://prod.excelonestopsolution.com/mobileapp/api/" + "fetch"
@@ -390,6 +390,7 @@ public class Water_Bill_activity extends AppCompatActivity
                 operatorModel = new Gson().fromJson(jsonString, OperatorModel.class);
                 tv_boardName.setText(operatorModel.getProviderName());
                 etl_consumerId.setVisibility(View.VISIBLE);
+                et_consumerId.requestFocus();
             } catch (Exception ignored) {
 
             }
@@ -400,7 +401,6 @@ public class Water_Bill_activity extends AppCompatActivity
     @Override
     public void finish() {
         super.finish();
-        CustomIntent.customType(this, "fadein-to-fadeout");
     }
 
     void showProgressBar(boolean showText, String text) {
@@ -423,4 +423,9 @@ public class Water_Bill_activity extends AppCompatActivity
         dialogView.show();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        tvb_changeBoard.setAlpha(1f);
+    }
 }

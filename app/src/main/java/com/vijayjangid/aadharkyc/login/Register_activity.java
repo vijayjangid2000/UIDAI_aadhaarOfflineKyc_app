@@ -68,6 +68,8 @@ import java.util.regex.Pattern;
 import static android.Manifest.permission.READ_PHONE_NUMBERS;
 
 public class Register_activity extends AppCompatActivity {
+    String mobileNumber, password, fullName,
+            OTP, email, confirmPassword; // firebase authentication
 
     TextInputEditText etMobileNumber, etPassword, etFullName, etEmail, etConfirmPassword;
     TextInputLayout etMobileNumberLayout, etPasswordLayout, etFullNameLayout, etEmailLayout, etConfirmPasswordLayout;
@@ -80,7 +82,7 @@ public class Register_activity extends AppCompatActivity {
 
     Animation animAlpha; // Alert Dialog
     AlertDialog dialogView; // String data used in registration
-    String mobileNumber, password, fullName, OTP, email, confirmPassword; // firebase authentication
+    private int layout = R.layout.activity_register;
 
     View tempViewForSnackBar;
     ImageView ivb_showPassInfo;
