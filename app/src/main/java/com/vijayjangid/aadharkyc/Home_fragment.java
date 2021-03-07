@@ -38,6 +38,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 import com.vijayjangid.aadharkyc.databinding.FragmentHomeFragmentBinding;
+import com.vijayjangid.aadharkyc.in.SharedPref;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,6 +64,10 @@ import static maes.tech.intentanim.CustomIntent.customType;
 
 public class Home_fragment extends Fragment
         implements View.OnClickListener {
+
+    // for easy access only
+    private int layout = R.layout.fragment_home_fragment;
+    private int layoutWallet = R.layout.listview_wallet_info;
 
     /* NOTE - VIEW BINDING ENABLED FOR THIS ACTIVITY */
 
@@ -314,12 +319,14 @@ public class Home_fragment extends Fragment
                 iv_sendMoney.setAlpha(alphaVal);
                 tv_sendMoney.setAlpha(alphaVal);
                 startActivity(new Intent(getContext(), A2ZWalletActivity.class));
+                customType(getContext(), "fadein-to-fadeout");
                 break;
 
             case R.id.sendAgain_tv:
             case R.id.sendagain_iv:
                 iv_sendAgain.setAlpha(alphaVal);
                 tv_sendAgain.setAlpha(alphaVal);
+                customType(getContext(), "fadein-to-fadeout");
                 break;
 
             case R.id.prepaid_tv:
@@ -382,7 +389,7 @@ public class Home_fragment extends Fragment
             case R.id.datacard_iv:
                 iv_dataCard.setAlpha(alphaVal);
                 tv_dataCard.setAlpha(alphaVal);
-
+                customType(getContext(), "fadein-to-fadeout");
                 break;
 
             case R.id.fastag_iv:
@@ -390,14 +397,17 @@ public class Home_fragment extends Fragment
                 iv_fasTag.setAlpha(alphaVal);
                 tv_fasTag.setAlpha(alphaVal);
                 startActivity(new Intent(getContext(), Fastag.class));
+                customType(getContext(), "fadein-to-fadeout");
                 break;
 
             case R.id.shareCodeFragment:
                 Toast.makeText(getContext(), "Copied to Clipboard", Toast.LENGTH_SHORT).show();
+                customType(getContext(), "fadein-to-fadeout");
                 break;
 
             case R.id.btn_inviteFragment:
                 startActivity(new Intent(getContext(), InviteAndEarn.class));
+                customType(getContext(), "fadein-to-fadeout");
                 break;
         }
     }
@@ -730,6 +740,7 @@ public class Home_fragment extends Fragment
 
             UserData userData = new UserData(getContext());
             mobileNumberUser.setText(userData.getMobile());
+            walletBalance.setText(SharedPref.getInstance(getContext()).getUserBalance());
             //walletBalance.setText("100");
 
             byte[] decodedString = Base64.decode(userData.getPhotoByteCode(), 0);

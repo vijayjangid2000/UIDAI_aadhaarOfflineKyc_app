@@ -40,8 +40,6 @@ import java.util.concurrent.TimeUnit;
 
 import MobRecharge.OperatorModel;
 
-import static maes.tech.intentanim.CustomIntent.customType;
-
 public class Providers extends AppCompatActivity {
 
     final String INTENT_PUT_EXTRA = "Provider";
@@ -157,7 +155,7 @@ public class Providers extends AppCompatActivity {
 
     public void onBackPressed() {
         super.onBackPressed();
-        customType(Providers.this, "bottom-to-up");
+
     }
 
     // for back option in toolbar (left side top)
@@ -244,7 +242,7 @@ public class Providers extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.putExtra(INTENT_PUT_EXTRA, new Gson().toJson(al_operatorModel.get(position)));
                 setResult(REQUEST_CODE_OPERATOR, intent);
-                customType(Providers.this, "bottom-to-up");
+
                 finish();
             });
 

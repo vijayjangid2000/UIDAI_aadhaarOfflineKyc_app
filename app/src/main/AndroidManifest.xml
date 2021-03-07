@@ -27,6 +27,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".login.ForgetPassword"></activity>
         <activity android:name="Dmt.DmtMain" />
         <activity android:name="Aeps.AepsActivity" />
         <activity android:name="Aeps.AepsSettllementActivity" />
@@ -47,7 +48,6 @@
         <activity android:name="Water.WaterProviders" />
         <activity android:name="Electricity.ElecRecharge" />
         <activity android:name="MobRecharge.RechargePostpaid" />
-        <activity android:name=".TransactionSummary" />
         <activity android:name="MobRecharge.ProviderActivity" />
         <activity android:name=".Notification" />
         <activity android:name=".AddCardObject" />

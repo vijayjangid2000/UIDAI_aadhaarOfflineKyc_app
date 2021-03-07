@@ -1,4 +1,4 @@
-package com.vijayjangid.aadharkyc.model;
+package MobRecharge;
 
 public class Offer {
     private String price;

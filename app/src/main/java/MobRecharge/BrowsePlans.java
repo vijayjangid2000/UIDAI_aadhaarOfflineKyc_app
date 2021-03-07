@@ -19,7 +19,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vijayjangid.aadharkyc.R;
-import com.vijayjangid.aadharkyc.model.Offer;
 
 import java.util.ArrayList;
 

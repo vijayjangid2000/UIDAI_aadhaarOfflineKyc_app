@@ -47,7 +47,6 @@ import com.vijayjangid.aadharkyc.R;
 import com.vijayjangid.aadharkyc.UserData;
 import com.vijayjangid.aadharkyc.activity.AppInProgressActivity;
 import com.vijayjangid.aadharkyc.in.RequestHandler;
-import com.vijayjangid.aadharkyc.model.Offer;
 import com.vijayjangid.aadharkyc.util.AppDialogs;
 import com.vijayjangid.aadharkyc.util.MakeToast;
 import com.vijayjangid.aadharkyc.util.SessionManager;

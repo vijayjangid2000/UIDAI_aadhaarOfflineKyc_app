@@ -60,12 +60,13 @@ import java.util.concurrent.TimeUnit;
 
 public class AepsActivity extends AppCompatActivity {
 
+    private int layout = R.layout.activity_aeps;
+
     private static final String TAG = "AepsActivity";
     private static final int RD_SERVICE_RESPONSE_DODE = 10;
     UserData userData;
     String str = "";
     int strOldlen = 0;
-    private int layout = R.layout.activity_aeps;
     private EditText ed_aadharNumber;
     private Button btnCapture;
     private ImageButton btnReset;
@@ -278,12 +279,12 @@ public class AepsActivity extends AppCompatActivity {
 
 
                     } catch (JSONException e) {
-                        MakeToast.show(this, "Something went wrong! please contanct to admin");
+                        MakeToast.show(this, "Something went wrong! please contact to admin");
                         finish();
                     }
                 },
                 error -> {
-                    MakeToast.show(this, "Something went wrong! please contanct to admin");
+                    MakeToast.show(this, "Something went wrong! please contact to admin");
                     finish();
                 }) {
 

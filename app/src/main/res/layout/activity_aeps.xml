@@ -235,7 +235,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:background="@drawable/bg_light_blue_5">
+                    android:background="@drawable/btn_gradient_style">
 
                     <Button
                         android:id="@+id/btnCapture"

@@ -108,7 +108,8 @@ public class Login_activity extends AppCompatActivity {
         animAlpha = AnimationUtils.loadAnimation(this, R.anim.anim_aplha);
         tvb_ForgotPass.setOnClickListener(v -> {
             tvb_ForgotPass.setAlpha((float) 0.5);
-            forgotPassword();
+            Intent intent = new Intent(this, ForgetPassword.class);
+            startActivity(intent);
         });
 
         tvb_Login.setOnClickListener(v -> {
@@ -124,8 +125,6 @@ public class Login_activity extends AppCompatActivity {
             tvb_GoSignUp.setAlpha((float) 0.5);
             openSignUp();
         });
-
-        tvb_ForgotPass.setOnClickListener(view -> showCustomSnack(zSnack, "Forgot Password Clicked", false, false));
 
         ivb_showPassInfo.setOnClickListener(view -> showAlertPasswordInfo());
 

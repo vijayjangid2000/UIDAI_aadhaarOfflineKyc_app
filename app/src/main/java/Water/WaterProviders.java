@@ -40,8 +40,6 @@ import java.util.concurrent.TimeUnit;
 
 import MobRecharge.OperatorModel;
 
-import static maes.tech.intentanim.CustomIntent.customType;
-
 public class WaterProviders extends AppCompatActivity {
 
     final String INTENT_PUT_EXTRA = "Provider";
@@ -153,11 +151,6 @@ public class WaterProviders extends AppCompatActivity {
         recyclerView.setAdapter(new CustomAdapter(operatorModelArrayList, this));
     }
 
-    public void onBackPressed() {
-        super.onBackPressed();
-        customType(WaterProviders.this, "bottom-to-up");
-    }
-
     // for back option in toolbar (left side top)
     public boolean onOptionsItemSelected(MenuItem item) {
         onBackPressed();
@@ -242,7 +235,6 @@ public class WaterProviders extends AppCompatActivity {
                 Intent intent = new Intent();
                 intent.putExtra(INTENT_PUT_EXTRA, new Gson().toJson(al_operatorModel.get(position)));
                 setResult(REQUEST_CODE_OPERATOR, intent);
-                customType(WaterProviders.this, "bottom-to-up");
                 finish();
             });
 

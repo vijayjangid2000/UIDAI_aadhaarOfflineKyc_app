@@ -285,7 +285,7 @@ public class Add_money_activity extends AppCompatActivity implements View.OnClic
     void optionChosen(boolean card) {
 
         Drawable drawableSelected = ResourcesCompat.getDrawable(
-                getResources(), R.drawable.design_btn_blue, null);
+                getResources(), R.drawable.btn_gradient_style, null);
 
         Drawable drawableUnselected = ResourcesCompat.getDrawable(
                 getResources(), R.drawable.border_textview_thin, null);

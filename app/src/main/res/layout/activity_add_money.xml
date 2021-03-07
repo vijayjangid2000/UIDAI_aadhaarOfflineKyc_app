@@ -41,7 +41,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    android:background="@drawable/design_btn_blue"
+                    android:background="@drawable/btn_gradient_style"
                     android:gravity="center"
                     android:padding="7dp"
                     android:text="UPI"
@@ -135,6 +135,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingLeft="10dp"
+                    android:textColor="@color/white"
                     android:text="ENTER YOUR CARD DETAILS" />
 
                 <LinearLayout
@@ -177,6 +178,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:paddingLeft="10dp"
+                        android:textColor="@color/white"
                         android:text="Expiry / Validity Date" />
 
                     <TextView
@@ -185,7 +187,7 @@
                         android:layout_height="wrap_content"
                         android:text="Help?    "
                         android:textAlignment="textEnd"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/white"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -237,10 +239,10 @@
             <Button
                 android:id="@+id/btn_startPayment"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="41dp"
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
-                android:background="@drawable/design_btn_blue"
+                android:background="@drawable/btn_gradient_style"
                 android:gravity="center"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
